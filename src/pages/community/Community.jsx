@@ -1,12 +1,11 @@
 import FilterBar from "./FilterBar";
-import PostInput from "./postInput";
+
 import PostList from "./postList";
 
 const Community = () => {
   return (
-    <div className="bg-[#d3d3d3] h-screen">
+    <div className="max-w-screen-xl mx-auto">
       <FilterBar />
-      <PostInput />
       <PostList />
     </div>
   );

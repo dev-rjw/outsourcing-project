@@ -6,7 +6,7 @@ const FilterBar = () => {
       </button>
       <span className="text-main">|</span>
       <button className="text-main hover:text-primary focus:outline-none">
-        좋아요순
+        인기순
       </button>
     </div>
   );
