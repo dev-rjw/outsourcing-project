@@ -1,5 +1,14 @@
-const App = () => {
-  return <div></div>;
-};
+import { useState } from 'react'
+// import './App.css'
+import Route from './shared/Route'
 
-export default App;
+function App() {
+
+  return (
+    <>
+     <Route/>
+    </>
+  )
+}
+
+export default App
