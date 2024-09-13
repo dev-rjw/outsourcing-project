@@ -15,12 +15,16 @@
     "axios": "^1.7.7",
     "embla-carousel-autoplay": "^8.2.1",
     "embla-carousel-react": "^8.2.1",
+    "fast-xml-parser": "^4.5.0",
     "json-server": "^1.0.0-beta.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
+    "request": "^2.88.2",
     "styled-components": "^6.1.13",
     "the-new-css-reset": "^1.11.3",
+    "xml-js": "^1.6.11",
+    "xml2js": "^0.6.2",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
