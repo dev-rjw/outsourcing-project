@@ -14,7 +14,7 @@ const BASE_DB_URL = "http://localhost:5000/db";
 const playApi = axios.create({ baseURL: BASE_DB_URL });
 
 export const getData = async () => {
-    const { data } = await playApi.get("/");
+    const { data } = await playApi.get('/');
     // console.log(data);
     return data;
 };
