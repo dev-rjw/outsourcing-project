@@ -16,25 +16,27 @@ const PostInput = ({ addPost }) => {
   };
 
   return (
-    <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary p-4 m-10 flex flex-col justify-center items-center">
-      <div className="bg-gray-300 h-40 w-full text-gray-400">파일 업로드</div>
-      <div className="w-full flex justify-between">
-        <h3>닉네임</h3>
-      </div>
-      <textarea
-        className="w-full h-40 bg-white border-solid border-gray-300 p-2 m-4 cursor-text"
-        placeholder="내용을 입력하세요"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <div className="flex justify-between items-center w-full">
-        <button className="text-gray-300 cursor-pointer "> #공연 제목</button>
-        <button
-          onClick={handleSubmit}
-          className="text-black border-solid rounded border-primary hover:bg-primary hover:text-white  transition duration-300 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center items-center "
-        >
-          완료
-        </button>
+    <div className="max-w-100 max-h-100 bg-gray-50 border-2 rounded border-primary m-10">
+      <div className="relative w-full h-full rounded ">
+        <div className="bg-gray-200 h-40 w-full object-cover rounded p-4">
+          파일 업로드
+        </div>
+        <p className="text-black text-sm m-3"> 닉네임</p>
+        <textarea
+          className="w-full h-20 bg-white border-solid border-gray-300 p-2 cursor-text"
+          placeholder="내용을 입력하세요"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <div className="flex justify-between items-end m-4">
+          <button className="text-gray-300 cursor-pointer "> #공연 제목</button>
+          <button
+            onClick={handleSubmit}
+            className="text-black border-solid rounded border-primary hover:bg-primary hover:text-white  transition duration-300 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center items-center "
+          >
+            완료
+          </button>
+        </div>
       </div>
     </div>
   );
