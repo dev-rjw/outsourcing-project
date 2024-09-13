@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PostLike from "./PostLike";
+import PostCardPopup from "./PostCardPopup";
 
 const PostCard = ({ post, onDelete, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -8,6 +9,20 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
     post.youtubeLink
   );
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  // 팝업
+  // const openPopup = () => setIsPopupOpen(true);
+  const openPopup = () => {
+    if (!isEditing) {
+      setIsPopupOpen(true);
+    }
+  };
+
+  const closePopup = (e) => {
+    e.stopPropagation();
+    setIsPopupOpen(false);
+  };
 
   // 유튜브 썸네일 URL 생성
   const getYoutubeThumbnail = (link) => {
@@ -34,7 +49,9 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
       date: new Date().toLocaleDateString(),
     };
     onUpdate(updatedPost);
-    toggleEdit();
+    // toggleEdit();
+    setIsEditing(false);
+    setIsPopupOpen(false);
   };
 
   // 유튜브 링크 변경
@@ -54,7 +71,6 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
               type="text"
               value={updatedYoutubeLink}
               onChange={handleYoutubeLinkChange}
-              placeholder="YouTube 링크를 입력하세요"
               className="w-full p-2 text-gray-700"
             />
             {thumbnailUrl && (
@@ -74,48 +90,54 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
 
           <div className="flex justify-end m-4">
             <button onClick={handleUpdate} className="softBtn">
-              저장하기
+              저장
             </button>
           </div>
         </div>
       ) : (
         // 수정 모드가 아닐 때
         <div className="relative w-full h-full rounded ">
-          <div className="absolute w-full flex justify-end p-2">
-            <PostLike />
-          </div>
+          <div className="cursor-pointer" onClick={openPopup}>
+            {isPopupOpen && <PostCardPopup post={post} onClose={closePopup} />}
+            <div className="absolute w-full flex justify-end p-2">
+              <PostLike />
+            </div>
 
-          <div className="bg-gray-300 h-40 w-full object-cover rounded">
-            {post.youtubeLink ? (
-              <img
-                src={getYoutubeThumbnail(post.youtubeLink)}
-                alt="YouTube Thumbnail"
-                className="h-full w-full object-cover rounded"
-              />
-            ) : (
-              <div className="bg-soft h-full w-full rounded flex justify-center items-center">
-                <p className="text-gray-300">*^^*</p>
+            <div className="bg-gray-300 h-40 w-full object-cover rounded">
+              {post.youtubeLink ? (
+                <img
+                  src={getYoutubeThumbnail(post.youtubeLink)}
+                  alt="YouTube Thumbnail"
+                  className="h-full w-full object-cover rounded"
+                />
+              ) : (
+                <div className="bg-soft h-full w-full rounded flex justify-center items-center">
+                  <p className="text-gray-300">*^^*</p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-start ">
+              <p className="text-black text-sm ml-4 mt-2"> 닉네임</p>
+              <p
+                className="text-gray-300 text-xs font-light flex justify-start items-center ml-2 mt-2
+            "
+              >
+                {post.date}
+              </p>
+            </div>
+            <p className=" h-20 p-4">{post.content}</p>
+
+            <div className="flex justify-between  items-end py-4 m-4">
+              <p className="text-left text-primary">#공연</p>
+              <div className="flex gap-4 justify-end">
+                <button onClick={toggleEdit} className="softBtn">
+                  수정
+                </button>
+                <button onClick={() => onDelete(post.id)} className="softBtn">
+                  삭제
+                </button>
               </div>
-            )}
-          </div>
-
-          <div className="flex justify-start ">
-            <p className="text-black text-sm m-2"> 닉네임</p>
-            <p className="text-gray-300 text-xs font-light flex justify-start items-center ">
-              {post.date}
-            </p>
-          </div>
-          <p className=" h-20 p-4">{post.content}</p>
-
-          <div className="flex justify-between  items-end py-4 m-4">
-            <p className="text-left text-primary">#공연</p>
-            <div className="flex gap-4 justify-end">
-              <button onClick={toggleEdit} className="softBtn">
-                수정하기
-              </button>
-              <button onClick={() => onDelete(post.id)} className="softBtn">
-                삭제하기
-              </button>
             </div>
           </div>
         </div>
