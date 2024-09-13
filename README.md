@@ -14,3 +14,6 @@
   - tailwind.config.js 파일 생성 : npx tailwindcss init -p
 - react-router-dom 설치 : yarn add react-router-dom
 - zustand 설치 : yarn add zustand
+- styled-component 설치 : yarn add styled-component
+- embla(캐러셀 라이브러리) : yarn add embla-carousel-react embal-carousel-autoplay
+- the-new-css-reset 설치 : yarn add the-new-css-reset
