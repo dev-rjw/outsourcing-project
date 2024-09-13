@@ -8,7 +8,7 @@ const PostLike = () => {
   };
 
   return (
-    <h2 onClick={toggleLike} className="cursor-pointer">
+    <h2 onClick={toggleLike} className="cursor-pointer text-main">
       {liked ? "♥" : "♡"}
     </h2>
   );

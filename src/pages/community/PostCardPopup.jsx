@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PostLike from "./PostLike";
 
 const PostCardPopup = ({ post, onClose }) => {
   const [comment, setComment] = useState("");
@@ -51,10 +52,15 @@ const PostCardPopup = ({ post, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white px-8 py-4 rounded-md max-w-2xl w-full">
-        <button onClick={onClose} className="softBtn mb-1">
-          X
-        </button>
+      <div className="bg-white px-8 py-4 rounded-md max-w-2xl w-full relative">
+        <div className="flex justify-between items-center w-full">
+          <button onClick={onClose} className="softBtn mb-1">
+            X
+          </button>
+          {/* <div className="flex justify-end">
+            <PostLike />
+          </div> */}
+        </div>
 
         {thumbnailUrl ? (
           <a href={post.youtubeLink} target="_blank" rel="noopener noreferrer">
