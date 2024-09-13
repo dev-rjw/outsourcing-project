@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import fetchKopisData from "../../api/kopisApi";
+import React, { useEffect } from "react";
+import Tabs from "./Tabs";
+import useKopisStore from "../../zustand/kopisStore";
+
 const DetailPage = () => {
   const { data, fetchData, error } = useKopisStore((state) => ({
     data: state.data,

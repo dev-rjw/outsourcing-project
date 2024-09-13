@@ -6,7 +6,7 @@ const DetailContent = () => {
     data: state.data,
     fetchData: state.fetchData,
   }));
-  const id = "PF248932";
+  const id = "PF248932"; // 임시 ID
 
   useEffect(() => {
     fetchData(id);
