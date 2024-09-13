@@ -1,9 +1,14 @@
-import React from 'react'
+import FilterBar from "./FilterBar";
+
+import PostList from "./postList";
 
 const Community = () => {
   return (
-    <div>Community</div>
-  )
-}
+    <div className="max-w-screen-xl mx-auto">
+      <FilterBar />
+      <PostList />
+    </div>
+  );
+};
 
-export default Community
+export default Community;
