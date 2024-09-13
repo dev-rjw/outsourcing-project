@@ -2,8 +2,8 @@ import { useState } from "react";
 
 const PostInput = ({ addPost }) => {
   const [content, setContent] = useState("");
-  const [file, setFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [youtubeLink, setYoutubeLink] = useState("");
+  const [thumbnailUrl, setThumbnailUrl] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,20 +11,27 @@ const PostInput = ({ addPost }) => {
     const newPost = {
       id: Date.now(),
       content,
-      file,
+      youtubeLink,
+      thumbnailUrl,
+      date: new Date().toLocaleDateString(),
     };
 
     addPost(newPost);
     setContent("");
-    setFile(null);
-    setImagePreview(null);
+    setYoutubeLink("");
+    setThumbnailUrl(null);
   };
 
-  const handleImgChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setImagePreview(URL.createObjectURL(selectedFile));
+  // 유튜브 썸네일 가져오기
+  const handleYoutubeLinkChange = (e) => {
+    const link = e.target.value;
+    setYoutubeLink(link);
+
+    // 유튜브 비디오 ID 추출
+    const videoId = link.split("v=")[1]?.split("&")[0];
+    if (videoId) {
+      const thumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      setThumbnailUrl(thumbnail);
     }
   };
 
@@ -32,18 +39,22 @@ const PostInput = ({ addPost }) => {
     <div className="max-w-100 max-h-100 bg-gray-50 border-2 rounded border-primary m-10">
       <div className="relative w-full h-full rounded ">
         <div className="bg-gray-200 h-40 w-full rounded flex items-center justify-center">
-          {imagePreview ? (
+          {thumbnailUrl ? (
             <img
-              src={imagePreview}
-              alt="미리보기"
+              src={thumbnailUrl}
+              alt="YouTube Thumbnail"
               className="h-full w-full object-cover rounded"
             />
           ) : (
-            <input
-              type="file"
-              onChange={handleImgChange}
-              className="text-gray-300"
-            />
+            <div>
+              <input
+                type="text"
+                value={youtubeLink}
+                onChange={handleYoutubeLinkChange}
+                placeholder="YouTube 링크 입력"
+                className="text-gray-300 w-full p-2"
+              />
+            </div>
           )}
         </div>
         <p className="text-black text-sm m-3"> 닉네임</p>

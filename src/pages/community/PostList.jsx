@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import PostCard from "./PostCard";
+
 import PostInput from "./postInput";
+import PostCard from "./postCard";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
