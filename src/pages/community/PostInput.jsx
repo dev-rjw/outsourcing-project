@@ -2,6 +2,8 @@ import { useState } from "react";
 
 const PostInput = ({ addPost }) => {
   const [content, setContent] = useState("");
+  const [file, setFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -9,17 +11,40 @@ const PostInput = ({ addPost }) => {
     const newPost = {
       id: Date.now(),
       content,
+      file,
     };
 
     addPost(newPost);
     setContent("");
+    setFile(null);
+    setImagePreview(null);
+  };
+
+  const handleImgChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setImagePreview(URL.createObjectURL(selectedFile));
+    }
   };
 
   return (
     <div className="max-w-100 max-h-100 bg-gray-50 border-2 rounded border-primary m-10">
       <div className="relative w-full h-full rounded ">
-        <div className="bg-gray-200 h-40 w-full object-cover rounded p-4">
-          파일 업로드
+        <div className="bg-gray-200 h-40 w-full rounded flex items-center justify-center">
+          {imagePreview ? (
+            <img
+              src={imagePreview}
+              alt="미리보기"
+              className="h-full w-full object-cover rounded"
+            />
+          ) : (
+            <input
+              type="file"
+              onChange={handleImgChange}
+              className="text-gray-300"
+            />
+          )}
         </div>
         <p className="text-black text-sm m-3"> 닉네임</p>
         <textarea

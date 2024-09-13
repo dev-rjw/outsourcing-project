@@ -21,27 +21,25 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
   };
 
   return (
-    <div className="max-w-100 max-h-100 bg-gray-50 border-2 rounded border-primary m-10 ">
+    <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10 ">
       {isEditing ? (
         // 수정 모드 일때
         <div>
           <div>
-            <div className="bg-soft h-40 w-full object-cover rounded p-4">
-              img
-            </div>
             <textarea
               className="w-full h-20 bg-white border-solid border-gray-300 p-2 cursor-text"
               value={updatedContent}
               onChange={(e) => setUpdatedContent(e.target.value)}
             />
           </div>
+
           <div className="flex justify-end">
             <button
               onClick={handleUpdate}
-              className="text-gray-300 hover:text-primary transition duration-300 cursor-pointer m-4"
+              className="text-gray-300 hover:text-primary transition duration-300 cursor-pointer"
             >
               저장하기
-            </button>{" "}
+            </button>
           </div>
         </div>
       ) : (
@@ -52,12 +50,12 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
             <PostLike />
           </div>
 
-          <div className="bg-soft h-40 w-full object-cover rounded p-4">
+          <div className="bg-gray-300 h-40 w-full object-cover rounded p-4">
             img
           </div>
 
-          <div className="flex justify-start gap-2 m-3">
-            <p className="text-black text-sm "> 닉네임</p>
+          <div className="flex justify-start gap-2">
+            <p className="text-black text-sm m-4"> 닉네임</p>
             <p className="text-gray-300 text-xs font-light flex justify-start items-center ">
               {" "}
               2024.09.13
@@ -65,8 +63,8 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
           </div>
           <p className=" h-20 p-4">{post.content}</p>
 
-          <div className="flex justify-between items-end m-4">
-            <p className="text-left text-primary ">#공연제목</p>
+          <div className="flex justify-between  items-end py-4 m-4">
+            <p className="text-left text-primary">#공연제목</p>
             <div className="flex gap-4 justify-end">
               <button
                 onClick={toggleEdit}
