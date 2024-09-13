@@ -1,32 +1,22 @@
 import axios from "axios";
-import { XMLParser } from "fast-xml-parser";
 
-const fetchKopisDataById = async () => {
-  const id = "PF132236"; // 임시 ID
-  const URL = `https://www.kopis.or.kr/openApi/restful/pblprfr/${id}`;
+const API_URL = "http://localhost:4000/db"; // json-server URL
 
+const fetchKopisDataById = async (id) => {
   try {
-    const response = await axios.get(URL, {
-      params: {
-        service: import.meta.env.VITE_KOPIS_KEY, // .env 파일에서 API KEY 사용
-      },
-      responseType: "text", // XML 응답 처리
-    });
+    // json-server에서 특정 ID의 공연 정보를 가져오기
+    const response = await axios.get(`${API_URL}${id}`);
 
-    // XML을 JSON으로 변환
-    const parser = new XMLParser({
-      ignoreAttributes: false,
-      allowBooleanAttributes: true,
-      attributeNamePrefix: "@_", // 속성 이름에 접두사 추가
-    });
+    // 해당 ID의 공연 정보가 있는지 확인
+    if (response.data.length === 0) {
+      throw new Error("해당 ID의 공연 정보를 찾을 수 없습니다.");
+    }
 
-    const jsonData = parser.parse(response.data);
-    console.log("Parsed JSON Data:", JSON.stringify(jsonData, null, 2)); // 파싱된 JSON 확인
-    console.log(jsonData);
-    return jsonData; // JSON 데이터 반환
+    const performance = response.data[0]; // 첫 번째 결과 가져오기
+    return performance;
   } catch (error) {
-    console.error("데이터 요청 중 에러 발생:", error);
-    throw error; // 오류 발생 시 호출 측에서 처리할 수 있도록 오류 던지기
+    console.error("공연 정보 요청 중 에러 발생:", error);
+    throw new Error(error.message);
   }
 };
 
