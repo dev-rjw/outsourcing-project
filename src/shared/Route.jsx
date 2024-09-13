@@ -5,6 +5,7 @@ import DetailPage from "../pages/detail-page/DetailPage";
 import Community from "../pages/community/Community";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Login from "../pages/login/Login";
 
 const RouterComponent = () => {
   return (
@@ -15,6 +16,7 @@ const RouterComponent = () => {
         <Route path="/category" element={<Category />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/community" element={<Community />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
     </BrowserRouter>
