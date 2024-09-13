@@ -1,23 +1,22 @@
 import axios from "axios";
+import { XMLParser } from "fast-xml-parser";
 
-const API_URL = "http://localhost:4000/db"; // json-server URL
+const fetchDetailData = async (Id) => {
+  const apiKey = import.meta.env.VITE_KOPIS_KEY;
+  const url = `http://kopis.or.kr/openApi/restful/pblprfr/${Id}?service=${apiKey}`;
 
-const fetchKopisDataById = async (id) => {
   try {
-    // json-server에서 특정 ID의 공연 정보를 가져오기
-    const response = await axios.get(`${API_URL}${id}`);
+    const response = await axios.get(url);
 
-    // 해당 ID의 공연 정보가 있는지 확인
-    if (response.data.length === 0) {
-      throw new Error("해당 ID의 공연 정보를 찾을 수 없습니다.");
-    }
+    // XML 데이터를 JSON으로 변환
+    const parser = new XMLParser();
+    const jsonData = parser.parse(response.data);
 
-    const performance = response.data[0]; // 첫 번째 결과 가져오기
-    return performance;
+    console.log(jsonData);
+    return jsonData;
   } catch (error) {
-    console.error("공연 정보 요청 중 에러 발생:", error);
-    throw new Error(error.message);
+    console.error("Error fetching performance details:", error);
   }
 };
 
-export default fetchKopisDataById;
+export default fetchDetailData;
