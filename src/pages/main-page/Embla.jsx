@@ -3,16 +3,17 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import styled from 'styled-components';
 
-const Embla = ({carousel}) => {
+const Embla = ({ carousel }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ stopOnMouseEnter: true, stopOnInteraction: false })]);
 
   return (
     <div className='embla overflow-hidden' ref={emblaRef}>
 
-      <div className='embla__container grid grid-flow-col auto-cols-[100%]'>
-        {carousel?.map((play,i) => {
+      <div className='embla__container grid grid-flow-col auto-cols-[100%] gap-x-20'>
+        
+        {carousel?.map((play, i) => {
 
-          return <RecentPlay play={play} key={i}/>
+          return <RecentPlay play={play} key={i} />
         })}
 
 
@@ -23,26 +24,29 @@ const Embla = ({carousel}) => {
 
 export default Embla
 
-const RecentPlay = ({ play }) => {
-  const {prfnm:title, poster} = play;
-  return (
-    <div className='recent-play min-w-0'> {/*h-[300px] grow-0 shrink-0 basis-full*/}
-      <div className='embla__slide grid grid-cols-[repeat(2, 1fr)] grid-rows-[1fr]'>
-      <PostCard>
-      <img src={poster} />
-      <CardContent>
-        <h3>{title}</h3>
-      </CardContent>
-      </PostCard>
 
-      {/* <PostCard>
-      <img src={poster} />
-      <CardContent>
-        <h3>{title}</h3>
-      </CardContent>
-      </PostCard> */}
+//===============================================
+const RecentPlay = ({ play }) => {
+  const { prfnm: title, poster } = play;
+  return (
+    // <div className='recent-play min-w-0'> {/*h-[300px] grow-0 shrink-0 basis-full*/}
+    <div className='embla__slide grid last:mr-20'>
+      {/* <div className='cards w-full h-[400px] grid grid-cols-[1fr 1fr] bg-gray-300'> */}
+      <div className='cards w-full h-[400px] flex gap-x-20 bg-gray-300'>
+        {/* <img src={poster} /> */}
+        <CardContent>
+          <h3>{title}</h3>
+        </CardContent>
+
+
+        <CardContent>
+          <h3>{title}</h3>
+        </CardContent>
+
+
       </div>
     </div>
+    // </div>
   )
 }
 
@@ -59,8 +63,6 @@ const PostCard = styled.div`
     border-radius: 30px;
     overflow: hidden;
 
-    font-family: 'GmarketSansMedium';
-
     img {
         width: 70%;
         height: 100%;
@@ -69,7 +71,7 @@ const PostCard = styled.div`
 `;
 
 const CardContent = styled.div`
-  width: 30%;
+  width: 50%;
   height: 100%;
 
   background-color: #fcebce;
@@ -78,6 +80,4 @@ const CardContent = styled.div`
   justify-content: space-around; */
 
   padding: 20px;
-
-  position: relative;
 `;
