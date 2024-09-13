@@ -1,76 +1,47 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
+import { getData } from '../../api/playApi';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import Embla from './Embla';
+
+
+const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
+const API_KEY = import.meta.env.VITE_KOPIS_KEY;
 
 const RecentPlays = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ stopOnMouseEnter: true, stopOnInteraction: false })]);
 
   const recentPlays = [];
+  const [data, setData] = useState(null);
+
+  const queryClient = useQueryClient();
+  const { data: carousel, isPending: isDataPending, isError: isDataError } = useQuery({
+    queryKey: ['carousel'],
+    queryFn: getData,
+    select: useCallback(value => {
+      const indices = [];
+      while (indices.length < 4) {
+        let tmp = Math.floor(300 * Math.random())
+        if (indices.includes(tmp)) {
+          continue;
+        } else {
+          indices.push(tmp);
+        }
+      }
+      return indices.map(ele => value[ele]);
+    })
+  })
+
+  console.log('carousel :', carousel)
+
+
 
   return (
     <div className='recent-plays w-full'>
       <h5>RecentPlays</h5>
-      <div className='embla overflow-hidden' ref={emblaRef}>
-
-        <div className='embla__container grid grid-flow-col auto-cols-fr'>
-          {recentPlays?.map(play => {
-
-            return <RecentPlay play={play} key={`Post${play.id}`} />
-          })}
-
-
-        </div>
-      </div>
+      <Embla carousel={carousel}/>
 
     </div>
   )
 }
 
 export default RecentPlays
-
-const RecentPlay = ({ play }) => {
-  return (
-    <div className='recent-play min-w-0 h-[300px] grow-0 shrink-0 basis-full'>
-      <PostCard className='embla__slide'>
-
-      </PostCard>
-    </div>
-  )
-}
-
-
-const PostCard = styled.div`
-    width: 100%;
-    height: 400px;
-
-    display: flex;
-    justify-content: space-around;
-
-    background-color: gray;
-    /* border: 1px solid lightgray; */
-    border-radius: 30px;
-    overflow: hidden;
-
-    font-family: 'GmarketSansMedium';
-
-    img {
-        width: 70%;
-        height: 100%;
-        object-fit: cover;
-    }
-`;
-
-const CardContent = styled.div`
-  width: 30%;
-  height: 100%;
-
-  background-color: #fcebce;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-around; */
-
-  padding: 20px;
-
-  position: relative;
-`;
