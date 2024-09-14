@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const AuthForm = ({ mode, onSubmit }) => {
-  const [formData, setFornData] = useState({
+  const [formData, setFormData] = useState({
     id: "",
     password: "",
     nickname: mode === "signup" ? "" : undefined,
@@ -9,7 +9,7 @@ const AuthForm = ({ mode, onSubmit }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFornData((prevData) => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
