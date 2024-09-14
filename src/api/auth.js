@@ -13,17 +13,17 @@ export const login = async (userData) => {
 };
 
 export const getUserProfile = async (token) => {
-  const response = await axios.post(`${API_URL}/user`, {
-    header: {
+  const response = await axios.get(`${API_URL}/user`, {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   });
   return response.data;
 };
 
-export const updateUserProfile = async (formData, token) => {
-  const response = await axios.post(`${API_URL}/user`, formData, {
-    header: {
+export const updateProfile = async (formData, token) => {
+  const response = await axios.patch(`${API_URL}/profile`, formData, {
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   });
