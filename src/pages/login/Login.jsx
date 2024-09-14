@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../../zustand/useUserStore";
 import AuthForm from "./AuthForm";
-import { login } from "../../api/auth";
+import { getUserProfile, login } from "../../api/auth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,8 +9,11 @@ const Login = () => {
 
   const handleLogin = async (formData) => {
     try {
-      const response = await login(formData);
-      setUser(response);
+      const loginData = await login(formData);
+      localStorage.setItem("accessToken", loginData.accessToken);
+
+      const userProfile = await getUserProfile(loginData.accessToken);
+      setUser(userProfile);
       navigate("/");
       alert("로그인에 성공했습니다.");
     } catch (error) {
