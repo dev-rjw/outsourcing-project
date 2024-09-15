@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
-
 import PostInput from "./postInput";
 import PostCard from "./postCard";
+import { fetchPosts } from "../../api/communityCardApi";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    setPosts(storedPosts);
+    fetchPosts()
+      .then((data) => setPosts(data))
+      .catch((error) => console.error("게시글 불러오기 오류:", error));
   }, []);
+  const handlePostAdded = (newPost) => {
+    setPosts([...posts, newPost]);
+  };
 
   //삭제
   const handleDelete = (id) => {
     const updatedPosts = posts.filter((post) => post.id !== id);
     setPosts(updatedPosts);
-    localStorage.setItem("posts", JSON.stringify(updatedPosts));
 
     alert("삭제 되었습니다.");
   };
@@ -26,18 +29,11 @@ const PostList = () => {
       post.id === updatedPost.id ? updatedPost : post
     );
     setPosts(updatedPosts);
-    localStorage.setItem("posts", JSON.stringify(updatedPosts));
-  };
-
-  const addPost = (newPost) => {
-    const updatedPosts = [...posts, newPost];
-    setPosts(updatedPosts);
-    localStorage.setItem("posts", JSON.stringify(updatedPosts));
   };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
-      <PostInput addPost={addPost} />
+      <PostInput onPostAdded={handlePostAdded} />
       {posts.map((post) => (
         <PostCard
           key={post.id}

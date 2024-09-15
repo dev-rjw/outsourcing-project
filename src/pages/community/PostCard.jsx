@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PostLike from "./PostLike";
 import PostCardPopup from "./PostCardPopup";
+import { deletePost, updatePost } from "../../api/communityCardApi";
 
 const PostCard = ({ post, onDelete, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -25,18 +26,19 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
 
   // 유튜브 썸네일 URL 생성
   const getYoutubeThumbnail = (link) => {
-    const videoId = link.split("v=")[1]?.split("&")[0];
+    const videoIdMatch = link.match(
+      /(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/i
+    );
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
     return videoId
       ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
       : null;
   };
 
   // 수정
-  const toggleEdit = () => {
+  const toggleEdit = (e) => {
+    e.stopPropagation(); //수정삭제 누르면 팝업안뜨게
     setIsEditing(!isEditing);
-    if (!isEditing) {
-      setThumbnailUrl(getYoutubeThumbnail(post.youtubeLink));
-    }
   };
 
   // 수정저장
@@ -45,12 +47,25 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
       ...post,
       content: updatedContent,
       youtubeLink: updatedYoutubeLink,
-      date: new Date().toLocaleDateString(),
+      thumbnailUrl: getYoutubeThumbnail(updatedYoutubeLink),
+      date: new Date().toISOString(),
     };
-    onUpdate(updatedPost);
-    // toggleEdit();
-    setIsEditing(false);
-    setIsPopupOpen(false);
+
+    updatePost(post.id, updatedPost)
+      .then((data) => {
+        onUpdate(data);
+        setIsEditing(false);
+      })
+      .catch((error) => console.error("게시글 수정 오류:", error));
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    deletePost(post.id)
+      .then(() => {
+        onDelete(post.id);
+      })
+      .catch((error) => console.error("게시글 삭제 오류:", error));
   };
 
   // 유튜브 링크 변경
@@ -97,12 +112,18 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
         // 수정 모드가 아닐 때
         <div className="relative w-full h-full rounded ">
           <div className="cursor-pointer" onClick={openPopup}>
-            {isPopupOpen && <PostCardPopup post={post} onClose={closePopup} />}
+            {isPopupOpen && (
+              <PostCardPopup
+                post={post}
+                onClose={closePopup}
+                onUpdate={onUpdate}
+              />
+            )}
             <div
               className="absolute w-full flex justify-end p-2"
               onClick={(e) => e.stopPropagation()} //하트 눌렀을때에는 팝업 안뜨게..
             >
-              <PostLike />
+              <PostLike postId={post.id} initialLikes={post.likes} />
             </div>
 
             <div className="bg-gray-300 h-40 w-full object-cover rounded">
@@ -125,7 +146,7 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
                 className="text-gray-300 text-xs font-light flex justify-start items-center ml-2 mt-2
             "
               >
-                {post.date}
+                {new Date(post.date).toLocaleDateString()}
               </p>
             </div>
             <p className=" h-20 p-4">{post.content}</p>
@@ -136,7 +157,7 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
                 <button onClick={toggleEdit} className="softBtn">
                   수정
                 </button>
-                <button onClick={() => onDelete(post.id)} className="softBtn">
+                <button onClick={handleDelete} className="softBtn">
                   삭제
                 </button>
               </div>

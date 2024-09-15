@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { createPost } from "../../api/communityCardApi";
 
-const PostInput = ({ addPost }) => {
+const PostInput = ({ onPostAdded }) => {
   const [content, setContent] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
@@ -8,18 +9,36 @@ const PostInput = ({ addPost }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!content.trim()) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
     const newPost = {
-      id: Date.now(),
       content,
       youtubeLink,
       thumbnailUrl,
-      date: new Date().toLocaleDateString(),
+      date: new Date().toISOString(),
+      likes: 0,
+      comments: [],
+      author: "닉네임",
     };
 
-    addPost(newPost);
-    setContent("");
-    setYoutubeLink("");
-    setThumbnailUrl(null);
+    createPost(newPost)
+      .then((createdPost) => {
+        console.log("게시글이 저장되었습니다:", createdPost);
+        if (onPostAdded) {
+          onPostAdded(createdPost);
+        }
+
+        setContent("");
+        setYoutubeLink("");
+        setThumbnailUrl(null);
+      })
+      .catch((error) => {
+        console.error("게시글 저장 중 오류 발생:", error);
+        alert("게시글 저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+      });
   };
 
   // 유튜브 썸네일 가져오기
@@ -28,10 +47,15 @@ const PostInput = ({ addPost }) => {
     setYoutubeLink(link);
 
     // 유튜브 비디오 ID 추출
-    const videoId = link.split("v=")[1]?.split("&")[0];
+    const videoIdMatch = link.match(
+      /(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/i
+    );
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
     if (videoId) {
       const thumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
       setThumbnailUrl(thumbnail);
+    } else {
+      setThumbnailUrl(null);
     }
   };
 
