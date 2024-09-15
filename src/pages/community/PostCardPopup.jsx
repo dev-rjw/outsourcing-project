@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { updatePost } from "../../api/communityCardApi";
 // import PostLike from "./PostLike";
 
-const PostCardPopup = ({ post, onClose }) => {
+const PostCardPopup = ({ post, onClose, onUpdate }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isEditing, setIsEditing] = useState(null);
   const [updatedComment, setUpdatedComment] = useState("");
 
+  useEffect(() => {
+    setComments(post.comments || []);
+  }, [post.comments]);
+
+  // 댓글 추가
   const handleAddComment = () => {
     if (comment.trim()) {
       const newComment = {
@@ -14,33 +20,66 @@ const PostCardPopup = ({ post, onClose }) => {
         text: comment,
       };
 
-      setComments([...comments, newComment]);
+      const updatedComments = [...comments, newComment];
+      setComments(updatedComments);
       setComment("");
+
+      const updatedPost = { ...post, comments: updatedComments };
+      updatePost(post.id, updatedPost)
+        .then((data) => {
+          setComments(data.comments);
+          if (onUpdate) {
+            onUpdate(data);
+          }
+        })
+        .catch((error) => console.error("댓글 추가 오류:", error));
     }
   };
 
-  // 댓글핸들러
-  const handleDeleteComment = (id) => {
-    const updatedComments = comments.filter((comment) => comment.id !== id);
-    alert("댓글이 삭제되었습니다.");
-    setComments(updatedComments);
+  // 댓글 삭제
+  const handleDeleteComment = (commentId) => {
+    const updatedComments = comments.filter(
+      (comment) => comment.id !== commentId
+    );
+
+    const updatedPost = { ...post, comments: updatedComments };
+    updatePost(post.id, updatedPost)
+      .then((data) => {
+        setComments(data.comments);
+        alert("댓글이 삭제되었습니다.");
+        if (onUpdate) {
+          onUpdate(data);
+        }
+      })
+      .catch((error) => console.error("댓글 삭제 오류:", error));
   };
 
+  // 댓글 수정 모드
   const handleEditComment = (id, text) => {
     setIsEditing(id);
     setUpdatedComment(text);
   };
 
+  // 댓글 업데이트
   const handleUpdateComment = () => {
     const updatedComments = comments.map((comment) =>
       comment.id === isEditing ? { ...comment, text: updatedComment } : comment
     );
-    setComments(updatedComments);
-    setIsEditing(null);
-    setUpdatedComment("");
+
+    const updatedPost = { ...post, comments: updatedComments };
+    updatePost(post.id, updatedPost)
+      .then((data) => {
+        setComments(data.comments);
+        setIsEditing(null);
+        setUpdatedComment("");
+        if (onUpdate) {
+          onUpdate(data);
+        }
+      })
+      .catch((error) => console.error("댓글 수정 오류:", error));
   };
 
-  //유튜브 썸네일
+  // 유튜브 썸네일
   const getYoutubeThumbnail = (link) => {
     const videoId = link.split("v=")[1]?.split("&")[0];
     return videoId

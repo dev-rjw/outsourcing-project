@@ -56,7 +56,11 @@ const PostList = () => {
 
   return (
     <div>
+      <h2 className="m-10 font-bold text-3xl">
+        YOUTUBE로 공연 꿀팁과 후기를 공유하고 이야기해봐요!
+      </h2>
       <FilterBar onSortChange={handleSortChange} currentSortOrder={sortOrder} />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
         <PostInput onPostAdded={handlePostAdded} />
         {sortedPosts.map((post) => (
