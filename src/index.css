@@ -27,6 +27,59 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  /* 메인 페이지 캐러셀 */
+  .main-embla .embla__container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%; /* Each slide covers x % of the viewport */
+    grid-gap: 0 40px;
+  }
+  .main-embla .embla__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+  }
+  .main-embla .embla__slide:last-child {
+    margin-right: 40px;
+  }
+  .main-embla .card {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+
+    border-radius: 20px;
+    overflow: hidden;
+
+    background-color: #F8F4FF;
+  }
+  .main-embla .card img {
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .main-embla .card .card-content {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 20px;
+
+    /* overflow-wrap: break-word; */
+
+    padding: 10px;
+  }
+  .main-embla h3,p {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }
 
 * {
