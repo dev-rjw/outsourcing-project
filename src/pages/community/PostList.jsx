@@ -33,6 +33,13 @@ const PostList = () => {
     setPosts(updatedPosts);
   };
 
+  const handleLikesUpdated = (postId, newLikes) => {
+    const updatedPosts = posts.map((post) =>
+      post.id === postId ? { ...post, likes: newLikes } : post
+    );
+    setPosts(updatedPosts);
+  };
+
   //좋아요 소팅
   const sortedPosts = [...posts].sort((a, b) => {
     if (sortOrder === "latest") {
@@ -58,6 +65,7 @@ const PostList = () => {
             post={post}
             onDelete={handleDelete}
             onUpdate={handleUpdate}
+            onLikesUpdated={handleLikesUpdated}
           />
         ))}
       </div>

@@ -88,9 +88,9 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
               placeholder="수정 링크 입력"
               className="w-full p-2 bg-gray-100 text-gray-200 focus:outline-none focus:text-gray-800"
             />
-            {thumbnailUrl && (
+            {(thumbnailUrl || updatedYoutubeLink) && (
               <img
-                src={thumbnailUrl}
+                src={thumbnailUrl || getYoutubeThumbnail(updatedYoutubeLink)}
                 alt="YouTube Thumbnail"
                 className="h-full w-full object-cover rounded "
               />
@@ -151,7 +151,7 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
               {post.content}
             </p>
 
-            <div className="flex justify-between  items-end py-4 m-4">
+            <div className="flex justify-between  items-end py-4 mx-4 my-2">
               <p className="text-left text-primary">#공연</p>
               <div className="flex gap-4 justify-end">
                 <button onClick={toggleEdit} className="softBtn">

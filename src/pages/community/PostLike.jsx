@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PostLike = ({ postId, initialLikes }) => {
+const PostLike = ({ postId, initialLikes, onLikesUpdated }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(initialLikes);
 
@@ -18,6 +18,11 @@ const PostLike = ({ postId, initialLikes }) => {
       body: JSON.stringify({ likes: updatedLikes }),
     })
       .then((response) => response.json())
+      .then(() => {
+        if (onLikesUpdated) {
+          onLikesUpdated(postId, updatedLikes);
+        }
+      })
       .catch((error) => console.error("좋아요 업데이트 오류:", error));
   };
   return (
