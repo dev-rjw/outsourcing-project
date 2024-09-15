@@ -85,13 +85,14 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
               type="text"
               value={updatedYoutubeLink}
               onChange={handleYoutubeLinkChange}
-              className="w-full p-2 text-gray-700"
+              placeholder="수정 링크 입력"
+              className="w-full p-2 bg-gray-100 text-gray-200 focus:outline-none focus:text-gray-800"
             />
             {thumbnailUrl && (
               <img
                 src={thumbnailUrl}
                 alt="YouTube Thumbnail"
-                className="h-full w-full object-cover rounded"
+                className="h-full w-full object-cover rounded "
               />
             )}
           </div>
@@ -142,14 +143,13 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
 
             <div className="flex justify-start ">
               <p className="text-black text-sm ml-4 mt-2"> 닉네임</p>
-              <p
-                className="text-gray-300 text-xs font-light flex justify-start items-center ml-2 mt-2
-            "
-              >
+              <p className="text-gray-300 text-xs font-light flex justify-start items-center ml-2 mt-2">
                 {new Date(post.date).toLocaleDateString()}
               </p>
             </div>
-            <p className=" h-20 p-4">{post.content}</p>
+            <p className="h-[4rem] p-4 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [text-overflow:ellipsis]">
+              {post.content}
+            </p>
 
             <div className="flex justify-between  items-end py-4 m-4">
               <p className="text-left text-primary">#공연</p>

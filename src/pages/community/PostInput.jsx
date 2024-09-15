@@ -76,7 +76,7 @@ const PostInput = ({ onPostAdded }) => {
                 value={youtubeLink}
                 onChange={handleYoutubeLinkChange}
                 placeholder="YouTube 링크 입력"
-                className="text-gray-300 w-full p-2"
+                className="text-gray-200 w-full p-2 text-center bg-gray-100"
               />
             </div>
           )}

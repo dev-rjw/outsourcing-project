@@ -21,7 +21,10 @@ const PostLike = ({ postId, initialLikes }) => {
       .catch((error) => console.error("좋아요 업데이트 오류:", error));
   };
   return (
-    <h2 onClick={toggleLike} className="cursor-pointer text-primary">
+    <h2
+      onClick={toggleLike}
+      className="cursor-pointer text-primary  [text-shadow:0_0_6px_white]"
+    >
       {liked ? "♥" : "♡"} {likes}
     </h2>
   );
