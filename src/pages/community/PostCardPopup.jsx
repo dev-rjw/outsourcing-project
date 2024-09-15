@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PostLike from "./PostLike";
+// import PostLike from "./PostLike";
 
 const PostCardPopup = ({ post, onClose }) => {
   const [comment, setComment] = useState("");

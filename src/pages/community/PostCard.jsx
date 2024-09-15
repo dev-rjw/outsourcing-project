@@ -12,7 +12,6 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   // 팝업
-  // const openPopup = () => setIsPopupOpen(true);
   const openPopup = () => {
     if (!isEditing) {
       setIsPopupOpen(true);
@@ -99,7 +98,10 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
         <div className="relative w-full h-full rounded ">
           <div className="cursor-pointer" onClick={openPopup}>
             {isPopupOpen && <PostCardPopup post={post} onClose={closePopup} />}
-            <div className="absolute w-full flex justify-end p-2">
+            <div
+              className="absolute w-full flex justify-end p-2"
+              onClick={(e) => e.stopPropagation()} //하트 눌렀을때에는 팝업 안뜨게..
+            >
               <PostLike />
             </div>
 

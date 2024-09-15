@@ -1,5 +1,5 @@
 {
-  "db": [
+  "performances": [
     {
       "mt20id": "PF248955",
       "prfnm": "취해도 취해도 취하지 않아서 [대학로]",
@@ -11999,6 +11999,26 @@
       "genrenm": "뮤지컬",
       "openrun": "N",
       "prfstate": "공연완료"
+    }
+  ],
+  "communityPosts": [
+    {
+      "id": 1,
+      "title": "게시글 제목",
+      "content": "게시글 내용",
+      "youtubeLink": "https://www.youtube.com/watch?v=영상ID",
+      "thumbnailUrl": "https://img.youtube.com/vi/영상ID/0.jpg",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1,
+          "author": "댓글 작성자",
+          "content": "댓글 내용",
+          "date": "2023-10-01T12:34:56Z"
+        }
+      ],
+      "date": "2023-10-01T12:00:00Z",
+      "author": "게시글 작성자"
     }
   ]
 }
