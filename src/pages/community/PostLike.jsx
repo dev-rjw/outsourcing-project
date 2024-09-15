@@ -17,15 +17,20 @@ const PostLike = ({ postId, initialLikes, onLikesUpdated }) => {
     });
 
     // 서버에 좋아요 수 업데이트
-    // axios
-    //   .patch(`http://localhost:5000/communityPosts/${postId}`, {
-    //     likes: updatedLikes,
-    //   })
-    //   .then(() => {
-    //     if (onLikesUpdated) {
-    //       onLikesUpdated(postId, updatedLikes);
-    //     }
-    //   });
+    fetch(`http://localhost:5000/communityPosts/${postId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ likes: updatedLikes }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        if (onLikesUpdated) {
+          onLikesUpdated(postId, updatedLikes);
+        }
+      })
+      .catch((error) => console.error("좋아요 업데이트 오류:", error));
   };
   return (
     <h2

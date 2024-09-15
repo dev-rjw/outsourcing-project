@@ -177,7 +177,7 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
             </p>
 
             <div className="flex justify-between  items-end py-4 mx-4 my-2">
-              <p className="text-left text-primary">{post.tag}</p>
+              <p className="text-left text-primary">#공연</p>
               <div className="flex gap-4 justify-end">
                 <button onClick={toggleEdit} className="softBtn">
                   수정
