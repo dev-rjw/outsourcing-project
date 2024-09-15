@@ -26,6 +26,17 @@ export const updatePost = (id, updatedPost) => {
   }).then((response) => response.json());
 };
 
+//좋아요
+export const updateLike = (id, updateLike) => {
+  return fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updateLike),
+  }).then((response) => response.json());
+};
+
 //삭제
 export const deletePost = (id) => {
   return fetch(`${API_URL}/${id}`, {
