@@ -12,28 +12,32 @@ const DetailContent = () => {
     fetchData(id);
   }, [fetchData, id]);
 
-  if (!data || data.length === 0) {
+  // 데이터가 아직 로딩 중이거나 비어 있을 때 처리
+  if (!data) {
     return <div>Loading...</div>;
   }
 
-  // 데이터 배열의 첫 번째 요소를 가져옴
-  const performance = data[0];
+  if (data.length === 0) {
+    return <div>No data available</div>;
+  }
 
+  const { prfage = "정보없음", styurls = "정보없음" } = data;
+
+  const styurlsArray = Array.isArray(styurls) ? styurls : [styurls.styurl];
   return (
-    <div>
-      <p>공연명: {performance.prfnm}</p>
-      <p>
-        공연 기간: {performance.prfpdfrom} ~ {performance.prfpdto}
-      </p>
-      <p>공연장: {performance.fcltynm}</p>
-      <p>장소: {performance.area}</p>
-      <p>장르: {performance.genrenm}</p>
-      <p>상태: {performance.prfstate}</p>
-      <img
-        src={performance.poster}
-        alt={performance.prfnm}
-        style={{ maxWidth: "100%", height: "auto" }}
-      />
+    <div className="">
+      <div className="mb-8">
+        <h4 className="font-extrabold text-3xl mb-8">유의사항</h4>
+        <p>관람연령 : {prfage}</p>
+      </div>
+      <div>
+        <h4 className="font-extrabold text-3xl mb-8">공연정보</h4>
+        {styurlsArray?.map((styurl, index) => {
+          return (
+            <img key={index} src={styurl} alt="공연정보" className="w-full" />
+          );
+        })}
+      </div>
     </div>
   );
 };
