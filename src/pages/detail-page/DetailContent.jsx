@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import useKopisStore from "../../zustand/kopisStore";
+import useKopisStore from "../../zustand/useKopisStore";
+import { useParams } from "react-router-dom";
 
 const DetailContent = () => {
   const { data, fetchData } = useKopisStore((state) => ({
     data: state.data,
     fetchData: state.fetchData,
   }));
-  const id = "PF248932"; // 임시 ID
+  const { id } = useParams(); // 임시 ID
 
   useEffect(() => {
     fetchData(id);

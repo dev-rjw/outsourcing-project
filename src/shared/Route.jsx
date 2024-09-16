@@ -8,19 +8,16 @@ import Footer from "../components/Footer";
 import Login from "../pages/login/Login";
 import Layout from "../components/Layout";
 
-
 const RouterComponent = () => {
   return (
     <BrowserRouter>
       {/* <Header /> */}
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/category" element={<Category />} />
-          <Route path="/detail" element={<DetailPage />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/login" element={<Login />} />
-        </Route>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/category" element={<Category />} />
+        <Route path="/detail/:id" element={<DetailPage />} />
+        <Route path="/community" element={<Community />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>

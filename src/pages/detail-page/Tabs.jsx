@@ -1,8 +1,8 @@
 import React from "react";
 import DetailContent from "./DetailContent";
-import Comments from "./Comments";
-import Map from "./Map";
 import { useState } from "react";
+import DetailMap from "./DetailMap";
+import DetailComments from "./DetailComments";
 
 const Tabs = () => {
   const [active, setActive] = useState("detailContent");
@@ -43,8 +43,8 @@ const Tabs = () => {
       </div>
       <div>
         {active === "detailContent" && <DetailContent />}
-        {active === "map" && <Map />}
-        {active === "comments" && <Comments />}
+        {active === "map" && <DetailMap />}
+        {active === "comments" && <DetailComments />}
       </div>
     </div>
   );
