@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Tabs from "./Tabs";
-import useKopisStore from "../../zustand/kopisStore";
+import useKopisStore from "../../zustand/useKopisStore";
+import { useParams } from "react-router-dom";
 
 const DetailPage = () => {
   const { data, fetchData, error } = useKopisStore((state) => ({
@@ -8,7 +9,7 @@ const DetailPage = () => {
     fetchData: state.fetchData,
     error: state.error,
   }));
-  const id = "PF248932"; // 임시 ID
+  const { id } = useParams();
 
   useEffect(() => {
     fetchData(id);
@@ -84,7 +85,8 @@ const DetailPage = () => {
             <div className="flex items-baseline mb-4">
               <p className="w-20 font-bold flex-shrink-0 mr-4">주최사: </p>
               <p className="flex-grow">
-                {entrpsnmH},{entrpsnmS}
+                {entrpsnmH}
+                {entrpsnmS}
               </p>
             </div>
           </div>
