@@ -1,5 +1,5 @@
 {
-  "db": [
+  "performances": [
     {
       "mt20id": "PF248955",
       "prfnm": "취해도 취해도 취하지 않아서 [대학로]",
@@ -12000,5 +12000,6 @@
       "openrun": "N",
       "prfstate": "공연완료"
     }
-  ]
+  ],
+  "communityPosts": []
 }
