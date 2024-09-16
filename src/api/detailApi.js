@@ -1,5 +1,6 @@
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
+import { getData } from "./playApi";
 
 const apiKey = import.meta.env.VITE_KOPIS_KEY;
 
@@ -39,4 +40,19 @@ export const fetchMapData = async (placeId) => {
     console.error("Error fetching performance locations:", error);
     throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
   }
+};
+
+// 상세페이지 댓글 작성 기능
+
+const jsonUrl = "http://localhost:5000/comments";
+const commentApi = axios.create({ baseURL: jsonUrl });
+
+export const detailAddComment = async (newComment) => {
+  const { data } = await commentApi.post("/", newComment);
+  return data;
+};
+
+export const detailGetComment = async () => {
+  const { data } = await commentApi.get("/");
+  return data;
 };
