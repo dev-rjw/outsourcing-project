@@ -12,14 +12,22 @@ const DetailMap = () => {
   }));
 
   // 상세페이지 정보에서 공연장소id 뽑아내기
-  const placeId = data.mt10id;
+  const placeId = data?.mt10id; // data가 존재하는지 확인
+
   // 공연 장소 첫화면에 불러오기
   useEffect(() => {
-    fetchMapData(placeId);
+    if (placeId) {
+      fetchMapData(placeId);
+    }
   }, [fetchMapData, placeId]);
 
   useEffect(() => {
-    if (window.kakao && window.kakao.maps) {
+    if (
+      window.kakao &&
+      window.kakao.maps &&
+      mapData?.la &&
+      mapData?.lo // mapData와 좌표가 유효한지 확인
+    ) {
       const mapContainer = mapRef.current;
       const mapOption = {
         center: new window.kakao.maps.LatLng(mapData.la, mapData.lo), // 지도의 중심 좌표
@@ -53,11 +61,11 @@ const DetailMap = () => {
         infowindow.open(map, marker);
       });
     } else {
-      console.error("Kakao maps SDK not loaded");
+      console.error("Kakao maps SDK not loaded or mapData not available");
     }
-  }, []);
+  }, [mapData]); // mapData가 변경될 때마다 실행
 
-  // mapData가 null 또는 undefined인지 확인
+  // mapData가 null 또는 undefined인지 확인하여 정보가 없을 때 처리
   if (!mapData) {
     return (
       <div>
@@ -69,14 +77,21 @@ const DetailMap = () => {
   return (
     <>
       <h4 className="font-extrabold text-3xl mb-8">장소</h4>
-      {mapData.adres && <p className="mb-8">{mapData.adres}</p>}
+      {mapData.adres ? (
+        <p className="mb-8">{mapData.adres}</p>
+      ) : (
+        <p>주소 정보가 없습니다.</p>
+      )}
 
-      {mapData.telno && (
+      {mapData.telno ? (
         <div>
           <p className="font-extrabold text-3xl mb-8">문의</p>
           <p className="mb-8">{mapData.telno}</p>
         </div>
+      ) : (
+        <p>문의처 정보가 없습니다.</p>
       )}
+
       <div ref={mapRef} style={{ width: "100%", height: "400px" }}>
         {/* 지도 표시 */}
       </div>
