@@ -118,13 +118,13 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
         <div className="flex justify-start">
           <p className="text-black text-sm m-2"> 닉네임</p>
           <p className="text-gray-300 text-xs font-light flex justify-start items-center ">
-            {post.date}
+            {new Date(post.date).toLocaleDateString()}
           </p>
         </div>
         <p className="mt-4 ml-2 text-gray-700">{post.content}</p>
 
         <div className="flex justify-between items-end py-4">
-          <p className=" text-primary ml-2 ">#공연</p>
+          <p className="text-left text-primary">{post.tag}</p>
         </div>
 
         {/* 댓글 */}
@@ -146,7 +146,7 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
           {comments.map((comment) => (
             <div key={comment.id} className="mt-2">
               {isEditing === comment.id ? (
-                // 수정 모드
+                // 댓글 수정 모드
                 <div className="flex justify-between items-center">
                   <input
                     type="text"

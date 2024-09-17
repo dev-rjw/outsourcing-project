@@ -5,6 +5,9 @@ const PostInput = ({ onPostAdded }) => {
   const [content, setContent] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [tag, setTag] = useState(null);
+
+  const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,10 +17,16 @@ const PostInput = ({ onPostAdded }) => {
       return;
     }
 
+    if (!tag) {
+      alert("태그를 선택해주세요!");
+      return;
+    }
+
     const newPost = {
       content,
       youtubeLink,
       thumbnailUrl,
+      tag: `#${tag}`,
       date: new Date().toISOString(),
       likes: 0,
       comments: [],
@@ -34,6 +43,7 @@ const PostInput = ({ onPostAdded }) => {
         setContent("");
         setYoutubeLink("");
         setThumbnailUrl(null);
+        setTag(null);
       })
       .catch((error) => {
         console.error("게시글 저장 중 오류 발생:", error);
@@ -57,6 +67,10 @@ const PostInput = ({ onPostAdded }) => {
     } else {
       setThumbnailUrl(null);
     }
+  };
+
+  const handleTagChange = (e) => {
+    setTag(e.target.value);
   };
 
   return (
@@ -88,12 +102,24 @@ const PostInput = ({ onPostAdded }) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
+
         <div className="flex justify-between items-end m-4">
-          <button className="text-gray-300 cursor-pointer "> #공연 제목</button>
-          <button
-            onClick={handleSubmit}
-            className="text-black border-solid rounded border-primary hover:bg-primary hover:text-white  transition duration-300 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center items-center "
+          <select
+            value={tag || ""}
+            onChange={handleTagChange}
+            className="text-gray-500 rounded softBtn"
           >
+            <option value="" disabled>
+              #태그 선택 ▾
+            </option>
+            {predefinedTags.map((tagItem) => (
+              <option key={tagItem} value={tagItem}>
+                #{tagItem}
+              </option>
+            ))}
+          </select>
+
+          <button onClick={handleSubmit} className="btn">
             완료
           </button>
         </div>

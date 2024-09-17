@@ -11,6 +11,11 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
   );
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [updatedTag, setUpdatedTag] = useState(
+    post.tag?.replace("#", "") || ""
+  );
+
+  const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
 
   // 팝업
   const openPopup = () => {
@@ -43,11 +48,15 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
 
   // 수정저장
   const handleUpdate = () => {
+    const formattedTag = updatedTag.startsWith("#")
+      ? updatedTag
+      : `#${updatedTag}`;
     const updatedPost = {
       ...post,
       content: updatedContent,
       youtubeLink: updatedYoutubeLink,
       thumbnailUrl: getYoutubeThumbnail(updatedYoutubeLink),
+      tag: formattedTag,
       date: new Date().toISOString(),
     };
 
@@ -55,6 +64,7 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
       .then((data) => {
         onUpdate(data);
         setIsEditing(false);
+        onUpdate(data);
       })
       .catch((error) => console.error("게시글 수정 오류:", error));
   };
@@ -103,7 +113,22 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
             onChange={(e) => setUpdatedContent(e.target.value)}
           />
 
-          <div className="flex justify-end m-4">
+          <div className="flex justify-between items-end m-4">
+            <select
+              value={updatedTag || ""}
+              onChange={(e) => setUpdatedTag(e.target.value)}
+              className="text-gray-500 rounded softBtn"
+            >
+              <option value="" disabled>
+                #태그 선택 ▾
+              </option>
+              {predefinedTags.map((tagItem) => (
+                <option key={tagItem} value={tagItem}>
+                  #{tagItem}
+                </option>
+              ))}
+            </select>
+
             <button onClick={handleUpdate} className="softBtn">
               저장
             </button>
@@ -152,7 +177,7 @@ const PostCard = ({ post, onDelete, onUpdate }) => {
             </p>
 
             <div className="flex justify-between  items-end py-4 mx-4 my-2">
-              <p className="text-left text-primary">#공연</p>
+              <p className="text-left text-primary">{post.tag}</p>
               <div className="flex gap-4 justify-end">
                 <button onClick={toggleEdit} className="softBtn">
                   수정
