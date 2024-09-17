@@ -9,7 +9,8 @@ import { genreCodes } from "../utils/Kopis-api-common";
 //   `?service=${API_KEY}&stdate=20240911&eddate=20240911&rows=10&cpage=1`;
 //   // 7e6379e8f4ad4bc5a8d668d4dfea6e78
 
-const BASE_DB_URL = "http://localhost:5000/performances";
+// const BASE_DB_URL = "http://localhost:5000/performances";
+const BASE_DB_URL = import.meta.env.VITE_DB_URL+'/performances';
 
 const playApi = axios.create({ baseURL: BASE_DB_URL });
 
