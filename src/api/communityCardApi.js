@@ -30,10 +30,10 @@ export const updatePost = async (id, updatedPost) => {
   }
 };
 
-//좋아요
+//좋아요(put)
 export const updateLike = async (id, updatedLike) => {
   try {
-    const response = await axios.patch(`${API_URL}/${id}`, updatedLike);
+    const response = await axios.put(`${API_URL}/${id}`, updatedLike);
     return response.data;
   } catch (error) {
     throw new Error("Failed to update likes");

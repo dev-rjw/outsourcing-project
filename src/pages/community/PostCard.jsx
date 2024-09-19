@@ -75,9 +75,10 @@ const PostCard = ({ post, onUpdate }) => {
 
   // 게시물 업데이트
   const handleUpdate = () => {
-    const formattedTag = updatedTag.startsWith("#")
-      ? updatedTag
-      : `#${updatedTag}`;
+    let formattedTag = updatedTag;
+    if (!updatedTag.startsWith("#")) {
+      formattedTag = `#${updatedTag}`;
+    }
     const updatedPost = {
       ...post,
       content: updatedContent,
@@ -165,7 +166,11 @@ const PostCard = ({ post, onUpdate }) => {
               className="absolute w-full flex justify-end p-2"
               onClick={(e) => e.stopPropagation()}
             >
-              <PostLike postId={post.id} initialLikes={post.likes} />
+              <PostLike
+                initialLikes={post.likes}
+                post={post}
+                postId={post.id}
+              />
             </div>
 
             <div className="bg-gray-300 h-40 w-full object-cover rounded">

@@ -13009,18 +13009,18 @@
       "thumbnailUrl": "https://img.youtube.com/vi/fCRq2XC6CWg/maxresdefault.jpg",
       "tag": "#음악",
       "date": "2024-09-19T05:01:29.170Z",
-      "likes": 0,
+      "likes": 1,
       "comments": [],
       "author": "닉네임"
     },
     {
       "id": "4b00",
-      "content": "33ㄱㄱㄷㄱㅈㄱㄱ33ㄷㄹ",
+      "content": "33ㄱㄱㄷㄱㅈㄱㄱ33ㄷㄹㅍㄹㄹㄹㅇㄷㄷ",
       "youtubeLink": "https://www.youtube.com/watch?v=y8BwcNzLals",
       "thumbnailUrl": "https://img.youtube.com/vi/y8BwcNzLals/maxresdefault.jpg",
       "tag": "#음악",
-      "date": "2024-09-19T05:53:52.415Z",
-      "likes": 0,
+      "date": "2024-09-19T11:58:54.042Z",
+      "likes": -3,
       "comments": [
         {
           "id": 1726725219158,
@@ -13030,24 +13030,13 @@
       "author": "닉네임"
     },
     {
-      "id": "0f34",
-      "content": "ㄱㄷㄷㄱㅈ",
-      "youtubeLink": "",
-      "thumbnailUrl": null,
-      "tag": "#기대",
-      "date": "2024-09-19T06:06:30.254Z",
-      "likes": 0,
-      "comments": [],
-      "author": "닉네임"
-    },
-    {
       "id": "374d",
       "content": "eee",
       "youtubeLink": "https://www.youtube.com/watch?v=qnn1Zmm6jyI",
       "thumbnailUrl": "https://img.youtube.com/vi/qnn1Zmm6jyI/maxresdefault.jpg",
       "tag": "#꿀팁",
       "date": "2024-09-19T06:11:25.820Z",
-      "likes": 0,
+      "likes": 1,
       "comments": [
         {
           "id": 1726726296260,
@@ -13063,6 +13052,28 @@
         }
       ],
       "author": "닉네임"
+    },
+    {
+      "id": "6ac6",
+      "content": "좋아요 테스트 3333ㅅㅅㅅㅅㅅㄱㄱㄱㄱ",
+      "youtubeLink": "https://www.youtube.com/watch?v=PQ8ZOEHEcP8",
+      "thumbnailUrl": "https://img.youtube.com/vi/PQ8ZOEHEcP8/maxresdefault.jpg",
+      "tag": "#기타",
+      "date": "2024-09-19T09:19:11.893Z",
+      "likes": 2,
+      "comments": [],
+      "author": "닉네임"
+    }
+  ],
+  "likes": [
+    {
+      "postId": 1,
+      "count": 10,
+      "users": [
+        "user1",
+        "user2"
+      ],
+      "id": "5223"
     }
   ],
   "comments": [
