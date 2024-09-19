@@ -21,7 +21,10 @@ const AuthForm = ({ mode, onSubmit }) => {
   };
 
   return (
-    <form onSubmit={hangleSubmit}>
+    <form
+      onSubmit={hangleSubmit}
+      className="flex flex-col justify-center items-center"
+    >
       <input
         type="text"
         name="id"
@@ -29,6 +32,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         onChange={handleChange}
         placeholder="아이디"
         required
+        className="border-primary border rounded"
       />
       <input
         type="password"

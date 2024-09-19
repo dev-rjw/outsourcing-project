@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <div>
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <h1>로그인</h1>
         <AuthForm mode="login" onSubmit={handleLogin} />
         <div>
