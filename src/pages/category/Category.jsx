@@ -17,6 +17,8 @@ const Category = () => {
   const [genre, setGenre] = useState(GENRE);
   const [area, setArea] = useState(AREA);
   const [end, setEnd] = useState(50);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [QUERY_KEY.category],
@@ -50,8 +52,14 @@ const Category = () => {
 
   return (
     <div className="max-w-screen-lg">
-      <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-      <button onClick={handleSearch}>검색</button>
+      <div>
+        <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+        <button onClick={handleSearch}>검색</button>
+      </div>
+      <div>
+        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+      </div>
       <div>
         <CategorySelect state={area} setState={setArea} categoryName={AREA} codes={areaCodes} />
         <CategorySelect state={genre} setState={setGenre} categoryName={GENRE} codes={genreCodes} />
