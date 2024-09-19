@@ -6,19 +6,22 @@ import Community from "../pages/community/Community";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Login from "../pages/login/Login";
+import Layout from "../components/Layout";
 
 const RouterComponent = () => {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/detail/:id" element={<DetailPage />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/login" element={<Login />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/detail" element={<DetailPage />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 };
