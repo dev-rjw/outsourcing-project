@@ -41,9 +41,11 @@ const Category = () => {
     <div>
       <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
       <button onClick={handleSearch}>검색</button>
-      <div className="grid grid-cols-5 w-[1000px]">
+      <div>
         <CategorySelect state={area} setState={setArea} categoryName="지역별" codes={areaCodes} />
         <CategorySelect state={genre} setState={setGenre} categoryName="장르별" codes={genreCodes} />
+      </div>
+      <div className="grid grid-cols-5 w-[1000px]">
         {data.length !== 0 ? (
           data.map((element) => {
             return (
