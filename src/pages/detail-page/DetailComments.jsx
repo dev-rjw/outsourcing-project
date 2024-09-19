@@ -1,21 +1,33 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-
 import useUserStore from "../../zustand/useUserStore";
 import { v4 as uuidv4 } from "uuid";
-import { detailAddComment, detailGetComment } from "../../api/detailApi";
+import {
+  detailAddComment,
+  detailDeleteComment,
+  detailGetComment,
+} from "../../api/detailApi";
 
-const DetailComments = () => {
+const DetailComments = ({ id }) => {
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
   const { user } = useUserStore();
 
   // 댓글 추가 mutation
-  const mutation = useMutation({
-    mutationFn: detailAddComment,
+  const addMutation = useMutation({
+    mutationFn: (newComment) =>
+      detailAddComment({ ...newComment, performanceId: id }),
     onSuccess: () => {
-      queryClient.invalidateQueries(["comments"]);
+      queryClient.invalidateQueries(["comments", id]);
       setComment("");
+    },
+  });
+
+  // 댓글 삭제 mutation
+  const removeMutation = useMutation({
+    mutationFn: detailDeleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", id]);
     },
   });
 
@@ -25,8 +37,8 @@ const DetailComments = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["comments"],
-    queryFn: detailGetComment,
+    queryKey: ["comments", id],
+    queryFn: () => detailGetComment(id),
   });
 
   if (isLoading) {
@@ -40,12 +52,15 @@ const DetailComments = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (comment.trim()) {
-      mutation.mutate({
-        id: uuidv4(),
+      addMutation.mutate({
         email: user?.email || uuidv4(), // 로그인한 사용자 이메일 사용 또는 유니크 ID
         content: comment,
       });
     }
+  };
+
+  const handleDelete = (id) => {
+    removeMutation.mutate(id);
   };
 
   return (
@@ -55,11 +70,17 @@ const DetailComments = () => {
         {comments.length > 0 ? (
           comments.map((comment) => (
             <div
-              className="w-[750px] bg-slate-200 rounded mx-auto pb-4 mb-8"
+              className="w-[750px] bg-slate-200 rounded mx-auto pb-4 mb-8 relative"
               key={comment.id}
             >
               <p className="font-bold text-left pl-4 mb-4">{comment.email}</p>
               <p>{comment.content}</p>
+              <button
+                onClick={() => handleDelete(comment.id)}
+                className="cursor-pointer w-[50px] h-[30px] bg-accent rounded absolute bottom-2 right-2 "
+              >
+                삭제
+              </button>
             </div>
           ))
         ) : (
@@ -77,7 +98,7 @@ const DetailComments = () => {
         />
         <button
           type="submit"
-          className="cursor-pointer w-[50px] h-[100px] bg-accent rounded"
+          className="cursor-pointer w-[50px] h-[100px] bg-primary rounded text-white"
         >
           등록
         </button>

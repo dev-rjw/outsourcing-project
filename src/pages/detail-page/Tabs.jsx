@@ -4,7 +4,7 @@ import { useState } from "react";
 import DetailMap from "./DetailMap";
 import DetailComments from "./DetailComments";
 
-const Tabs = () => {
+const Tabs = ({ id, detailData }) => {
   const [active, setActive] = useState("detailContent");
 
   const handleTabChange = (e) => {
@@ -42,9 +42,11 @@ const Tabs = () => {
         </button>
       </div>
       <div>
-        {active === "detailContent" && <DetailContent />}
-        {active === "map" && <DetailMap />}
-        {active === "comments" && <DetailComments />}
+        {active === "detailContent" && (
+          <DetailContent detailData={detailData} />
+        )}
+        {active === "map" && <DetailMap detailData={detailData} />}
+        {active === "comments" && <DetailComments id={id} />}
       </div>
     </div>
   );
