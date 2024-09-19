@@ -8,7 +8,6 @@ import Footer from "../components/Footer";
 import Login from "../pages/login/Login";
 import Layout from "../components/Layout";
 
-
 const RouterComponent = () => {
   return (
     <BrowserRouter>
