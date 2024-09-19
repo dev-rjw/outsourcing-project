@@ -27,7 +27,7 @@ const DetailPage = () => {
   return (
     <div className="max-w-screen-lg mx-auto flex items-center justify-center p-4">
       <div className="w-full p-6">
-        <div className="mb-12 pb-4  ">
+        <div className="mb-12 pb-4 ">
           <h2 className="text-sm font-semibold mb-4 ">{detailData.genrenm}</h2>
           <h3 className="text-5xl font-extrabold mb-4">{detailData.prfnm}</h3>
           <p className="text-sm mb-4">

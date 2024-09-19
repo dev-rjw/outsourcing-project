@@ -25,6 +25,10 @@ const DetailMap = ({ detailData }) => {
     return <div>장소 정보가 없습니다.</div>;
   }
 
+  // 좌표값을 숫자로 변환
+  const lat = parseFloat(mapData.la);
+  const lng = parseFloat(mapData.lo);
+
   return (
     <div>
       <h4 className="font-extrabold text-3xl mb-8">장소</h4>
@@ -38,11 +42,11 @@ const DetailMap = ({ detailData }) => {
       {!mapData.telno && <p>문의처 정보가 없습니다.</p>}
 
       <Map
-        center={{ lat: mapData.la, lng: mapData.lo }}
+        center={{ lat, lng }} // 좌표값을 숫자로 변환하여 설정
         style={{ width: "100%", height: "500px" }}
         level={3}
       >
-        <MapMarker position={{ lat: mapData.la, lng: mapData.lo }} />
+        <MapMarker position={{ lat, lng }} />
         <ZoomControl />
       </Map>
     </div>
