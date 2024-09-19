@@ -37,8 +37,9 @@ export default Header;
 
 const LinkTo = ({to, children, currentLocation}) => {
   if (currentLocation === to) {
+    // 현위치에 밑줄 표시
     return (
-      <div className="p-1 border-b-4 border-solid border-primary border-0">
+      <div className="p-1 border-b-[3px] border-solid border-primary border-0">
         <Link to={to} className="m-auto">{children}</Link>
       </div>
     )
