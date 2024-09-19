@@ -5,8 +5,7 @@ import Community from "../pages/community/Community";
 const Header = () => {
   const { user, clearUser } = useUserStore();
   const navigate = useNavigate();
-  const currentLocation = location.pathname;
-  console.log(currentLocation);
+  const currentLocation = useLocation().pathname;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -18,7 +17,7 @@ const Header = () => {
       <div>
         <LinkTo to="/" currentLocation={currentLocation}>홈</LinkTo>
       </div>
-      <div className="flex gap-4">
+      <div className="flex items-start gap-4">
         <LinkTo to="/community" currentLocation={currentLocation}>커뮤니티</LinkTo>
         <LinkTo to="/category" currentLocation={currentLocation}>카테고리</LinkTo>
         {user ? (
@@ -36,33 +35,17 @@ const Header = () => {
 
 export default Header;
 
-const Paths = {
-  home: ['/', '홈'],
-  community: ['/community', '커뮤니티'],
-  category: ['/category', '카테고리'],
-  profile: ['/profile', '프로필'],
-  login: ['/login', '로그인'],
-}
-
 const LinkTo = ({to, children, currentLocation}) => {
   if (currentLocation === to) {
     return (
       <div className="p-1 border-b-4 border-solid border-primary border-0">
-        <Link to={to} className="to-profile">{children}</Link>
+        <Link to={to} className="m-auto">{children}</Link>
       </div>
     )
-  }
-  // else if (to !== '/' && currentLocation.includes(to)) {
-  //   return (
-  //     <div className="p-1 border-b-4 border-solid border-primary border-0">
-  //       <Link to={to} className="to-profile">{children}</Link>
-  //     </div>
-  //   )
-  // }
-  else {
+  } else {
     return (
       <div className="p-1">
-        <Link to={to} className="to-profile">{children}</Link>
+        <Link to={to} className="m-auto">{children}</Link>
       </div>
     )
 
