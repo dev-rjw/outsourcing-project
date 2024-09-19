@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { searchGenreAreaData } from "../../api/playApi";
 import { areaCodes, genreCodes } from "../../utils/Kopis-api-common";
 import { useEffect, useState } from "react";
+import CategorySelect from "./CategorySelect";
 
 const Category = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -41,26 +42,8 @@ const Category = () => {
       <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
       <button onClick={handleSearch}>검색</button>
       <div>
-        <select value={area} onChange={(e) => setArea(e.target.value)} selected="지역별" name="지역별">
-          <option value="지역별">지역별</option>
-          {Object.values(areaCodes).map((element, index) => {
-            return (
-              <option key={index} value={element}>
-                {element}
-              </option>
-            );
-          })}
-        </select>
-        <select value={genre} onChange={(e) => setGenre(e.target.value)} selected="장르별" name="장르별">
-          <option value="장르별">장르별</option>
-          {Object.values(genreCodes).map((element, index) => {
-            return (
-              <option key={index} value={element}>
-                {element}
-              </option>
-            );
-          })}
-        </select>
+        <CategorySelect state={area} setState={setArea} categoryName="지역별" codes={areaCodes} />
+        <CategorySelect state={genre} setState={setGenre} categoryName="장르별" codes={genreCodes} />
         {data?.map((element) => {
           return (
             <div key={element.id}>
