@@ -1,9 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useUserStore from "../zustand/useUserStore";
+import Community from "../pages/community/Community";
 
 const Header = () => {
   const { user, clearUser } = useUserStore();
   const navigate = useNavigate();
+  const currentLocation = useLocation().pathname;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -11,29 +13,44 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <header className="flex-col m-4">
-      <Link to="/">커튼콜</Link>
-      <nav className="flex ">
-        <div className="flex ">
-          <Link to="/category">장르별</Link>
-          <Link to="/category">장소별</Link>
-          <Link to="/community">커뮤니티</Link>
-          {user ? (
-            <>
-              <Link to="/profile">프로필</Link>
-              <button onClick={handleLogout}>로그아웃</button>
-            </>
-          ) : (
-            <Link to="/login">로그인</Link>
-          )}
-        </div>
-        <div className="flex">
-          <input placeholder="검색내용입력"></input>
-          <button>검색이모지</button>
-        </div>
-      </nav>
+    <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white z-[1]">
+      <div>
+        <LinkTo to="/" currentLocation={currentLocation}>홈</LinkTo>
+      </div>
+      <div className="flex items-start gap-4">
+        <LinkTo to="/community" currentLocation={currentLocation}>커뮤니티</LinkTo>
+        <LinkTo to="/category" currentLocation={currentLocation}>카테고리</LinkTo>
+        {user ? (
+          <>
+            <LinkTo to="/profile" currentLocation={currentLocation}>프로필</LinkTo>
+            <div className="p-1">
+              <button className="m-auto" onClick={handleLogout}>로그아웃</button>
+            </div>
+          </>
+        ) : (
+          <LinkTo to="/login" currentLocation={currentLocation}>로그인</LinkTo>
+        )}
+      </div>
     </header>
   );
 };
 
 export default Header;
+
+const LinkTo = ({ to, children, currentLocation }) => {
+  if (currentLocation === to) {
+    // 현위치에 밑줄 표시
+    return (
+      <div className="p-1 border-b-[3px] border-solid border-primary border-0">
+        <Link to={to} className="m-auto">{children}</Link>
+      </div>
+    )
+  } else {
+    return (
+      <div className="p-1">
+        <Link to={to} className="m-auto">{children}</Link>
+      </div>
+    )
+
+  }
+}

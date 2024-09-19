@@ -24,7 +24,7 @@ const RouterComponent = () => {
         </Route>
       </Routes>
       {/* <Footer /> */}
-    </BrowserRouter>
+    </BrowserRouter >
   );
 };
 

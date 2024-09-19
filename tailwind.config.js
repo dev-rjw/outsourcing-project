@@ -7,6 +7,7 @@ export default {
       colors: {
         main: "#000000",
         primary: "#8E43E7", // 보라색
+        soft: "#F8F4FF", //연보라
         accent: "#FFFF33", // 노란색
       },
     },
