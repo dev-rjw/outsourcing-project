@@ -23,7 +23,9 @@ const Header = () => {
         {user ? (
           <>
             <LinkTo to="/profile" currentLocation={currentLocation}>프로필</LinkTo>
-            <button onClick={handleLogout}>로그아웃</button>
+            <div className="p-1">
+              <button className="m-auto" onClick={handleLogout}>로그아웃</button>
+            </div>
           </>
         ) : (
           <LinkTo to="/login" currentLocation={currentLocation}>로그인</LinkTo>
@@ -35,7 +37,7 @@ const Header = () => {
 
 export default Header;
 
-const LinkTo = ({to, children, currentLocation}) => {
+const LinkTo = ({ to, children, currentLocation }) => {
   if (currentLocation === to) {
     // 현위치에 밑줄 표시
     return (
