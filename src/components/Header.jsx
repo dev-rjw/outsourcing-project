@@ -5,7 +5,8 @@ import Community from "../pages/community/Community";
 const Header = () => {
   const { user, clearUser } = useUserStore();
   const navigate = useNavigate();
-  console.log(location.pathname);
+  const currentLocation = location.pathname;
+  console.log(currentLocation);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -13,20 +14,20 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white">
+    <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white z-[1]">
       <div>
-        <Link to="/" className="to-home">홈</Link>
+        <LinkTo to="/" currentLocation={currentLocation}>홈</LinkTo>
       </div>
       <div className="flex gap-4">
-        <Link to="/community" className="to-community">커뮤니티</Link>
-        <Link to="/category" className="to-category">카테고리</Link>
+        <LinkTo to="/community" currentLocation={currentLocation}>커뮤니티</LinkTo>
+        <LinkTo to="/category" currentLocation={currentLocation}>카테고리</LinkTo>
         {user ? (
           <>
-            <Link to="/profile" className="to-profile">프로필</Link>
+            <LinkTo to="/profile" currentLocation={currentLocation}>프로필</LinkTo>
             <button onClick={handleLogout}>로그아웃</button>
           </>
         ) : (
-          <Link to="/login" className="to-login">로그인</Link>
+          <LinkTo to="/login" currentLocation={currentLocation}>로그인</LinkTo>
         )}
       </div>
     </header>
@@ -36,15 +37,34 @@ const Header = () => {
 export default Header;
 
 const Paths = {
-  home: '/',
-  community: '/community',
-  category: '/category',
-  profile: '/profile',
-  login: '/login',
+  home: ['/', '홈'],
+  community: ['/community', '커뮤니티'],
+  category: ['/category', '카테고리'],
+  profile: ['/profile', '프로필'],
+  login: ['/login', '로그인'],
 }
 
-const addUnderLine = () => {
-  const location = useLocation();
+const LinkTo = ({to, children, currentLocation}) => {
+  if (currentLocation === to) {
+    return (
+      <div className="p-1 border-b-4 border-solid border-primary border-0">
+        <Link to={to} className="to-profile">{children}</Link>
+      </div>
+    )
+  }
+  // else if (to !== '/' && currentLocation.includes(to)) {
+  //   return (
+  //     <div className="p-1 border-b-4 border-solid border-primary border-0">
+  //       <Link to={to} className="to-profile">{children}</Link>
+  //     </div>
+  //   )
+  // }
+  else {
+    return (
+      <div className="p-1">
+        <Link to={to} className="to-profile">{children}</Link>
+      </div>
+    )
 
-  
+  }
 }
