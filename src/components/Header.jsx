@@ -18,6 +18,14 @@ const Header = () => {
           <Link to="/category">장르별</Link>
           <Link to="/category">장소별</Link>
           <Link to="/community">커뮤니티</Link>
+          {user ? (
+            <>
+              <Link to="/profile">프로필</Link>
+              <button onClick={handleLogout}>로그아웃</button>
+            </>
+          ) : (
+            <Link to="/login">로그인</Link>
+          )}
         </div>
         <div className="flex">
           <input placeholder="검색내용입력"></input>
