@@ -1,12 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "../pages/main-page/MainPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Category from "../pages/category/Category";
-import DetailPage from "../pages/detail-page/DetailPage";
 import Community from "../pages/community/Community";
+import DetailPage from "../pages/detail-page/DetailPage";
 import Login from "../pages/login/Login";
-import Layout from "../components/Layout";
-import SignUp from "../pages/signup/Signup";
+import MainPage from "../pages/main-page/MainPage";
 import Profile from "../pages/profile/Profile";
+import SignUp from "../pages/signup/Signup";
+import Layout from "../components/Layout";
 
 const RouterComponent = () => {
   return (
@@ -22,7 +22,7 @@ const RouterComponent = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
-      </Routes >
+      </Routes>
       {/* <Footer /> */}
     </BrowserRouter >
   );
