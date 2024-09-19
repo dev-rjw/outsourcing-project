@@ -44,14 +44,18 @@ const Category = () => {
       <div>
         <CategorySelect state={area} setState={setArea} categoryName="지역별" codes={areaCodes} />
         <CategorySelect state={genre} setState={setGenre} categoryName="장르별" codes={genreCodes} />
-        {data?.map((element) => {
-          return (
-            <div key={element.id}>
-              <img src={element.poster} width="10%" />
-              <div>{element.prfnm}</div>
-            </div>
-          );
-        })}
+        {data.length !== 0 ? (
+          data.map((element) => {
+            return (
+              <div key={element.id}>
+                <img src={element.poster} width="10%" />
+                <div>{element.prfnm}</div>
+              </div>
+            );
+          })
+        ) : (
+          <div>해당 공연이 없습니다.</div>
+        )}
         {data.length === end && <button onClick={addList}>더보기</button>}
       </div>
     </div>
