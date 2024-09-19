@@ -17,7 +17,7 @@ const PostLike = ({ postId, initialLikes, onLikesUpdated }) => {
     });
 
     // 서버에 좋아요 수 업데이트
-    fetch(`http://localhost:4000/communityPosts/${postId}`, {
+    fetch(`http://localhost:5000/communityPosts/${postId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

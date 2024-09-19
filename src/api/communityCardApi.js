@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:4000/communityPosts";
+const API_URL = "http://localhost:5000/communityPosts";
 
 export const fetchPosts = () => {
   return fetch(`${API_URL}`).then((response) => response.json());
