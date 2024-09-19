@@ -41,14 +41,14 @@ const Category = () => {
     <div>
       <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
       <button onClick={handleSearch}>검색</button>
-      <div>
+      <div className="grid grid-cols-5 w-[1000px]">
         <CategorySelect state={area} setState={setArea} categoryName="지역별" codes={areaCodes} />
         <CategorySelect state={genre} setState={setGenre} categoryName="장르별" codes={genreCodes} />
         {data.length !== 0 ? (
           data.map((element) => {
             return (
-              <div key={element.id}>
-                <img src={element.poster} width="10%" />
+              <div className="flex flex-col items-center justify-start h-[300px] " key={element.id}>
+                <img src={element.poster} className="w-4/5 h-4/5" />
                 <div>{element.prfnm}</div>
               </div>
             );
