@@ -3,10 +3,10 @@ import MainPage from "../pages/main-page/MainPage";
 import Category from "../pages/category/Category";
 import DetailPage from "../pages/detail-page/DetailPage";
 import Community from "../pages/community/Community";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Login from "../pages/login/Login";
 import Layout from "../components/Layout";
+import SignUp from "../pages/signup/Signup";
+import Profile from "../pages/profile/Profile";
 
 const RouterComponent = () => {
   return (
@@ -19,10 +19,12 @@ const RouterComponent = () => {
           <Route path="/detail/:id" element={<DetailPage />} />
           <Route path="/community" element={<Community />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
-      </Routes>
+      </Routes >
       {/* <Footer /> */}
-    </BrowserRouter>
+    </BrowserRouter >
   );
 };
 
