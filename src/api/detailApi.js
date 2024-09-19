@@ -1,5 +1,4 @@
 import axios from "axios";
-import { XMLParser } from "fast-xml-parser";
 import { parseXMLToJSON } from "../utils/utils";
 
 const apiKey = import.meta.env.VITE_KOPIS_KEY;
