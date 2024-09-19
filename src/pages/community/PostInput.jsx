@@ -1,25 +1,56 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createPost } from "../../api/communityCardApi";
 
-const PostInput = ({ addPost }) => {
+const PostInput = ({ onPostAdded }) => {
   const [content, setContent] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [tag, setTag] = useState(null);
+
+  const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createPost,
+    onSuccess: (createdPost) => {
+      queryClient.invalidateQueries(["posts"]);
+      onPostAdded(createdPost);
+      setContent("");
+      setYoutubeLink("");
+      setThumbnailUrl(null);
+      setTag(null);
+    },
+    onError: (error) => {
+      console.error("게시글 저장 중 오류 발생:", error);
+      alert("게시글 저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!content.trim()) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+
+    if (!tag) {
+      alert("태그를 선택해주세요!");
+      return;
+    }
+
     const newPost = {
-      id: Date.now(),
       content,
       youtubeLink,
       thumbnailUrl,
-      date: new Date().toLocaleDateString(),
+      tag: `#${tag}`,
+      date: new Date().toISOString(),
+      likes: 0,
+      comments: [],
+      author: "닉네임",
     };
-
-    addPost(newPost);
-    setContent("");
-    setYoutubeLink("");
-    setThumbnailUrl(null);
+    mutation.mutate(newPost);
   };
 
   // 유튜브 썸네일 가져오기
@@ -28,11 +59,20 @@ const PostInput = ({ addPost }) => {
     setYoutubeLink(link);
 
     // 유튜브 비디오 ID 추출
-    const videoId = link.split("v=")[1]?.split("&")[0];
+    const videoIdMatch = link.match(
+      /(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/i
+    );
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
     if (videoId) {
       const thumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
       setThumbnailUrl(thumbnail);
+    } else {
+      setThumbnailUrl(null);
     }
+  };
+
+  const handleTagChange = (e) => {
+    setTag(e.target.value);
   };
 
   return (
@@ -52,7 +92,7 @@ const PostInput = ({ addPost }) => {
                 value={youtubeLink}
                 onChange={handleYoutubeLinkChange}
                 placeholder="YouTube 링크 입력"
-                className="text-gray-300 w-full p-2"
+                className="text-gray-200 w-full p-2 text-center bg-gray-100"
               />
             </div>
           )}
@@ -64,12 +104,24 @@ const PostInput = ({ addPost }) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
+
         <div className="flex justify-between items-end m-4">
-          <button className="text-gray-300 cursor-pointer "> #공연 제목</button>
-          <button
-            onClick={handleSubmit}
-            className="text-black border-solid rounded border-primary hover:bg-primary hover:text-white  transition duration-300 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center items-center "
+          <select
+            value={tag || ""}
+            onChange={handleTagChange}
+            className="text-gray-500 rounded softBtn"
           >
+            <option value="" disabled>
+              #태그 선택 ▾
+            </option>
+            {predefinedTags.map((tagItem) => (
+              <option key={tagItem} value={tagItem}>
+                #{tagItem}
+              </option>
+            ))}
+          </select>
+
+          <button onClick={handleSubmit} className="btn">
             완료
           </button>
         </div>
