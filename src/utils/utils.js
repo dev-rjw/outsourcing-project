@@ -1,15 +1,12 @@
-// xml to JSON
-export const xmlToJson = (xmlData) => {
-  const cleanedString = xmlData.replace('\ufeff', '');
-  let jsonData;
-  parseString(cleanedString, (err, result) => {
-    if (err !== null) {
-      console.log('error: ', err);
-      return;
-    }
-    jsonData = JSON.parse(JSON.stringify(result));
+import { XMLParser } from "fast-xml-parser";
+
+// XML 데이터를 JSON으로 변환하는 함수
+export const parseXMLToJSON = (xmlData) => {
+  const parser = new XMLParser({
+    ignoreAttributes: false, // 속성 유지
+    attributeNamePrefix: "", // 속성명 앞에 접두어 없이 처리
   });
-  return jsonData;
+  return parser.parse(xmlData);
 };
 
 // 오늘 날짜 YYYYMMDD

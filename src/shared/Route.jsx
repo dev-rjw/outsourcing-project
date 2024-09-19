@@ -22,9 +22,9 @@ const RouterComponent = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
-      </Routes>
+      </Routes >
       {/* <Footer /> */}
-    </BrowserRouter>
+    </BrowserRouter >
   );
 };
 
