@@ -13,11 +13,13 @@ const RouterComponent = () => {
     <BrowserRouter>
       {/* <Header /> */}
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/detail/:id" element={<DetailPage />} />
-        <Route path="/community" element={<Community />} />
-        <Route path="/login" element={<Login />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>

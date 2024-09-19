@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Tabs from "./Tabs";
 import useKopisStore from "../../zustand/useKopisStore";
 import { useParams } from "react-router-dom";
