@@ -14,21 +14,19 @@ const BASE_DB_URL = "http://localhost:5000/db";
 const playApi = axios.create({ baseURL: BASE_DB_URL });
 
 export const getData = async () => {
-    const { data } = await playApi.get("/");
-    // console.log(data);
-    return data;
+  const { data } = await playApi.get("/");
+  // console.log(data);
+  return data;
 };
-
-
 
 const genreArray = Object.values(genreCodes);
 
 export const getGenreData = async (genre) => {
-    const { data } = await playApi.get(`?genrenm=${genre}&_start=0&_end=5`);
-    return data;
-}
+  const { data } = await playApi.get(`?genrenm=${genre}&_start=0&_end=5`);
+  return data;
+};
 
 export const getClassifiedData = async () => {
-  const responses = Promise.all(genreArray.map(genre => getGenreData(genre)));
+  const responses = Promise.all(genreArray.map((genre) => getGenreData(genre)));
   return responses;
-}
+};

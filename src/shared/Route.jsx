@@ -7,7 +7,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Login from "../pages/login/Login";
 
-
 const RouterComponent = () => {
   return (
     <BrowserRouter>
@@ -15,7 +14,7 @@ const RouterComponent = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/category" element={<Category />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/detail/:id" element={<DetailPage />} />
         <Route path="/community" element={<Community />} />
         <Route path="/login" element={<Login />} />
       </Routes>
