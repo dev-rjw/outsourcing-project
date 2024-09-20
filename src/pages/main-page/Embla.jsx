@@ -18,7 +18,7 @@ const Embla = ({ data }) => {
   const carousel = indices.map(idx => data[idx]);
 
   return (
-    <div className='main-embla w-full mb-20'>
+    <div className='main-embla w-full mb-8'>
       <div className='embla min-w-[900px] overflow-hidden' ref={emblaRef}>
         <div className='embla__container'> {/*  grid grid-flow-col auto-cols-[100%] gap-x-20 */}
           {carousel && [0, 2, 4, 6].map((i) => (
