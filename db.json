@@ -13009,7 +13009,7 @@
       "thumbnailUrl": "https://img.youtube.com/vi/fCRq2XC6CWg/maxresdefault.jpg",
       "tag": "#음악",
       "date": "2024-09-19T05:01:29.170Z",
-      "likes": 1,
+      "likes": 0,
       "comments": [],
       "author": "닉네임"
     },
@@ -13020,11 +13020,19 @@
       "thumbnailUrl": "https://img.youtube.com/vi/y8BwcNzLals/maxresdefault.jpg",
       "tag": "#음악",
       "date": "2024-09-19T11:58:54.042Z",
-      "likes": -3,
+      "likes": 0,
       "comments": [
         {
           "id": 1726725219158,
           "text": "2ㄱㄱㄱ"
+        },
+        {
+          "id": 1726811284392,
+          "text": "ㅇㅇㅇ"
+        },
+        {
+          "id": 1726811288762,
+          "text": "ㄷㄷㄷ"
         }
       ],
       "author": "닉네임"
@@ -13036,7 +13044,7 @@
       "thumbnailUrl": "https://img.youtube.com/vi/qnn1Zmm6jyI/maxresdefault.jpg",
       "tag": "#꿀팁",
       "date": "2024-09-19T06:11:25.820Z",
-      "likes": 1,
+      "likes": 0,
       "comments": [
         {
           "id": 1726726296260,
@@ -13060,20 +13068,167 @@
       "thumbnailUrl": "https://img.youtube.com/vi/PQ8ZOEHEcP8/maxresdefault.jpg",
       "tag": "#기타",
       "date": "2024-09-19T09:19:11.893Z",
-      "likes": 2,
+      "likes": 0,
       "comments": [],
       "author": "닉네임"
+    },
+    {
+      "id": "62e3",
+      "content": "비오는날 듣기 좋은 노랭",
+      "youtubeLink": "https://www.youtube.com/watch?v=Gwaf1ciXs28",
+      "thumbnailUrl": "https://img.youtube.com/vi/Gwaf1ciXs28/maxresdefault.jpg",
+      "tag": "#음악",
+      "date": "2024-09-20T05:47:35.086Z",
+      "likes": 0,
+      "comments": []
+    },
+    {
+      "id": "c278",
+      "content": "345555",
+      "youtubeLink": "https://www.youtube.com/watch?v=p05MFqeNC18",
+      "thumbnailUrl": "https://img.youtube.com/vi/p05MFqeNC18/maxresdefault.jpg",
+      "tag": "#음악",
+      "date": "2024-09-20T06:04:32.273Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1726811585476,
+          "text": "eee"
+        },
+        {
+          "id": 1726814326915,
+          "text": "ㄷㄷㄷㄷ",
+          "userId": "kkk@kkk.com",
+          "nickname": "kkk"
+        },
+        {
+          "id": 1726814353849,
+          "text": "rrrrrr",
+          "userId": "ppp@ppp.com",
+          "nickname": "ppp"
+        }
+      ],
+      "userId": "kkk@kkk.com"
+    },
+    {
+      "id": "a5c5",
+      "content": "ㅏㅏㅏㄱㄱ",
+      "youtubeLink": "https://www.youtube.com/watch?v=RYVGAzcaE-I",
+      "thumbnailUrl": "https://img.youtube.com/vi/RYVGAzcaE-I/maxresdefault.jpg",
+      "tag": "#후기",
+      "date": "2024-09-20T06:06:13.021Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1726814201824,
+          "text": "ㄹㅎㅇㅎㅇㅎㄴ",
+          "userId": "kkk@kkk.com",
+          "nickname": "kkk"
+        }
+      ],
+      "userId": "kkk@kkk.com"
+    },
+    {
+      "id": "5618",
+      "content": "닉엥니눗ㅅㅅ",
+      "youtubeLink": "https://www.youtube.com/watch?v=aHTpHcokyX8&t=4642s",
+      "thumbnailUrl": "https://img.youtube.com/vi/aHTpHcokyX8/maxresdefault.jpg",
+      "tag": "#후기",
+      "date": "2024-09-20T06:13:31.104Z",
+      "likes": 0,
+      "comments": [],
+      "userId": "kkk@kkk.com"
+    },
+    {
+      "id": "14d2",
+      "content": "pppfffffggggㄹㄹㄹㄹ",
+      "youtubeLink": "https://www.youtube.com/watch?v=8dYNg7bmS5c",
+      "thumbnailUrl": "https://img.youtube.com/vi/8dYNg7bmS5c/maxresdefault.jpg",
+      "tag": "#기대",
+      "date": "2024-09-20T06:54:18.948Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1726814196237,
+          "text": "ㄷㄷㄷ",
+          "userId": "kkk@kkk.com",
+          "nickname": "kkk"
+        },
+        {
+          "id": 1726814350265,
+          "text": "eeee",
+          "userId": "ppp@ppp.com",
+          "nickname": "ppp"
+        }
+      ],
+      "userId": "ppp@ppp.com"
     }
   ],
   "likes": [
     {
-      "postId": 1,
-      "count": 10,
-      "users": [
-        "user1",
-        "user2"
-      ],
-      "id": "5223"
+      "id": 1,
+      "postId": "c278",
+      "userId": "user1"
+    },
+    {
+      "id": "720a",
+      "postId": "c278",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "6931",
+      "postId": "374d",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "6c5c",
+      "postId": "6ac6",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "351e",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "91e5",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "3cc9",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "c770",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "5e40",
+      "postId": "14d2",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "94cc",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "b9ca",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "c05a",
+      "postId": "a5c5",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "f3da",
+      "postId": "c0b3",
+      "userId": "ppp@ppp.com"
     }
   ],
   "comments": [

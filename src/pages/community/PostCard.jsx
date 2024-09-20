@@ -4,7 +4,7 @@ import PostCardPopup from "./PostCardPopup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePost, updatePost } from "../../api/communityCardApi";
 
-const PostCard = ({ post, onUpdate }) => {
+const PostCard = ({ post, onUpdate, currentUserId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(post.content);
   const [updatedYoutubeLink, setUpdatedYoutubeLink] = useState(
@@ -17,7 +17,6 @@ const PostCard = ({ post, onUpdate }) => {
   );
 
   const queryClient = useQueryClient();
-
   const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
 
   // 팝업 열기
@@ -73,7 +72,7 @@ const PostCard = ({ post, onUpdate }) => {
     },
   });
 
-  // 게시물 업데이트
+  // 업데이트
   const handleUpdate = () => {
     let formattedTag = updatedTag;
     if (!updatedTag.startsWith("#")) {
@@ -87,11 +86,10 @@ const PostCard = ({ post, onUpdate }) => {
       tag: formattedTag,
       date: new Date().toISOString(),
     };
-
     updatePostMutation.mutate(updatedPost);
   };
 
-  // 게시물 삭제
+  // 삭제
   const handleDelete = (e) => {
     e.stopPropagation();
     deletePostMutation.mutate();
@@ -106,6 +104,7 @@ const PostCard = ({ post, onUpdate }) => {
 
   return (
     <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10">
+      {/* 수정모드일때  */}
       {isEditing ? (
         <div>
           <div className="bg-gray-300 h-40 w-full object-cover rounded">
@@ -153,6 +152,7 @@ const PostCard = ({ post, onUpdate }) => {
           </div>
         </div>
       ) : (
+        // 수정모드가 아닐때
         <div className="relative w-full h-full rounded">
           <div className="cursor-pointer" onClick={openPopup}>
             {isPopupOpen && (
@@ -188,7 +188,7 @@ const PostCard = ({ post, onUpdate }) => {
             </div>
 
             <div className="flex justify-start">
-              <p className="text-black text-sm ml-4 mt-2">닉네임</p>
+              <p className="text-black text-sm ml-4 mt-2">{post.author}</p>
               <p className="text-gray-300 text-xs font-light flex justify-start items-center ml-2 mt-2">
                 {new Date(post.date).toLocaleDateString()}
               </p>
@@ -197,17 +197,19 @@ const PostCard = ({ post, onUpdate }) => {
               {post.content}
             </p>
 
-            <div className="flex justify-between items-end py-4 mx-4 my-2">
-              <p className="text-left text-primary">{post.tag}</p>
-              <div className="flex gap-4 justify-end">
-                <button onClick={toggleEdit} className="softBtn">
-                  수정
-                </button>
-                <button onClick={handleDelete} className="softBtn">
-                  삭제
-                </button>
+            {currentUserId === post.userId && (
+              <div className="flex justify-between items-end py-4 mx-4 my-2">
+                <p className="text-left text-primary">{post.tag}</p>
+                <div className="flex gap-4 justify-end">
+                  <button onClick={toggleEdit} className="softBtn">
+                    수정
+                  </button>
+                  <button onClick={handleDelete} className="softBtn">
+                    삭제
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
