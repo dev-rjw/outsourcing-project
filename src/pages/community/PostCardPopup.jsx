@@ -62,6 +62,11 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
   });
 
   const handleAddComment = () => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
     if (comment.trim()) {
       const newComment = {
         id: Date.now(),

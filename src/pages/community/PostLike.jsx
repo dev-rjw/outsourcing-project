@@ -7,7 +7,7 @@ import {
 } from "../../api/communityLikesApi";
 import useUserStore from "../../zustand/useUserStore";
 
-const PostLike = ({ postId, initialLikes, post }) => {
+const PostLike = ({ postId, initialLikes }) => {
   const { user } = useUserStore();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(initialLikes);
@@ -54,6 +54,10 @@ const PostLike = ({ postId, initialLikes, post }) => {
   });
 
   const toggleLike = () => {
+    if (!user) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
     mutation.mutate();
   };
 
