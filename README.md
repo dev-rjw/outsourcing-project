@@ -111,6 +111,111 @@ script : package.json 변경(npm 설치 등)
 
 #### 메인 페이지
 
+- 오늘 진행 중인 공연 중 랜덤으로 8개를 선택해 캐러셀 적용 ([Embla 라이브러리](https://www.embla-carousel.com/get-started/) 사용)
+- 오늘 진행 중인 공연을 캐러셀 하단에 주제별로 보여줌
+
+1. 오늘 진행 중인 공연 정보 불러오기
+
+```jsx
+// playApi.js
+// 현재 진행중인 공연 정보 등록된 순으로 최대 1000개 불러오는 함수
+const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
+const KOPIS_KEY = import.meta.env.VITE_KOPIS_KEY;
+
+const playApi = axios.create({ baseURL: BASE_URL });
+
+export const getData = async () => {
+  try {
+    const { data } = await playApi.get("/", {
+      params: {
+        service: KOPIS_KEY,
+        stdate: getDateString(), // 오늘 날짜 반환하는 함수
+        eddate: getDateString(),
+        rows: 1000,
+        cpage: 1,
+      },
+    });
+    return parseXMLToJSON(data).dbs.db;
+  } catch (error) {
+    console.error("Error fetching performance details:", error);
+    throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
+  }
+};
+```
+
+```jsx
+// MainPage.jsx
+// 공연 정보 불러오기
+const {
+  data: mainData,
+  isPending,
+  isError,
+} = useQuery({
+  queryKey: ["main-data"],
+  queryFn: getData,
+});
+```
+
+2. 랜덤으로 8개 선택해 캐러셀로 보여주기
+```jsx
+// Embla.jsx
+// MainPage.jsx에서 prop으로 데이터 전달 받음
+const Embla = ({ data }) => {
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ stopOnMouseEnter: true, stopOnInteraction: false })]);
+
+  const indices = []; // 랜덤 인덱스 저장
+  while (indices.length < 8) {
+    let tmp = Math.floor(data.length * Math.random())
+    if (indices.includes(tmp)) {
+      continue;
+    } else {
+      indices.push(tmp);
+    }
+  }
+  const carousel = indices.map(idx => data[idx]);
+
+  return (
+      <div className='embla' ref={emblaRef}>
+        <div className='embla__container'>
+          {carousel && [0, 2, 4, 6].map((i) => ( // 각 슬라이드에 두개씩 보여줌
+            <Slide play={[carousel[i], carousel[i + 1]]} key={`slide-${i}`} />
+          )
+          )}
+        </div>
+      </div>
+  )
+}
+```
+
+3. 장르별로 분류된 공연 보여주기
+```jsx
+// Genre.jsx
+// MainPage.jsx에서 prop으로 받은 데이터를 장르에 따라 filter해 GenreDiv에 보여줌
+const Genre = ({data}) => {
+  const [clicked, setClicked] = useState(0);
+  const genreArray = Object.values(genreCodes);
+
+
+  return (
+      <div>
+        <div>
+          {
+            genreArray..map((item, idx) => (
+              <GenreButton idx={idx} clicked={clicked} setClicked={setClicked} key={item}>
+                {item}
+              </GenreButton>
+            ))
+          }
+        </div>
+        <div>
+          <GenreDiv plays={data.filter(play => play.genrenm === genreArray[clicked]).slice(0,10)} idx={clicked}/>
+        </div>
+      </div>
+  )
+}
+```
+
+
 ---
 
 #### 상세 페이지
@@ -298,6 +403,28 @@ const {
 ## 💥 Trouble Shooting
 
 [메인페이지]
+
+🔥 문제점
+
+1. 기존에는 장르별 데이터를 불러올 때 api에서 각각 불러왔으나, 데이터를 불러오는 과정이 불필요하게 많아지는 문제점이 있었음. 전체 데이터를 한 번에 많이 불러온 후 prop으로 전달해 사용함.
+  - 아래는 장르별 데이터를 각각 불러올 때 사용한 코드 (현재는 사용하지 않음)
+
+```jsx
+// playApi.jsx
+// 장르별 데이터를 0번째부터 4번째까지 불러오는 함수
+export const getGenreData = async (genre) => {
+  const { data } = await playApi.get(`?genrenm=${genre}&_start=0&_end=5`);
+  return data;
+};
+
+const genreArray = Object.values(genreCodes);
+// Promise.all을 이용해 동시에 여러 장르 데이터 불러오는 함수
+export const getClassifiedData = async () => {
+  const responses = Promise.all(genreArray.map((genre) => getGenreData(genre)));
+  return responses;
+};
+```
+
 
 ---
 
