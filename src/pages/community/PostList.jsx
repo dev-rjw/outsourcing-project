@@ -10,6 +10,7 @@ import PostCard from "./PostCard";
 
 const PostList = () => {
   const queryClient = useQueryClient();
+
   const { user } = useUserStore();
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const token = localStorage.getItem("token");

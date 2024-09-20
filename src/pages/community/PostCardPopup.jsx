@@ -133,8 +133,12 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
             />
           </a>
         ) : (
-          <div className="bg-soft h-80 w-full rounded flex justify-center items-center">
-            <p className="text-gray-300">*^^*</p>
+          <div className="bg-soft h-full w-full rounded flex justify-center items-center">
+            <img
+              src="/images/curtain_img.png"
+              alt="default"
+              className="h-full w-full object-cover rounded opacity-25"
+            />
           </div>
         )}
 

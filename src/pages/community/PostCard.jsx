@@ -137,7 +137,7 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
               />
             )}
             <div
-              className="absolute w-full flex justify-end p-2"
+              className="absolute w-full flex justify-end p-2 z-10"
               onClick={(e) => e.stopPropagation()}
             >
               <PostLike
