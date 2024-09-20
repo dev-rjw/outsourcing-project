@@ -4,10 +4,9 @@ import { getDateString, parseXMLToJSON } from "../utils/utils";
 
 // KOPIS 관련
 const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
-const BASE_DB_URL = import.meta.env.VITE_DB_URL + "/performances";
+// const BASE_DB_URL = import.meta.env.VITE_DB_URL + "/performances";
 
 const playApi = axios.create({ baseURL: BASE_URL });
-const playJsApi = axios.create({ baseURL: BASE_DB_URL });
 
 export const getData = async () => {
   try {
@@ -32,16 +31,34 @@ export const getGenreData = async (genre) => {
   return data;
 };
 
-export const getGenreAreaData = async (genre, area, start, end) => {
-  let url = `?_start=${start}&_end=${end}`;
-  if (genre !== "장르별") url += `&genrenm=${genre}`;
-  if (area !== "지역별") url += `&area=${area}`;
-  const { data } = await playJsApi.get(url);
-  return data;
+export const getGenreAreaData = async (genre, area, row, startDate, endDate) => {
+  try {
+    const { data } = await playApi.get("/", {
+      params: {
+        service: import.meta.env.VITE_KOPIS_KEY,
+        stdate: startDate,
+        eddate: endDate,
+        rows: row,
+        cpage: 1,
+        shcate: genre === "장르별" ? null : genre,
+        signgucode: area === "지역별" ? null : area,
+      },
+    });
+
+    const result = parseXMLToJSON(data).dbs;
+    if (result) {
+      return result.db;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching performance details:", error);
+    throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
+  }
 };
 
-export const searchGenreAreaData = async (searchValue, genre, area, start, end) => {
-  const allData = await getGenreAreaData(genre, area, start, end);
+export const searchGenreAreaData = async (searchValue, genre, area, row, startDate, endDate) => {
+  const allData = await getGenreAreaData(genre, area, row, startDate, endDate);
 
   const data = allData.filter((data) => {
     return String(data["prfnm"]).includes(searchValue);

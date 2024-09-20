@@ -16,13 +16,13 @@ const Category = () => {
   const [searchTerm, setSearchTerm] = useState(""); // 검색 버튼을 눌렀을 때의 값을 저장할 상태
   const [genre, setGenre] = useState(GENRE);
   const [area, setArea] = useState(AREA);
-  const [end, setEnd] = useState(50);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [row, setRow] = useState(50);
+  const [startDate, setStartDate] = useState("2024-09-23");
+  const [endDate, setEndDate] = useState("2024-09-23");
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [QUERY_KEY.category],
-    queryFn: () => searchGenreAreaData(searchTerm, genre, area, 0, end),
+    queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate, endDate),
     keepPreviousData: true,
   });
 
@@ -30,17 +30,33 @@ const Category = () => {
     setSearchTerm(searchValue);
   };
 
+  const handleStartDateChange = (e) => {
+    if (e.target.value > endDate) {
+      alert("기간은 시작일자가 종료일자보다 클 수 없습니다.");
+      return;
+    }
+    setStartDate(e.target.value);
+  };
+
+  const handleEndDateChange = (e) => {
+    if (e.target.value < startDate) {
+      alert("기간은 종료일자가 시작일자보다 작을 수 없습니다.");
+      return;
+    }
+    setEndDate(e.target.value);
+  };
+
   const handleCardClick = (play) => {
     navigate(`/detail/${play.mt20id}`);
   };
 
   const addList = () => {
-    setEnd(end + 50);
+    setRow(row + 50);
   };
 
   useEffect(() => {
     refetch();
-  }, [searchTerm, genre, area, end, refetch]);
+  }, [searchTerm, genre, area, row, startDate, endDate, refetch]);
 
   if (isLoading) {
     return <div>로딩중입니다...</div>;
@@ -57,8 +73,8 @@ const Category = () => {
         <button onClick={handleSearch}>검색</button>
       </div>
       <div>
-        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        <input type="date" value={startDate} onChange={handleStartDateChange} />
+        <input type="date" value={endDate} onChange={handleEndDateChange} />
       </div>
       <div>
         <CategorySelect state={area} setState={setArea} categoryName={AREA} codes={areaCodes} />
@@ -77,7 +93,7 @@ const Category = () => {
         ) : (
           <div>해당 공연이 없습니다.</div>
         )}
-        {data.length === end && <button onClick={addList}>더보기</button>}
+        {data.length === row && <button onClick={addList}>더보기</button>}
       </div>
     </div>
   );
