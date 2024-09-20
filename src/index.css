@@ -4,13 +4,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "SF_HambakSnow";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff")
-    format("woff");
+@font-face { /*2*/
+  font-family: '국립박물관문화재단클래식B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/국립박물관문화재단클래식B.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
+@font-face { /*1*/
+  font-family: 'SDKukdetopokki-Lt';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/SDKukdetopokki-aLt00.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face { /*4*/
+  font-family: 'HSSanTokki20-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face { /*5*/
+  font-family: 'TTHakgyoansimMulgyeolB';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMulgyeolB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 @font-face {
   font-family: "RIDIBatang";
@@ -71,7 +89,7 @@
 
     display: flex;
 
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
 
     background-color: #f8f4ff;

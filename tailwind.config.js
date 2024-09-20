@@ -10,6 +10,9 @@ export default {
         soft: "#F8F4FF", //연보라
         accent: "#FFFF33", // 노란색
       },
+      fontFamily: {
+        'home': ['TTHakgyoansimMulgyeolB', 'RIDIBatang', 'sans-serif']
+      }
     },
   },
   plugins: [],
