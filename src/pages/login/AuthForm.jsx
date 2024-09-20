@@ -23,7 +23,7 @@ const AuthForm = ({ mode, onSubmit }) => {
   return (
     <form
       onSubmit={hangleSubmit}
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center gap-4 p-5"
     >
       <input
         type="text"
@@ -32,7 +32,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         onChange={handleChange}
         placeholder="아이디"
         required
-        className="border-primary border rounded"
+        className="p-1 border-b border-solid border-primary border-0"
       />
       <input
         type="password"
@@ -41,28 +41,31 @@ const AuthForm = ({ mode, onSubmit }) => {
         onChange={handleChange}
         placeholder="비밀번호"
         required
+        className="p-1 border-b border-solid border-primary border-0"
       />
-      {/* {mode === "signup" && (
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="비밀번호확인"
-          required
-        />
-      )} */}
+
       {mode === "signup" && (
-        <input
-          type="text"
-          name="nickname"
-          value={formData.nickname}
-          onChange={handleChange}
-          placeholder="닉네임"
-          required
-        />
+        <>
+          {/* <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="비밀번호확인"
+            required
+          /> */}
+          <input
+            type="text"
+            name="nickname"
+            value={formData.nickname}
+            onChange={handleChange}
+            placeholder="닉네임"
+            required
+            className="p-1 border-b border-solid border-primary border-0"
+          />
+        </>
       )}
-      <button type="submit">{mode === "login" ? "로그인" : "회원가입"}</button>
+      <button type="submit" className="px-3 py-2 rounded-lg bg-soft cursor-pointer">{mode === "login" ? "로그인" : "회원가입"}</button>
     </form>
   );
 };

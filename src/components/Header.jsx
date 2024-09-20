@@ -8,27 +8,39 @@ const Header = () => {
   const currentLocation = useLocation().pathname;
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
     clearUser();
-    navigate("/login");
+    navigate("/");
   };
   return (
     <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white z-[1]">
       <div>
-        <LinkTo to="/" currentLocation={currentLocation}>홈</LinkTo>
+        <LinkTo to="/" currentLocation={currentLocation} className="">
+          커튼콜
+        </LinkTo>
       </div>
       <div className="flex items-start gap-4">
-        <LinkTo to="/community" currentLocation={currentLocation}>커뮤니티</LinkTo>
-        <LinkTo to="/category" currentLocation={currentLocation}>카테고리</LinkTo>
+        <LinkTo to="/community" currentLocation={currentLocation}>
+          커뮤니티
+        </LinkTo>
+        <LinkTo to="/category" currentLocation={currentLocation}>
+          카테고리
+        </LinkTo>
         {user ? (
           <>
-            <LinkTo to="/profile" currentLocation={currentLocation}>프로필</LinkTo>
+            <LinkTo to="/profile" currentLocation={currentLocation}>
+              프로필
+            </LinkTo>
             <div className="p-1">
-              <button className="m-auto" onClick={handleLogout}>로그아웃</button>
+              <button className="m-auto" onClick={handleLogout}>
+                로그아웃
+              </button>
             </div>
           </>
         ) : (
-          <LinkTo to="/login" currentLocation={currentLocation}>로그인</LinkTo>
+          <LinkTo to="/login" currentLocation={currentLocation}>
+            로그인
+          </LinkTo>
         )}
       </div>
     </header>
@@ -38,19 +50,31 @@ const Header = () => {
 export default Header;
 
 const LinkTo = ({ to, children, currentLocation }) => {
+  if (to === '/') {
+    return (
+    <div className="p-1 pt-0.5 pb-0.5 font-home text-3xl"> {/* border-b-[3px] border-solid border-primary border-0 */}
+        <Link to={to} className="m-auto">
+          {children}
+        </Link>
+      </div>
+    );
+  }
   if (currentLocation === to) {
     // 현위치에 밑줄 표시
     return (
       <div className="p-1 border-b-[3px] border-solid border-primary border-0">
-        <Link to={to} className="m-auto">{children}</Link>
+        <Link to={to} className="m-auto">
+          {children}
+        </Link>
       </div>
-    )
+    );
   } else {
     return (
       <div className="p-1">
-        <Link to={to} className="m-auto">{children}</Link>
+        <Link to={to} className="m-auto">
+          {children}
+        </Link>
       </div>
-    )
-
+    );
   }
-}
+};

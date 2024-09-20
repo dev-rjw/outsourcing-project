@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = async (formData) => {
     try {
       const loginData = await login(formData);
-      localStorage.setItem("accessToken", loginData.accessToken);
+      // localStorage.setItem("accessToken", loginData.accessToken);
 
       const userProfile = await getUserProfile(loginData.accessToken);
       setUser(userProfile);
@@ -22,12 +22,12 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col justify-center items-center">
-        <h1>로그인</h1>
+    <div className="w-full h-[calc(100%-67px-128px)] flex justify-center items-center">
+      <div className="w-80 h-60 flex flex-col justify-between items-center px-10 py-5 border border-solid border-gray-300 rounded-3xl">
+        {/* <h1>로그인</h1> */}
         <AuthForm mode="login" onSubmit={handleLogin} />
         <div>
-          <p>
+          <p className="text-xs">
             계정이 없으신가요? <Link to="/signup">회원가입</Link>
           </p>
         </div>
