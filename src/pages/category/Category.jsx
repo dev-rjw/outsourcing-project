@@ -11,6 +11,8 @@ const Category = () => {
   const [area, setArea] = useState("지역별");
   const [end, setEnd] = useState(50);
 
+  console.log(genre, area)
+
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["category"],
     queryFn: () => searchGenreAreaData(searchTerm, genre, area, 0, end),
@@ -25,9 +27,14 @@ const Category = () => {
     setEnd(end + 50);
   };
 
+  // useEffect(() => {
+  //   // refetch();
+  // }, [end]);
+
   useEffect(() => {
     refetch();
-  }, [searchTerm, genre, area, end, refetch]);
+    setEnd(50);
+  }, [searchTerm, genre, area]);
 
   if (isLoading) {
     return <div>로딩중입니다...</div>;
@@ -46,8 +53,8 @@ const Category = () => {
         <CategorySelect state={genre} setState={setGenre} categoryName="장르별" codes={genreCodes} />
       </div>
       <div className="grid grid-cols-5 w-[1000px]">
-        {data.length !== 0 ? (
-          data.map((element) => {
+        {data.slice(0,end).length !== 0 ? (
+          data.slice(0,end).map((element) => {
             return (
               <div className="flex flex-col items-center justify-start h-[300px] " key={element.id}>
                 <img src={element.poster} className="w-4/5 h-4/5" />
@@ -58,7 +65,7 @@ const Category = () => {
         ) : (
           <div>해당 공연이 없습니다.</div>
         )}
-        {data.length === end && <button onClick={addList}>더보기</button>}
+        {data.slice(0,end).length === end && <button onClick={() => {addList()}}>더보기</button>}
       </div>
     </div>
   );
