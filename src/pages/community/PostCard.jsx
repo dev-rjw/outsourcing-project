@@ -2,7 +2,7 @@ import { useState } from "react";
 import PostLike from "./PostLike";
 import PostCardPopup from "./PostCardPopup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletePost, updatePost } from "../../api/communityCardApi";
+import { updatePost } from "../../api/communityCardApi";
 
 const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -19,7 +19,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
   const queryClient = useQueryClient();
   const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
 
-  // 팝업 열기
   const openPopup = () => {
     if (!isEditing) {
       setIsPopupOpen(true);
@@ -31,7 +30,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
     setIsPopupOpen(false);
   };
 
-  // 유튜브 썸네일 URL 생성
   const getYoutubeThumbnail = (link) => {
     const videoIdMatch = link.match(
       /(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/i
@@ -42,13 +40,11 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
       : null;
   };
 
-  // 수정 모드 토글
   const toggleEdit = (e) => {
     e.stopPropagation();
     setIsEditing(!isEditing);
   };
 
-  // 게시물 업데이트
   const updatePostMutation = useMutation({
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
@@ -61,7 +57,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
     },
   });
 
-  // 업데이트
   const handleUpdate = () => {
     let formattedTag = updatedTag;
     if (!updatedTag.startsWith("#")) {
@@ -78,24 +73,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
     updatePostMutation.mutate(updatedPost);
   };
 
-  // 게시물 삭제
-  // const deletePostMutation = useMutation({
-  //   mutationFn: () => deletePost(post.id),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(["posts"]);
-  //   },
-  //   onError: (error) => {
-  //     console.error("게시글 삭제 error:", error);
-  //   },
-  // });
-
-  // 삭제
-  // const handleDelete = (e) => {
-  //   e.stopPropagation();
-  //   deletePostMutation.mutate();
-  // };
-
-  // 유튜브 링크 변경
   const handleYoutubeLinkChange = (e) => {
     const link = e.target.value;
     setUpdatedYoutubeLink(link);
@@ -104,7 +81,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
 
   return (
     <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10">
-      {/* 수정모드일때  */}
       {isEditing ? (
         <div>
           <div className="bg-gray-300 h-40 w-full object-cover rounded">
@@ -152,7 +128,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
           </div>
         </div>
       ) : (
-        // 수정모드가 아닐때
         <div className="relative w-full h-full rounded">
           <div className="cursor-pointer" onClick={openPopup}>
             {isPopupOpen && (

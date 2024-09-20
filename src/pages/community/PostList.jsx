@@ -48,36 +48,25 @@ const PostList = () => {
         }
       }
     }
-
     setList(newData);
   };
 
-  // 게시물 삭제 처리
   const handleDelete = async (id) => {
-    // console.log(sortedPosts);
-    // const updatedPosts = sortedPosts.filter((post) => post.id !== id);
-    // console.log(updatedPosts);
-    // queryClient.setQueryData(["communityPosts"], updatedPosts);
-
     await deletePost(id);
     await initList();
     alert("삭제 되었습니다.");
   };
 
-  // 좋아요 소팅
   const [sortOrder, setSortOrder] = useState("latest");
   const sortedPosts = [...list].sort((a, b) => {
     if (sortOrder === "latest") {
-      //  최신순
       return new Date(b.date) - new Date(a.date);
-      // 인기순
     } else if (sortOrder === "popular") {
       return b.likes - a.likes;
     }
     return 0;
   });
 
-  // 소팅 방식 변경
   const handleSortChange = (order) => {
     setSortOrder(order);
   };

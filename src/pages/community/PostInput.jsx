@@ -11,9 +11,6 @@ const PostInput = ({ onPostAdded, initList }) => {
   const [youtubeLink, setYoutubeLink] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [tag, setTag] = useState(null);
-
-  console.log(user);
-
   const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
   const queryClient = useQueryClient();
 
@@ -78,7 +75,6 @@ const PostInput = ({ onPostAdded, initList }) => {
       author: user.nickname,
       userId: user.id,
     };
-    // mutation.mutate(newPost);
     await createPost(newPost);
     await initList();
 
@@ -88,12 +84,10 @@ const PostInput = ({ onPostAdded, initList }) => {
     setTag("");
   };
 
-  // 유튜브 썸네일 가져오기
   const handleYoutubeLinkChange = (e) => {
     const link = e.target.value;
     setYoutubeLink(link);
 
-    // 유튜브 비디오 ID 추출
     const videoIdMatch = link.match(
       /(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/i
     );
