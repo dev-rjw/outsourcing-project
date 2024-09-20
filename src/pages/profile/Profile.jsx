@@ -1,10 +1,30 @@
 import { useState } from "react";
 import useUserStore from "../../zustand/useUserStore";
-import { updateProfile } from "../../api/auth";
+import { API_URL, updateProfile } from "../../api/auth";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const Profile = () => {
   const { user, setUser } = useUserStore();
   const [nickname, setNickname] = useState();
+
+  const getUserProfile = async () => {
+    const { data } = await axios.get(`${API_URL}/user`);
+    return data;
+  };
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["profiles"],
+    queryFn: getUserProfile,
+  });
+
+  if (isLoading) {
+    return <div>로딩중입니다...</div>;
+  }
+
+  if (isError) {
+    return <div>오류가 발생했습니다...</div>;
+  }
 
   const handleNicknameChange = async (e) => {
     setNickname(e.target.value);

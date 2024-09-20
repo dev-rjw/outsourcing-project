@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = async (formData) => {
     try {
       const loginData = await login(formData);
-      localStorage.setItem("accessToken", loginData.accessToken);
+      // localStorage.setItem("accessToken", loginData.accessToken);
 
       const userProfile = await getUserProfile(loginData.accessToken);
       setUser(userProfile);

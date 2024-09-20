@@ -42,25 +42,26 @@ const AuthForm = ({ mode, onSubmit }) => {
         placeholder="비밀번호"
         required
       />
-      {/* {mode === "signup" && (
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="비밀번호확인"
-          required
-        />
-      )} */}
+
       {mode === "signup" && (
-        <input
-          type="text"
-          name="nickname"
-          value={formData.nickname}
-          onChange={handleChange}
-          placeholder="닉네임"
-          required
-        />
+        <>
+          {/* <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="비밀번호확인"
+            required
+          /> */}
+          <input
+            type="text"
+            name="nickname"
+            value={formData.nickname}
+            onChange={handleChange}
+            placeholder="닉네임"
+            required
+          />
+        </>
       )}
       <button type="submit">{mode === "login" ? "로그인" : "회원가입"}</button>
     </form>
