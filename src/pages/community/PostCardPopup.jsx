@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePost } from "../../api/communityCardApi";
+import useUserStore from "../../zustand/useUserStore";
 
 const PostCardPopup = ({ post, onClose, onUpdate }) => {
+  const { user } = useUserStore();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isEditing, setIsEditing] = useState(null);
@@ -68,6 +70,8 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
       const newComment = {
         id: Date.now(),
         text: comment,
+        userId: user.id,
+        nickname: user.nickname,
       };
 
       const updatedComments = [...comments, newComment];
@@ -184,25 +188,28 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
                   </button>
                 </div>
               ) : (
-                // 댓글 표시
+                // 댓글
                 <div className="flex justify-between items-center">
                   <p className="text-gray-600">{comment.text}</p>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() =>
-                        handleEditComment(comment.id, comment.text)
-                      }
-                      className="softBtn text-xs"
-                    >
-                      수정
-                    </button>
-                    <button
-                      onClick={() => handleDeleteComment(comment.id)}
-                      className="softBtn text-xs"
-                    >
-                      삭제
-                    </button>
-                  </div>
+
+                  {comment.userId === user.id && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() =>
+                          handleEditComment(comment.id, comment.text)
+                        }
+                        className="softBtn text-xs"
+                      >
+                        수정
+                      </button>
+                      <button
+                        onClick={() => handleDeleteComment(comment.id)}
+                        className="softBtn text-xs"
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

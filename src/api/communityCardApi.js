@@ -6,7 +6,7 @@ export const fetchPosts = async () => {
     const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to fetch posts");
+    throw new Error("error: fetchPosts");
   }
 };
 
@@ -16,7 +16,7 @@ export const createPost = async (post) => {
     const response = await axios.post(API_URL, post);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to create post");
+    throw new Error("error: createPost");
   }
 };
 
@@ -26,17 +26,7 @@ export const updatePost = async (id, updatedPost) => {
     const response = await axios.put(`${API_URL}/${id}`, updatedPost);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to update post");
-  }
-};
-
-//좋아요
-export const updateLike = async (id, updatedLike) => {
-  try {
-    const response = await axios.patch(`${API_URL}/${id}`, updatedLike);
-    return response.data;
-  } catch (error) {
-    throw new Error("Failed to update likes");
+    throw new Error("error: updatePost");
   }
 };
 
@@ -46,6 +36,6 @@ export const deletePost = async (id) => {
     const response = await axios.delete(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error("Failed to delete post");
+    throw new Error("error: deletePost");
   }
 };

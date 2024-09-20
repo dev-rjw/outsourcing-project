@@ -13015,29 +13015,26 @@
     },
     {
       "id": "4b00",
-      "content": "33ㄱㄱㄷㄱㅈㄱㄱ33ㄷㄹ",
+      "content": "33ㄱㄱㄷㄱㅈㄱㄱ33ㄷㄹㅍㄹㄹㄹㅇㄷㄷ",
       "youtubeLink": "https://www.youtube.com/watch?v=y8BwcNzLals",
       "thumbnailUrl": "https://img.youtube.com/vi/y8BwcNzLals/maxresdefault.jpg",
       "tag": "#음악",
-      "date": "2024-09-19T05:53:52.415Z",
+      "date": "2024-09-19T11:58:54.042Z",
       "likes": 0,
       "comments": [
         {
           "id": 1726725219158,
           "text": "2ㄱㄱㄱ"
+        },
+        {
+          "id": 1726811284392,
+          "text": "ㅇㅇㅇ"
+        },
+        {
+          "id": 1726811288762,
+          "text": "ㄷㄷㄷ"
         }
       ],
-      "author": "닉네임"
-    },
-    {
-      "id": "0f34",
-      "content": "ㄱㄷㄷㄱㅈ",
-      "youtubeLink": "",
-      "thumbnailUrl": null,
-      "tag": "#기대",
-      "date": "2024-09-19T06:06:30.254Z",
-      "likes": 0,
-      "comments": [],
       "author": "닉네임"
     },
     {
@@ -13063,6 +13060,139 @@
         }
       ],
       "author": "닉네임"
+    },
+    {
+      "id": "6ac6",
+      "content": "좋아요 테스트 3333ㅅㅅㅅㅅㅅㄱㄱㄱㄱ",
+      "youtubeLink": "https://www.youtube.com/watch?v=PQ8ZOEHEcP8",
+      "thumbnailUrl": "https://img.youtube.com/vi/PQ8ZOEHEcP8/maxresdefault.jpg",
+      "tag": "#기타",
+      "date": "2024-09-19T09:19:11.893Z",
+      "likes": 0,
+      "comments": [],
+      "author": "닉네임"
+    },
+    {
+      "id": "62e3",
+      "content": "비오는날 듣기 좋은 노랭",
+      "youtubeLink": "https://www.youtube.com/watch?v=Gwaf1ciXs28",
+      "thumbnailUrl": "https://img.youtube.com/vi/Gwaf1ciXs28/maxresdefault.jpg",
+      "tag": "#음악",
+      "date": "2024-09-20T05:47:35.086Z",
+      "likes": 0,
+      "comments": []
+    },
+    {
+      "id": "14d2",
+      "content": "pppfffffggggㄹㄹㄹㄹ",
+      "youtubeLink": "https://www.youtube.com/watch?v=8dYNg7bmS5c",
+      "thumbnailUrl": "https://img.youtube.com/vi/8dYNg7bmS5c/maxresdefault.jpg",
+      "tag": "#기대",
+      "date": "2024-09-20T06:54:18.948Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1726814196237,
+          "text": "ㄷㄷㄷ",
+          "userId": "kkk@kkk.com",
+          "nickname": "kkk"
+        },
+        {
+          "id": 1726814350265,
+          "text": "eeee",
+          "userId": "ppp@ppp.com",
+          "nickname": "ppp"
+        }
+      ],
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "fbfc",
+      "content": "ㅇㅇㅇㅇ123adsf",
+      "youtubeLink": "https://www.youtube.com/watch?v=luNdaCdoqMU",
+      "thumbnailUrl": "https://img.youtube.com/vi/luNdaCdoqMU/maxresdefault.jpg",
+      "tag": "#꿀팁",
+      "date": "2024-09-20T08:43:37.412Z",
+      "likes": 0,
+      "comments": [],
+      "userId": "kkk@kkk.com"
+    }
+  ],
+  "likes": [
+    {
+      "id": 1,
+      "postId": "c278",
+      "userId": "user1"
+    },
+    {
+      "id": "720a",
+      "postId": "c278",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "6931",
+      "postId": "374d",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "6c5c",
+      "postId": "6ac6",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "351e",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "91e5",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "3cc9",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "c770",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "5e40",
+      "postId": "14d2",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "94cc",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "b9ca",
+      "postId": "5618",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "c05a",
+      "postId": "a5c5",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "f3da",
+      "postId": "c0b3",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "67f4",
+      "postId": "40f9",
+      "userId": "kkk@kkk.com"
+    },
+    {
+      "id": "10b9",
+      "postId": "14d2",
+      "userId": "kkk@kkk.com"
     }
   ],
   "comments": [
