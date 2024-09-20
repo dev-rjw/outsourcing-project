@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
+import { useNavigate } from "react-router-dom";
 
-const PostInput = ({ onPostAdded }) => {
+const PostInput = ({ onPostAdded, initList }) => {
+  const navigate = useNavigate();
   const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
@@ -16,7 +18,24 @@ const PostInput = ({ onPostAdded }) => {
   const queryClient = useQueryClient();
 
   if (!user) {
-    return <p>로그인 후 글을 작성할 수 있습니다.</p>;
+    return (
+      <div className="max-w-100 max-h-100 bg-gray-50 border-2 rounded border-primary m-10 p-4">
+        <div className="bg-gray-200 h-40 w-full rounded flex items-center justify-center">
+          <p className="text-gray-500 text-center">
+            로그인 후 <br />
+            글을 작성할 수 있습니다.
+          </p>
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => navigate("/login")}
+            className="btn w-full my-20"
+          >
+            로그인하러가기
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const mutation = useMutation({
@@ -35,7 +54,7 @@ const PostInput = ({ onPostAdded }) => {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!content.trim()) {
@@ -56,10 +75,17 @@ const PostInput = ({ onPostAdded }) => {
       date: new Date().toISOString(),
       likes: 0,
       comments: [],
-      author: user.username,
+      author: user.nickname,
       userId: user.id,
     };
-    mutation.mutate(newPost);
+    // mutation.mutate(newPost);
+    await createPost(newPost);
+    await initList();
+
+    setContent("");
+    setYoutubeLink("");
+    setThumbnailUrl(null);
+    setTag("");
   };
 
   // 유튜브 썸네일 가져오기

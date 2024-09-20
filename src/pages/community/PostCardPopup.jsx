@@ -142,7 +142,7 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
         )}
 
         <div className="flex justify-start">
-          <p className="text-black text-sm m-2"> 닉네임</p>
+          <p className="text-black text-sm m-2"> {post.author}</p>
           <p className="text-gray-300 text-xs font-light flex justify-start items-center ">
             {new Date(post.date).toLocaleDateString()}
           </p>

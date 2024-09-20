@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PostInput from "./postInput";
 import PostCard from "./postCard";
 import { useQueryClient } from "@tanstack/react-query";
-import { fetchPosts } from "../../api/communityCardApi";
+import { deletePost, fetchPosts } from "../../api/communityCardApi";
 import FilterBar from "./FilterBar";
 import { getUserProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
@@ -39,6 +39,7 @@ const PostList = () => {
     let newData = [];
 
     for (let i = 0; i < data.length; i++) {
+      data[i].likes = 0;
       newData.push(data[i]);
       for (let j = 0; j < list.length; j++) {
         if (newData[i].id == list[j].postId) {
@@ -52,9 +53,14 @@ const PostList = () => {
   };
 
   // 게시물 삭제 처리
-  const handleDelete = (id) => {
-    const updatedPosts = posts.filter((post) => post.id !== id);
-    queryClient.setQueryData(["posts"], updatedPosts);
+  const handleDelete = async (id) => {
+    // console.log(sortedPosts);
+    // const updatedPosts = sortedPosts.filter((post) => post.id !== id);
+    // console.log(updatedPosts);
+    // queryClient.setQueryData(["communityPosts"], updatedPosts);
+
+    await deletePost(id);
+    await initList();
     alert("삭제 되었습니다.");
   };
 
@@ -78,13 +84,19 @@ const PostList = () => {
 
   return (
     <div>
-      <h2 className="m-10 font-bold text-3xl">
-        YOUTUBE로 공연 꿀팁과 후기를 공유하고 이야기해봐요!
-      </h2>
+      {user?.nickname && (
+        <h2 className="m-10 font-bold text-3xl">
+          <span className="text-3xl">{user?.nickname}님, </span>
+          <span className="text-xl">
+            YOUTUBE로 공연 꿀팁과 후기를 공유하고 이야기해봐요!
+          </span>
+        </h2>
+      )}
       <FilterBar onSortChange={handleSortChange} currentSortOrder={sortOrder} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <PostInput
+          initList={initList}
           onPostAdded={() => queryClient.invalidateQueries(["posts"])}
         />
         {sortedPosts.map((post) => (

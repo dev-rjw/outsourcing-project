@@ -4,7 +4,7 @@ import PostCardPopup from "./PostCardPopup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePost, updatePost } from "../../api/communityCardApi";
 
-const PostCard = ({ post, onUpdate, currentUserId }) => {
+const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(post.content);
   const [updatedYoutubeLink, setUpdatedYoutubeLink] = useState(
@@ -61,17 +61,6 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
     },
   });
 
-  // 게시물 삭제
-  const deletePostMutation = useMutation({
-    mutationFn: () => deletePost(post.id),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["posts"]);
-    },
-    onError: (error) => {
-      console.error("게시글 삭제 error:", error);
-    },
-  });
-
   // 업데이트
   const handleUpdate = () => {
     let formattedTag = updatedTag;
@@ -89,11 +78,22 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
     updatePostMutation.mutate(updatedPost);
   };
 
+  // 게시물 삭제
+  // const deletePostMutation = useMutation({
+  //   mutationFn: () => deletePost(post.id),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["posts"]);
+  //   },
+  //   onError: (error) => {
+  //     console.error("게시글 삭제 error:", error);
+  //   },
+  // });
+
   // 삭제
-  const handleDelete = (e) => {
-    e.stopPropagation();
-    deletePostMutation.mutate();
-  };
+  // const handleDelete = (e) => {
+  //   e.stopPropagation();
+  //   deletePostMutation.mutate();
+  // };
 
   // 유튜브 링크 변경
   const handleYoutubeLinkChange = (e) => {
@@ -196,13 +196,19 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
             </p>
 
             <div className="flex justify-between items-end py-4 mx-4 my-2">
-              <p className="text-left text-primary">{post.tag}</p>
+              <p className="text-left text-primary">{"#" + updatedTag}</p>
               {currentUserId === post.userId && (
                 <div className="flex gap-4 justify-end">
                   <button onClick={toggleEdit} className="softBtn">
                     수정
                   </button>
-                  <button onClick={handleDelete} className="softBtn">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(post.id);
+                    }}
+                    className="softBtn"
+                  >
                     삭제
                   </button>
                 </div>
