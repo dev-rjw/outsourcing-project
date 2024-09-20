@@ -4,6 +4,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "SF_HambakSnow";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_HambakSnow.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RIDIBatang";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
+  html {
+    font-family: "RIDIBatang", "sans-serif";
+  }
+}
+
 @layer components {
   .softBtn {
     @apply text-gray-300 hover:text-primary transition duration-300 cursor-pointer;
@@ -52,7 +74,7 @@
     border-radius: 20px;
     overflow: hidden;
 
-    background-color: #F8F4FF;
+    background-color: #f8f4ff;
   }
   .main-embla .card img {
     width: 60%;
@@ -72,7 +94,8 @@
 
     padding: 10px;
   }
-  .main-embla h3,p {
+  .main-embla h3,
+  p {
     overflow-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -86,7 +109,9 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
- width: 100%;
- height: 100%;
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
 }
