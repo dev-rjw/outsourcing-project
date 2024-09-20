@@ -50,17 +50,17 @@ const Header = () => {
 export default Header;
 
 const LinkTo = ({ to, children, currentLocation }) => {
+  if (to === '/') {
+    return (
+    <div className="p-1 pt-0.5 pb-0.5 font-home text-3xl"> {/* border-b-[3px] border-solid border-primary border-0 */}
+        <Link to={to} className="m-auto">
+          {children}
+        </Link>
+      </div>
+    );
+  }
   if (currentLocation === to) {
     // 현위치에 밑줄 표시
-    if (to === '/') {
-      return (
-        <div className="p-1 pt-0.5 pb-0.5 border-b-[3px] border-solid border-primary border-0 font-home text-lg">
-          <Link to={to} className="m-auto">
-            {children}
-          </Link>
-        </div>
-      );
-    }
     return (
       <div className="p-1 border-b-[3px] border-solid border-primary border-0">
         <Link to={to} className="m-auto">
@@ -69,16 +69,6 @@ const LinkTo = ({ to, children, currentLocation }) => {
       </div>
     );
   } else {
-    if (to === '/') {
-      return (
-        <div className="p-1 pt-0.5 font-home text-lg">
-          <Link to={to} className="m-auto">
-            {children}
-          </Link>
-        </div>
-      );
-
-    }
     return (
       <div className="p-1">
         <Link to={to} className="m-auto">
