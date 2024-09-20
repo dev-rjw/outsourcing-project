@@ -15,11 +15,11 @@ const MainPage = () => {
     queryFn: getData,
   });
 
-  console.log(mainData);
+  // console.log(mainData);
 
   if (isPending) {
     return (
-      <div className="w-full h-[800px] flex items-center">
+      <div className="w-full h-[calc(100%-67px-128px)] flex items-center">
         <p className="m-auto">로딩중입니다.</p>
       </div>
     );
@@ -27,7 +27,7 @@ const MainPage = () => {
 
   if (isError) {
     return (
-      <div className="w-full h-[800px] flex items-center">
+      <div className="w-full h-[calc(100%-67px-128px)] flex items-center">
         <p className="m-auto">데이터 조회 중 오류가 발생했습니다.</p>
       </div>
     );
