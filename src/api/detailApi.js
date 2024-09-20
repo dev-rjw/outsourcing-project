@@ -33,8 +33,7 @@ export const fetchMapData = async (placeId) => {
 };
 
 // 상세페이지 댓글 작성 기능
-
-const jsonUrl = "http://localhost:5000/comments";
+const jsonUrl = import.meta.env.VITE_DB_URL + "/comments";
 const commentApi = axios.create({ baseURL: jsonUrl });
 
 // 댓글 추가
