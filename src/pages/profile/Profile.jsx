@@ -53,15 +53,15 @@ const Profile = () => {
   };
   return (
     <div>
+      <h1>My Page</h1>
       <div>
-        <h1>My Page</h1>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <div>
             <label>닉네임</label>
             <input value={nickname} onChange={handleNicknameChange} />
           </div>
           <button type="submit">프로필 업데이트</button>
-        </form>
+        </form> */}
       </div>
     </div>
   );
