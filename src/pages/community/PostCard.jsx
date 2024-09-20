@@ -172,11 +172,10 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
                 postId={post.id}
               />
             </div>
-
             <div className="bg-gray-300 h-40 w-full object-cover rounded">
               {post.youtubeLink ? (
                 <img
-                  src={getYoutubeThumbnail(post.youtubeLink)}
+                  src={getYoutubeThumbnail(updatedYoutubeLink)}
                   alt="YouTube Thumbnail"
                   className="h-full w-full object-cover rounded"
                 />
@@ -186,7 +185,6 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
                 </div>
               )}
             </div>
-
             <div className="flex justify-start">
               <p className="text-black text-sm ml-4 mt-2">{post.author}</p>
               <p className="text-gray-300 text-xs font-light flex justify-start items-center ml-2 mt-2">
@@ -194,12 +192,12 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
               </p>
             </div>
             <p className="h-[4rem] p-4 overflow-hidden [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] [text-overflow:ellipsis]">
-              {post.content}
+              {updatedContent}
             </p>
 
-            {currentUserId === post.userId && (
-              <div className="flex justify-between items-end py-4 mx-4 my-2">
-                <p className="text-left text-primary">{post.tag}</p>
+            <div className="flex justify-between items-end py-4 mx-4 my-2">
+              <p className="text-left text-primary">{post.tag}</p>
+              {currentUserId === post.userId && (
                 <div className="flex gap-4 justify-end">
                   <button onClick={toggleEdit} className="softBtn">
                     수정
@@ -208,8 +206,8 @@ const PostCard = ({ post, onUpdate, currentUserId }) => {
                     삭제
                   </button>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

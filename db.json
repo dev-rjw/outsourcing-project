@@ -13083,63 +13083,6 @@
       "comments": []
     },
     {
-      "id": "c278",
-      "content": "345555",
-      "youtubeLink": "https://www.youtube.com/watch?v=p05MFqeNC18",
-      "thumbnailUrl": "https://img.youtube.com/vi/p05MFqeNC18/maxresdefault.jpg",
-      "tag": "#음악",
-      "date": "2024-09-20T06:04:32.273Z",
-      "likes": 0,
-      "comments": [
-        {
-          "id": 1726811585476,
-          "text": "eee"
-        },
-        {
-          "id": 1726814326915,
-          "text": "ㄷㄷㄷㄷ",
-          "userId": "kkk@kkk.com",
-          "nickname": "kkk"
-        },
-        {
-          "id": 1726814353849,
-          "text": "rrrrrr",
-          "userId": "ppp@ppp.com",
-          "nickname": "ppp"
-        }
-      ],
-      "userId": "kkk@kkk.com"
-    },
-    {
-      "id": "a5c5",
-      "content": "ㅏㅏㅏㄱㄱ",
-      "youtubeLink": "https://www.youtube.com/watch?v=RYVGAzcaE-I",
-      "thumbnailUrl": "https://img.youtube.com/vi/RYVGAzcaE-I/maxresdefault.jpg",
-      "tag": "#후기",
-      "date": "2024-09-20T06:06:13.021Z",
-      "likes": 0,
-      "comments": [
-        {
-          "id": 1726814201824,
-          "text": "ㄹㅎㅇㅎㅇㅎㄴ",
-          "userId": "kkk@kkk.com",
-          "nickname": "kkk"
-        }
-      ],
-      "userId": "kkk@kkk.com"
-    },
-    {
-      "id": "5618",
-      "content": "닉엥니눗ㅅㅅ",
-      "youtubeLink": "https://www.youtube.com/watch?v=aHTpHcokyX8&t=4642s",
-      "thumbnailUrl": "https://img.youtube.com/vi/aHTpHcokyX8/maxresdefault.jpg",
-      "tag": "#후기",
-      "date": "2024-09-20T06:13:31.104Z",
-      "likes": 0,
-      "comments": [],
-      "userId": "kkk@kkk.com"
-    },
-    {
       "id": "14d2",
       "content": "pppfffffggggㄹㄹㄹㄹ",
       "youtubeLink": "https://www.youtube.com/watch?v=8dYNg7bmS5c",
@@ -13162,6 +13105,17 @@
         }
       ],
       "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "fbfc",
+      "content": "ㅇㅇㅇㅇ123adsf",
+      "youtubeLink": "https://www.youtube.com/watch?v=luNdaCdoqMU",
+      "thumbnailUrl": "https://img.youtube.com/vi/luNdaCdoqMU/maxresdefault.jpg",
+      "tag": "#꿀팁",
+      "date": "2024-09-20T08:43:37.412Z",
+      "likes": 0,
+      "comments": [],
+      "userId": "kkk@kkk.com"
     }
   ],
   "likes": [
@@ -13229,6 +13183,16 @@
       "id": "f3da",
       "postId": "c0b3",
       "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "67f4",
+      "postId": "40f9",
+      "userId": "kkk@kkk.com"
+    },
+    {
+      "id": "10b9",
+      "postId": "14d2",
+      "userId": "kkk@kkk.com"
     }
   ],
   "comments": [
