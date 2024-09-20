@@ -10,7 +10,6 @@ export const fetchPosts = async () => {
   }
 };
 
-// 추가
 export const createPost = async (post) => {
   try {
     const response = await axios.post(API_URL, post);
@@ -20,7 +19,6 @@ export const createPost = async (post) => {
   }
 };
 
-//수정
 export const updatePost = async (id, updatedPost) => {
   try {
     const response = await axios.put(`${API_URL}/${id}`, updatedPost);
@@ -30,7 +28,6 @@ export const updatePost = async (id, updatedPost) => {
   }
 };
 
-//삭제
 export const deletePost = async (id) => {
   try {
     const response = await axios.delete(`${API_URL}/${id}`);
