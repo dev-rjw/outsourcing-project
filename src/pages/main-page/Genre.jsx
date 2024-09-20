@@ -21,7 +21,7 @@ const Genre = ({data}) => {
             ))
           }
         </div>
-        <div className='flex mx-auto'>
+        <div className='flex mx-auto mb-5'>
           {
             genreArray.slice(5).map((item, idx) => (
               <GenreButton idx={idx + 5} clicked={clicked} setClicked={setClicked} key={item}>
