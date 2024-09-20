@@ -16,7 +16,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     setComments(post.comments || []);
   }, [post.comments]);
 
-  // 댓글 추가
   const addCommentMutation = useMutation({
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
@@ -31,7 +30,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     },
   });
 
-  // 댓글 삭제
   const deleteCommentMutation = useMutation({
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
@@ -47,7 +45,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     },
   });
 
-  // 댓글 업데이트
   const updateCommentMutation = useMutation({
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
@@ -64,7 +61,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     },
   });
 
-  // 댓글 추가
   const handleAddComment = () => {
     if (comment.trim()) {
       const newComment = {
@@ -82,7 +78,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     }
   };
 
-  // 댓글 삭제
   const handleDeleteComment = (commentId) => {
     const updatedComments = comments.filter(
       (comment) => comment.id !== commentId
@@ -92,13 +87,11 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     deleteCommentMutation.mutate(updatedPost);
   };
 
-  // 댓글 수정 모드
   const handleEditComment = (id, text) => {
     setIsEditing(id);
     setUpdatedComment(text);
   };
 
-  // 댓글 수정 완료
   const handleUpdateComment = () => {
     const updatedComments = comments.map((comment) =>
       comment.id === isEditing ? { ...comment, text: updatedComment } : comment
@@ -108,7 +101,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     updateCommentMutation.mutate(updatedPost);
   };
 
-  // 유튜브 썸네일 URL 생성
   const getYoutubeThumbnail = (link) => {
     const videoId = link.split("v=")[1]?.split("&")[0];
     return videoId
@@ -142,7 +134,7 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
         )}
 
         <div className="flex justify-start">
-          <p className="text-black text-sm m-2"> 닉네임</p>
+          <p className="text-black text-sm m-2"> {post.author}</p>
           <p className="text-gray-300 text-xs font-light flex justify-start items-center ">
             {new Date(post.date).toLocaleDateString()}
           </p>
@@ -153,7 +145,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
           <p className="text-left text-primary">{post.tag}</p>
         </div>
 
-        {/* 댓글 */}
         <hr className="border-solid border-gray-100 mb-3 " />
         <div className="flex justify-between ">
           <input
@@ -172,7 +163,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
           {comments.map((comment) => (
             <div key={comment.id} className="mt-2">
               {isEditing === comment.id ? (
-                // 댓글 수정 모드
                 <div className="flex justify-between items-center">
                   <input
                     type="text"
@@ -188,7 +178,6 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
                   </button>
                 </div>
               ) : (
-                // 댓글
                 <div className="flex justify-between items-center">
                   <p className="text-gray-600">{comment.text}</p>
 
