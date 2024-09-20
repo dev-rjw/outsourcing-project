@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://moneyfulpublicpolicy.co.kr";
+export const API_URL = "https://moneyfulpublicpolicy.co.kr";
 
 export const register = async (userData) => {
   const response = await axios.post(`${API_URL}/register`, userData);
@@ -25,7 +25,6 @@ export const updateProfile = async (formData, token) => {
   const response = await axios.patch(`${API_URL}/profile`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data",
     },
   });
   return response.data;
