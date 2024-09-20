@@ -32,7 +32,7 @@ const Header = () => {
               프로필
             </LinkTo>
             <div className="p-1">
-              <button className="m-auto" onClick={handleLogout}>
+              <button className="m-auto cursor-pointer" onClick={handleLogout}>
                 로그아웃
               </button>
             </div>
@@ -50,9 +50,11 @@ const Header = () => {
 export default Header;
 
 const LinkTo = ({ to, children, currentLocation }) => {
-  if (to === '/') {
+  if (to === "/") {
     return (
-    <div className="p-1 pt-0.5 pb-0.5 font-home text-3xl"> {/* border-b-[3px] border-solid border-primary border-0 */}
+      <div className="p-1 pt-0.5 pb-0.5 font-home text-3xl">
+        {" "}
+        {/* border-b-[3px] border-solid border-primary border-0 */}
         <Link to={to} className="m-auto">
           {children}
         </Link>
