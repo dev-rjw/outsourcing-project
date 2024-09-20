@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../api/communityCardApi";
+import useUserStore from "../../zustand/useUserStore";
 
 const PostInput = ({ onPostAdded }) => {
+  const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [tag, setTag] = useState(null);
 
+  console.log(user);
+
   const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
   const queryClient = useQueryClient();
+
+  if (!user) {
+    return <p>로그인 후 글을 작성할 수 있습니다.</p>;
+  }
 
   const mutation = useMutation({
     mutationFn: createPost,
@@ -48,7 +56,8 @@ const PostInput = ({ onPostAdded }) => {
       date: new Date().toISOString(),
       likes: 0,
       comments: [],
-      author: "닉네임",
+      author: user.username,
+      userId: user.id,
     };
     mutation.mutate(newPost);
   };
@@ -97,7 +106,7 @@ const PostInput = ({ onPostAdded }) => {
             </div>
           )}
         </div>
-        <p className="text-black text-sm m-3"> 닉네임</p>
+        <p className="text-black text-sm m-3">{user.username}</p>
         <textarea
           className="w-full h-20 bg-white border-solid border-gray-300 p-2 cursor-text"
           placeholder="내용을 입력하세요"

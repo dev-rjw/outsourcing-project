@@ -22,7 +22,12 @@ const Category = () => {
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [QUERY_KEY.category],
+<<<<<<< HEAD
     queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate.replaceAll("-", ""), endDate.replaceAll("-", "")),
+=======
+    queryFn: () =>
+      searchGenreAreaData(searchTerm, genre, area, row, startDate, endDate),
+>>>>>>> 0f862a4bdd3b34a20e929c392304f8916782b874
     keepPreviousData: true,
   });
 
@@ -77,8 +82,17 @@ const Category = () => {
   return (
     <div className="max-w-screen-lg mx-auto p-6">
       <div className="flex items-center justify-between mb-6">
-        <input type="text" placeholder="공연 검색" className="border border-pulple-300 rounded-lg px-4 py-2 w-2/3 focus:outline-none focus:ring-2 focus:ring-purple-500" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
-        <button onClick={handleSearch} className="ml-4 bg-primary text-white px-6 py-2 rounded-lg transition-all cursor-pointer">
+        <input
+          type="text"
+          placeholder="공연 검색"
+          className="border border-pulple-300 rounded-lg px-4 py-2 w-2/3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+        <button
+          onClick={handleSearch}
+          className="ml-4 bg-primary text-white px-6 py-2 rounded-lg transition-all cursor-pointer"
+        >
           검색
         </button>
       </div>
@@ -96,27 +110,52 @@ const Category = () => {
         </div>
 
         <div className="flex space-x-4">
-          <CategorySelect state={area} setState={setArea} categoryName={AREA} codes={areaCodes} />
-          <CategorySelect state={genre} setState={setGenre} categoryName={GENRE} codes={genreCodes} />
+          <CategorySelect
+            state={area}
+            setState={setArea}
+            categoryName={AREA}
+            codes={areaCodes}
+          />
+          <CategorySelect
+            state={genre}
+            setState={setGenre}
+            categoryName={GENRE}
+            codes={genreCodes}
+          />
         </div>
       </div>
 
       <div className="grid grid-cols-5 gap-6">
         {data.length !== 0 ? (
           data.map((element) => (
-            <div className="flex flex-col items-center justify-start cursor-pointer transition-transform transform hover:scale-105" key={element.mt20id} onClick={() => handleCardClick(element)}>
-              <img src={element.poster} alt={element.prfnm} className="w-full h-60 object-cover rounded-lg mb-2" />
-              <div className="text-center text-lg font-medium">{element.prfnm}</div>
+            <div
+              className="flex flex-col items-center justify-start cursor-pointer transition-transform transform hover:scale-105"
+              key={element.mt20id}
+              onClick={() => handleCardClick(element)}
+            >
+              <img
+                src={element.poster}
+                alt={element.prfnm}
+                className="w-full h-60 object-cover rounded-lg mb-2"
+              />
+              <div className="text-center text-lg font-medium">
+                {element.prfnm}
+              </div>
             </div>
           ))
         ) : (
-          <div className="col-span-5 text-center text-gray-500">해당 공연이 없습니다.</div>
+          <div className="col-span-5 text-center text-gray-500">
+            해당 공연이 없습니다.
+          </div>
         )}
       </div>
 
       {data.length === row && (
         <div className="flex justify-center mt-8">
-          <button onClick={addList} className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-200 transition-all cursor-pointer">
+          <button
+            onClick={addList}
+            className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-gray-200 transition-all cursor-pointer"
+          >
             더보기
           </button>
         </div>
