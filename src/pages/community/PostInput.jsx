@@ -2,21 +2,37 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
+import { useNavigate } from "react-router-dom";
 
-const PostInput = ({ onPostAdded }) => {
+const PostInput = ({ onPostAdded, initList }) => {
+  const navigate = useNavigate();
   const { user } = useUserStore();
   const [content, setContent] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [tag, setTag] = useState(null);
-
-  console.log(user);
-
   const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
   const queryClient = useQueryClient();
 
   if (!user) {
-    return <p>로그인 후 글을 작성할 수 있습니다.</p>;
+    return (
+      <div className="max-w-100 max-h-100 bg-gray-50 border-2 rounded border-primary m-10 p-4">
+        <div className="bg-gray-200 h-40 w-full rounded flex items-center justify-center">
+          <p className="text-gray-500 text-center">
+            로그인 후 <br />
+            글을 작성할 수 있습니다.
+          </p>
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            onClick={() => navigate("/login")}
+            className="btn w-full my-20"
+          >
+            로그인하러가기
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const mutation = useMutation({
@@ -35,7 +51,7 @@ const PostInput = ({ onPostAdded }) => {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!content.trim()) {
@@ -56,18 +72,22 @@ const PostInput = ({ onPostAdded }) => {
       date: new Date().toISOString(),
       likes: 0,
       comments: [],
-      author: user.username,
+      author: user.nickname,
       userId: user.id,
     };
-    mutation.mutate(newPost);
+    await createPost(newPost);
+    await initList();
+
+    setContent("");
+    setYoutubeLink("");
+    setThumbnailUrl(null);
+    setTag("");
   };
 
-  // 유튜브 썸네일 가져오기
   const handleYoutubeLinkChange = (e) => {
     const link = e.target.value;
     setYoutubeLink(link);
 
-    // 유튜브 비디오 ID 추출
     const videoIdMatch = link.match(
       /(?:youtube\.com\/.*v=|youtu\.be\/)([^&]+)/i
     );
