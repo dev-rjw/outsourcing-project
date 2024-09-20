@@ -1,21 +1,23 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { getUserProfile, updateProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
-import { API_URL, updateProfile } from "../../api/auth";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 
 const Profile = () => {
+  const queryClient = useQueryClient();
   const { user, setUser } = useUserStore();
   const [nickname, setNickname] = useState();
-
-  const getUserProfile = async () => {
-    const { data } = await axios.get(`${API_URL}/user`);
-    return data;
-  };
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["profiles"],
     queryFn: getUserProfile,
+  });
+
+  const mutation = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["profiles"]);
+    },
   });
 
   if (isLoading) {
