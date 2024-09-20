@@ -4,18 +4,19 @@ import { getDateString, parseXMLToJSON } from "../utils/utils";
 
 // KOPIS 관련
 const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
-// const BASE_DB_URL = import.meta.env.VITE_DB_URL + "/performances";
+const apiKey = import.meta.env.VITE_KOPIS_KEY;
 
 const playApi = axios.create({ baseURL: BASE_URL });
 
+// 오늘 공연 중인 데이터 등록순으로 최대 500개 불러오기
 export const getData = async () => {
   try {
     const { data } = await playApi.get("/", {
       params: {
-        service: import.meta.env.VITE_KOPIS_KEY,
+        service: apiKey,
         stdate: getDateString(),
         eddate: getDateString(),
-        rows: 100,
+        rows: 500,
         cpage: 1,
       },
     });
@@ -26,16 +27,25 @@ export const getData = async () => {
   }
 };
 
+// 장르별로 처음 5개 불러오기
 export const getGenreData = async (genre) => {
   const { data } = await playApi.get(`?genrenm=${genre}&_start=0&_end=5`);
   return data;
 };
 
+const genreArray = Object.values(genreCodes);
+// 장르별 데이터 동시에 불러오기
+export const getClassifiedData = async () => {
+  const responses = Promise.all(genreArray.map((genre) => getGenreData(genre)));
+  return responses;
+};
+
+// 각 기준에 따라 데이터 불러오기
 export const getGenreAreaData = async (genre, area, row, startDate, endDate) => {
   try {
     const { data } = await playApi.get("/", {
       params: {
-        service: import.meta.env.VITE_KOPIS_KEY,
+        service: apiKey,
         stdate: startDate,
         eddate: endDate,
         rows: row,
@@ -57,6 +67,7 @@ export const getGenreAreaData = async (genre, area, row, startDate, endDate) => 
   }
 };
 
+// 검색어 반영해 데이터 불러오기
 export const searchGenreAreaData = async (searchValue, genre, area, row, startDate, endDate) => {
   const allData = await getGenreAreaData(genre, area, row, startDate, endDate);
 
@@ -64,10 +75,4 @@ export const searchGenreAreaData = async (searchValue, genre, area, row, startDa
     return String(data["prfnm"]).includes(searchValue);
   });
   return data;
-};
-
-const genreArray = Object.values(genreCodes);
-export const getClassifiedData = async () => {
-  const responses = Promise.all(genreArray.map((genre) => getGenreData(genre)));
-  return responses;
 };

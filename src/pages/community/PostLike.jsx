@@ -29,7 +29,6 @@ const PostLike = ({ postId, initialLikes, post }) => {
     fetchUserLikeStatus();
   }, [postId, user]);
 
-  // 좋아요 수 업데이트
   const mutation = useMutation({
     mutationFn: () => {
       if (liked) {
