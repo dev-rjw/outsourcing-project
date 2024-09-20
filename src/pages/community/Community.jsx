@@ -1,4 +1,4 @@
-import PostList from "./postList";
+import PostList from "./PostList";
 
 const Community = () => {
   return (
