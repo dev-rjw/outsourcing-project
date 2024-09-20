@@ -7,7 +7,7 @@ import PostCard from "../community/PostCard";
 const Profile = () => {
   const queryClient = useQueryClient();
   const { accessToken, user } = useUserStore();
-  const [communityPosts, setCommunityPosts] = useState(null);
+  const [communityPosts, setCommunityPosts] = useState([]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["profiles"],
@@ -15,9 +15,9 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      setNickname(data.nickname);
-    }
+    // if (data) {
+    //   setNickname(data.nickname);
+    // }
     fetch(import.meta.env.VITE_DB_URL + "/communityPosts")
       .then((response) => {
         return response.json();
@@ -27,7 +27,7 @@ const Profile = () => {
         setCommunityPosts(filteredPosts);
       });
   }, [data]);
-  console.log(communityPosts);
+
   if (isLoading) {
     return <div>로딩중입니다...</div>;
   }
@@ -38,7 +38,7 @@ const Profile = () => {
 
   return (
     <div>
-      <h1>My Page</h1>
+      <h2 className="flex justify-center">{user.nickname}'s page</h2>
       {communityPosts.map((post) => (
         <PostCard
           key={post.id}
