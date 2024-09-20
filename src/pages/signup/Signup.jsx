@@ -15,14 +15,16 @@ const SignUp = () => {
     }
   };
   return (
-    <div>
-      <div>
-        <h1>회원가입</h1>
+    <div className="w-full h-[calc(100%-67px-128px)] flex justify-center items-center">
+      <div className="w-80 h-72 flex flex-col justify-between items-center px-10 py-5 border border-solid border-gray-300 rounded-3xl">
+        {/* <h1>회원가입</h1> */}
         <AuthForm mode="signup" onSubmit={handleSignup} />
+        <div>
+          <p className="text-xs">
+            이미 계정이 있으신가요? <Link to="/login">로그인</Link>
+          </p>
+        </div>
       </div>
-      <p>
-        이미 계정이 있으신가요? <Link to="/login">로그인</Link>
-      </p>
     </div>
   );
 };

@@ -15,8 +15,8 @@ const Header = () => {
   return (
     <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white z-[1]">
       <div>
-        <LinkTo to="/" currentLocation={currentLocation}>
-          홈
+        <LinkTo to="/" currentLocation={currentLocation} className="">
+          커튼콜
         </LinkTo>
       </div>
       <div className="flex items-start gap-4">
@@ -50,6 +50,15 @@ const Header = () => {
 export default Header;
 
 const LinkTo = ({ to, children, currentLocation }) => {
+  if (to === '/') {
+    return (
+    <div className="p-1 pt-0.5 pb-0.5 font-home text-3xl"> {/* border-b-[3px] border-solid border-primary border-0 */}
+        <Link to={to} className="m-auto">
+          {children}
+        </Link>
+      </div>
+    );
+  }
   if (currentLocation === to) {
     // 현위치에 밑줄 표시
     return (
