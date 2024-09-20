@@ -13004,12 +13004,12 @@
   "communityPosts": [
     {
       "id": "8719",
-      "content": "신나는 음악 두둠칫",
+      "content": "신나는 음악 두둠칫 노래",
       "youtubeLink": "https://www.youtube.com/watch?v=aHTpHcokyX8&t=4644s",
       "thumbnailUrl": "https://img.youtube.com/vi/aHTpHcokyX8/maxresdefault.jpg",
       "tag": "#음악",
-      "date": "2024-09-20T10:14:41.214Z",
-      "likes": 0,
+      "date": "2024-09-20T10:38:17.353Z",
+      "likes": 1,
       "comments": [
         {
           "id": 1726827427756,
@@ -13095,6 +13095,18 @@
       ],
       "author": "LLLL",
       "userId": "lll@lll.com"
+    },
+    {
+      "id": "fd7d",
+      "content": "노랠",
+      "youtubeLink": "https://www.youtube.com/watch?v=TLPnEZFN3Z8",
+      "thumbnailUrl": "https://img.youtube.com/vi/TLPnEZFN3Z8/maxresdefault.jpg",
+      "tag": "#추천",
+      "date": "2024-09-20T10:38:54.411Z",
+      "likes": 0,
+      "comments": [],
+      "author": "ppp",
+      "userId": "ppp@ppp.com"
     }
   ],
   "likes": [
@@ -13122,6 +13134,26 @@
       "id": "4a2e",
       "postId": "8719",
       "userId": "lll@lll.com"
+    },
+    {
+      "id": "3f69",
+      "postId": "ce4a",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "c26e",
+      "postId": "fd7d",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "86c2",
+      "postId": "8719",
+      "userId": "ppp@ppp.com"
+    },
+    {
+      "id": "2b23",
+      "postId": "ebd8",
+      "userId": "ppp@ppp.com"
     }
   ],
   "comments": [
