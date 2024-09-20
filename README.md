@@ -1,14 +1,12 @@
 # 커튼콜 🎭 [outsourcing-project]
 
-[메인페이지]
-![스크린샷 2024-09-20 오후 4 45 08](https://github.com/user-attachments/assets/6e929713-6ba0-4e00-b423-bd1f2cec40a2)
+[메인페이지] ![스크린샷 2024-09-20 오후 4 45 08](https://github.com/user-attachments/assets/6e929713-6ba0-4e00-b423-bd1f2cec40a2)
 
-[상세페이지]
-<img width="1224" alt="스크린샷 2024-09-20 오후 4 13 01" src="https://github.com/user-attachments/assets/1d4c5324-ec12-4c0b-8e99-024fde72e82a">
+[상세페이지] <img width="1224" alt="스크린샷 2024-09-20 오후 4 13 01" src="https://github.com/user-attachments/assets/1d4c5324-ec12-4c0b-8e99-024fde72e82a">
 
 [커뮤니티 페이지]
 
-[카테고리 페이지]
+[카테고리 페이지] <img width="1224" alt="화면캡처_2024-09-20_192523" src="src/assets/화면캡처_2024-09-20_192523.png">
 
 ---
 
@@ -22,19 +20,17 @@
 
 ## 🚩 프로젝트 개요
 
-- **프로젝트명** &nbsp; :&nbsp;
-  **커튼콜**
-- **진행 기간** &nbsp;: &nbsp;
-  **24.09.11 ~ 24.09.23**
+- **프로젝트명** &nbsp; :&nbsp; **커튼콜**
+- **진행 기간** &nbsp;: &nbsp; **24.09.11 ~ 24.09.23**
 
 ---
 
 ## 👨‍👩‍👧‍👦 팀원 소개
 
-|   정소현   |      강다연      |        류지원        |  박규리  |   조해인   |
-| :--------: | :--------------: | :------------------: | :------: | :--------: |
-|  **팀원**  |     **팀원**     |       **팀장**       | **팀원** |  **팀원**  |
-| 상세페이지 | 로그인, 회원가입 | 카테고리, 헤더, 푸터 | 커뮤니티 | 메인페이지 |
+|   정소현   |      강다연      |        류지원        |  박규리  |         조해인         |
+| :--------: | :--------------: | :------------------: | :------: | :--------------------: |
+|  **팀원**  |     **팀원**     |       **팀장**       | **팀원** |        **팀원**        |
+| 상세페이지 | 로그인, 회원가입 | 카테고리, 헤더, 푸터 | 커뮤니티 | 메인페이지, 헤더, 푸터 |
 
 ---
 
@@ -53,7 +49,6 @@
 <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 <img src="https://img.shields.io/badge/VSCODE-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 <img src="https://img.shields.io/badge/VERCEL-007ACC?style=for-the-badge&logo=VERCEL&logoColor=white">
-<img src="https://img.shields.io/badge/SLACK-green?style=for-the-badge&logo=SLACK&logoColor=white">
 <img src="https://img.shields.io/badge/SLACK-green?style=for-the-badge&logo=SLACK&logoColor=white">
 <img src="https://img.shields.io/badge/TailwindCss-06B6D4?style=for-the-badge&logo=java&logoColor=white">
 </div>
@@ -95,21 +90,127 @@
 ## ✔️ Git Commit Convention
 
 작업 타입 작업내용
-update : 해당 파일에 새로운 기능이 생김
-add : 없던 파일을 생성함, 초기 세팅
-bugfix : 버그 수정
-refactor : 코드 리팩토링
-fix : 코드 수정
-move : 파일 옮김/정리
-del : 기능/파일을 삭제
-test : 테스트 코드를 작성
-style : css
-gitfix : gitignore 수정
-script : package.json 변경(npm 설치 등)
+
+- update : 해당 파일에 새로운 기능이 생김
+- add : 없던 파일을 생성함, 초기 세팅
+- bugfix : 버그 수정
+- refactor : 코드 리팩토링
+- fix : 코드 수정
+- move : 파일 옮김/정리
+- del : 기능/파일을 삭제
+- test : 테스트 코드를 작성
+- style : css
+- gitfix : gitignore 수정
+- script : package.json 변경(npm 설치 등)
 
 ## 🗂️ 기능 설명
 
 #### 메인 페이지
+
+- 오늘 진행 중인 공연 중 랜덤으로 8개를 선택해 캐러셀 적용 ([Embla 라이브러리](https://www.embla-carousel.com/get-started/) 사용)
+- 오늘 진행 중인 공연을 캐러셀 하단에 주제별로 보여줌
+
+1. 오늘 진행 중인 공연 정보 불러오기
+
+```jsx
+// playApi.js
+// 현재 진행중인 공연 정보 등록된 순으로 최대 1000개 불러오는 함수
+const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
+const KOPIS_KEY = import.meta.env.VITE_KOPIS_KEY;
+
+const playApi = axios.create({ baseURL: BASE_URL });
+
+export const getData = async () => {
+  try {
+    const { data } = await playApi.get("/", {
+      params: {
+        service: KOPIS_KEY,
+        stdate: getDateString(), // 오늘 날짜 반환하는 함수
+        eddate: getDateString(),
+        rows: 1000,
+        cpage: 1,
+      },
+    });
+    return parseXMLToJSON(data).dbs.db;
+  } catch (error) {
+    console.error("Error fetching performance details:", error);
+    throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
+  }
+};
+```
+
+```jsx
+// MainPage.jsx
+// 공연 정보 불러오기
+const {
+  data: mainData,
+  isPending,
+  isError,
+} = useQuery({
+  queryKey: ["main-data"],
+  queryFn: getData,
+});
+```
+
+2. 랜덤으로 8개 선택해 캐러셀로 보여주기
+```jsx
+// Embla.jsx
+// MainPage.jsx에서 prop으로 데이터 전달 받음
+const Embla = ({ data }) => {
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ stopOnMouseEnter: true, stopOnInteraction: false })]);
+
+  const indices = []; // 랜덤 인덱스 저장
+  while (indices.length < 8) {
+    let tmp = Math.floor(data.length * Math.random())
+    if (indices.includes(tmp)) {
+      continue;
+    } else {
+      indices.push(tmp);
+    }
+  }
+  const carousel = indices.map(idx => data[idx]);
+
+  return (
+      <div className='embla' ref={emblaRef}>
+        <div className='embla__container'>
+          {carousel && [0, 2, 4, 6].map((i) => ( // 각 슬라이드에 두개씩 보여줌
+            <Slide play={[carousel[i], carousel[i + 1]]} key={`slide-${i}`} />
+          )
+          )}
+        </div>
+      </div>
+  )
+}
+```
+
+3. 장르별로 분류된 공연 보여주기
+```jsx
+// Genre.jsx
+// MainPage.jsx에서 prop으로 받은 데이터를 장르에 따라 filter해 GenreDiv에 보여줌
+const Genre = ({data}) => {
+  const [clicked, setClicked] = useState(0);
+  const genreArray = Object.values(genreCodes);
+
+
+  return (
+      <div>
+        <div>
+          {
+            genreArray..map((item, idx) => (
+              <GenreButton idx={idx} clicked={clicked} setClicked={setClicked} key={item}>
+                {item}
+              </GenreButton>
+            ))
+          }
+        </div>
+        <div>
+          <GenreDiv plays={data.filter(play => play.genrenm === genreArray[clicked]).slice(0,10)} idx={clicked}/>
+        </div>
+      </div>
+  )
+}
+```
+
 
 ---
 
@@ -262,8 +363,7 @@ export const detailDeleteComment = async (id) => {
 ```js
 // DetailComment.jsx
 const addMutation = useMutation({
-  mutationFn: (newComment) =>
-    detailAddComment({ ...newComment, performanceId: id }),
+  mutationFn: (newComment) => detailAddComment({ ...newComment, performanceId: id }),
   onSuccess: () => {
     queryClient.invalidateQueries(["comments", id]);
     setComment("");
@@ -293,11 +393,93 @@ const {
 
 #### 커뮤니티
 
+---
+
 #### 카테고리
+
+- 필터링 추가
+  - 검색
+  - 시작날짜/종료날짜
+  - 지역별
+  - 장르별
+- 필터링에 따른 공연 리스트 출력
+- 해당 공연 클릭 시 상세 페이지로 이동
+
+1. db.json 서버 사용하여 공연 리스트 출력
+
+```js
+import axios from "axios";
+import { genreCodes } from "../utils/Kopis-api-common";
+import { getDateString, parseXMLToJSON } from "../utils/utils";
+
+// KOPIS 관련
+const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
+
+const playApi = axios.create({ baseURL: BASE_URL });
+
+export const getGenreAreaData = async (genre, area, row, startDate, endDate) => {
+  try {
+    const { data } = await playApi.get("/", {
+      params: {
+        service: import.meta.env.VITE_KOPIS_KEY,
+        stdate: startDate,
+        eddate: endDate,
+        rows: row,
+        cpage: 1,
+        shcate: genre === "장르별" ? null : genre,
+        signgucode: area === "지역별" ? null : area,
+      },
+    });
+
+    const result = parseXMLToJSON(data).dbs;
+    if (result) {
+      return result.db;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching performance details:", error);
+    throw new Error("데이터를 불러오는 중 오류가 발생했습니다.");
+  }
+};
+
+export const searchGenreAreaData = async (searchValue, genre, area, row, startDate, endDate) => {
+  const allData = await getGenreAreaData(genre, area, row, startDate, endDate);
+
+  const data = allData.filter((data) => {
+    return String(data["prfnm"]).includes(searchValue);
+  });
+  return data;
+};
+```
+
+---
 
 ## 💥 Trouble Shooting
 
 [메인페이지]
+
+🔥 문제점
+
+1. 기존에는 장르별 데이터를 불러올 때 api에서 각각 불러왔으나, 데이터를 불러오는 과정이 불필요하게 많아지는 문제점이 있었음. 전체 데이터를 한 번에 많이 불러온 후 prop으로 전달해 사용함.
+  - 아래는 장르별 데이터를 각각 불러올 때 사용한 코드 (현재는 사용하지 않음)
+
+```jsx
+// playApi.jsx
+// 장르별 데이터를 0번째부터 4번째까지 불러오는 함수
+export const getGenreData = async (genre) => {
+  const { data } = await playApi.get(`?genrenm=${genre}&_start=0&_end=5`);
+  return data;
+};
+
+const genreArray = Object.values(genreCodes);
+// Promise.all을 이용해 동시에 여러 장르 데이터 불러오는 함수
+export const getClassifiedData = async () => {
+  const responses = Promise.all(genreArray.map((genre) => getGenreData(genre)));
+  return responses;
+};
+```
+
 
 ---
 
@@ -394,3 +576,30 @@ if (detailError) {
 ---
 
 [카테고리]
+
+🔥 문제점
+
+1. 필터 날짜값과 나타난 데이터 값이 다른 이슈 발생
+
+- 필터에 입력한 날짜값과 하단에 나타난 공연의 날짜값이 다른 이슈가 발생하였음
+- 알고보니 API상에서는 8글자(20240920)으로 요청을 받고 있었으나 실제로 한 요청은 -(대시)를 추가하여 요청을 보내고 있어 대시를 없애도록 replaceAll하여 수정하였음
+
+```js
+const { data, isLoading, isError, refetch } = useQuery({
+  queryKey: [QUERY_KEY.category],
+  queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate, endDate),
+  keepPreviousData: true,
+});
+```
+
+해결 방안
+
+```js
+const { data, isLoading, isError, refetch } = useQuery({
+  queryKey: [QUERY_KEY.category],
+  queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate.replaceAll("-", ""), endDate.replaceAll("-", "")),
+  keepPreviousData: true,
+});
+```
+
+---

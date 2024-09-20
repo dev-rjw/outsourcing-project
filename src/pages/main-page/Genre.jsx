@@ -95,7 +95,6 @@ const GenreDiv = ({ plays, idx }) => {
                 <div className='w-[150px] h-fit max-h-[330px] bg-gray-500' key={i} />
               )
             }
-
           })}
         </div>
       </div>
@@ -109,9 +108,9 @@ const Card = ({ play }) => {
     navigate(`/detail/${play.mt20id}`);
   };
   return (
-    <div className='w-full min-w-[150px] h-fit max-h-[330px] cursor-pointer' key={play.prfnm} 
+    <div className='w-full min-w-[150px] h-fit max-h-[330px] cursor-pointer transition-transform transform hover:scale-105' key={play.prfnm} 
     onClick={handleClick}>
-      <img className='w-full h-full max-h-[250px] aspect-[3/4] object-cover' src={play.poster} key={play.prfnm} />
+      <img className='w-full h-full max-h-[250px] aspect-[3/4] object-cover rounded-lg' src={play.poster} key={play.prfnm} />
       <p className='genre_title mb-1'>{play.prfnm}</p>
       <p className='genre_place text-[#b1b1b1]'>{play.fcltynm}</p>
     </div>
