@@ -22,7 +22,7 @@ const Category = () => {
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [QUERY_KEY.category],
-    queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate, endDate),
+    queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate.replaceAll("-", ""), endDate.replaceAll("-", "")),
     keepPreviousData: true,
   });
 
@@ -87,11 +87,11 @@ const Category = () => {
         <div className="flex space-x-4">
           <div>
             <label className="block text-gray-700 mb-1">시작 날짜</label>
-            <input type="date" value={startDate} onChange={handleStartDateChange} onkeydown="return false" className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input type="date" value={startDate} onChange={handleStartDateChange} className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" />
           </div>
           <div>
             <label className="block text-gray-700 mb-1">종료 날짜</label>
-            <input type="date" value={endDate} onChange={handleEndDateChange} onkeydown="return false" className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+            <input type="date" value={endDate} onChange={handleEndDateChange} className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" />
           </div>
         </div>
 
