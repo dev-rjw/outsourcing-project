@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getData } from "../../api/playApi";
 
 const MainPage = () => {
-  // const queryClient = useQueryClient();
   const {
     data: mainData,
     isPending,
@@ -14,8 +13,6 @@ const MainPage = () => {
     queryKey: ["main-data"],
     queryFn: getData,
   });
-
-  // console.log(mainData);
 
   if (isPending) {
     return (

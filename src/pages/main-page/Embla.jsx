@@ -20,11 +20,9 @@ const Embla = ({ data }) => {
   return (
     <div className='main-embla w-full mb-8'>
       <div className='embla min-w-[900px] overflow-hidden' ref={emblaRef}>
-        <div className='embla__container'> {/*  grid grid-flow-col auto-cols-[100%] gap-x-20 */}
+        <div className='embla__container'>
           {carousel && [0, 2, 4, 6].map((i) => (
-            // <div key={i}>
             <Slide play={[carousel[i], carousel[i + 1]]} key={`slide-${i}`} />
-            // </div>
           )
           )}
         </div>
@@ -46,11 +44,8 @@ const Slide = ({ play }) => {
     navigate(`/detail/${id}`)
   }
   return (
-    // <div className='recent-play min-w-0'> {/*h-[300px] grow-0 shrink-0 basis-full*/}
-    <div className='embla__slide'> {/*grid*/}
-      {/* <div className='cards w-full h-[400px] grid grid-cols-[1fr 1fr] bg-gray-300'> */}
+    <div className='embla__slide'>
       <div className='cards w-full h-[400px] flex gap-x-10'>
-        {/* <img src={poster} /> */}
         <div className='card cursor-pointer' onClick={() => { handleClick(id1) }}>
           <img src={poster1} />
           <div className='card-content'>
@@ -67,10 +62,7 @@ const Slide = ({ play }) => {
             <p>{from2 === to2 ? from2 : `${from2} - ${to2}`}</p>
           </div>
         </div>
-
-
       </div>
     </div>
-    // </div>
   )
 }

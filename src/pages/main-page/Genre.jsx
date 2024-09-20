@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import { useQuery } from '@tanstack/react-query';
-import { getClassifiedData, getData } from '../../api/playApi';
 import { genreCodes } from '../../utils/Kopis-api-common';
 import { useNavigate } from 'react-router-dom';
 
 const Genre = ({data}) => {
   const [clicked, setClicked] = useState(0);
   const genreArray = Object.values(genreCodes);
-
 
   return (
     <div className='w-full flex flex-col items-center'>
@@ -81,11 +78,9 @@ const GenreDiv = ({ plays, idx }) => {
     while (tmp.length < 5) {
       tmp.push(null);
     }
-    // console.log(genreArray[idx], tmp)
 
     return (
       <div className='w-full mb-10' key={genreArray[idx]}>
-        
         <div className='w-full grid grid-cols-[repeat(5,1fr)] gap-10 mt-5'>
           {tmp.map((play, i) => {
             if (play) {
@@ -95,7 +90,6 @@ const GenreDiv = ({ plays, idx }) => {
                 <div className='w-[150px] h-fit max-h-[330px] bg-gray-500' key={i} />
               )
             }
-
           })}
         </div>
       </div>
