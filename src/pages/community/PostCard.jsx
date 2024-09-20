@@ -47,7 +47,7 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
   const updatePostMutation = useMutation({
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post", post.id]);
       setIsEditing(false);
       onUpdate(data);
     },

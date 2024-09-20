@@ -4,6 +4,10 @@ import { updatePost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 
 const PostCardPopup = ({ post, onClose, onUpdate }) => {
+  console.log("PostCardPopup - post:", post);
+  const postId = post.id;
+  console.log("PostCardPopup - postId:", postId);
+
   const { user } = useUserStore();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -23,7 +27,7 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
       if (onUpdate) {
         onUpdate(data);
       }
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post"]);
     },
     onError: (error) => {
       console.error("댓글 추가 error:", error);
@@ -38,7 +42,7 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
       if (onUpdate) {
         onUpdate(data);
       }
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post"]);
     },
     onError: (error) => {
       console.error("댓글 삭제 error:", error);
@@ -54,7 +58,7 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
       if (onUpdate) {
         onUpdate(data);
       }
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post"]);
     },
     onError: (error) => {
       console.error("댓글 수정 error:", error);

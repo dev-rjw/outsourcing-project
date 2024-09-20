@@ -87,7 +87,7 @@ const PostList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <PostInput
           initList={initList}
-          onPostAdded={() => queryClient.invalidateQueries(["posts"])}
+          onPostAdded={() => queryClient.invalidateQueries(["post"])}
         />
         {sortedPosts.map((post) => (
           <PostCard
@@ -95,7 +95,7 @@ const PostList = () => {
             post={post}
             onDelete={handleDelete}
             currentUserId={user?.id}
-            onUpdate={() => queryClient.invalidateQueries(["posts"])}
+            onUpdate={() => queryClient.invalidateQueries(["post"])}
           />
         ))}
       </div>

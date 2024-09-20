@@ -46,7 +46,7 @@ const PostLike = ({ postId, initialLikes }) => {
         setLiked(true);
         setLikeId(data.likeData.id);
       }
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post"]);
     },
     onError: (error) => {
       console.error("좋아요 업데이트 오류:", error);
