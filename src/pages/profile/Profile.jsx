@@ -2,7 +2,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
-import { post } from "request";
 import PostCard from "../community/PostCard";
 
 const Profile = () => {
@@ -19,7 +18,7 @@ const Profile = () => {
     if (data) {
       setNickname(data.nickname);
     }
-    fetch("http://localhost:5000/communityPosts")
+    fetch(import.meta.env.VITE_DB_URL + "/communityPosts")
       .then((response) => {
         return response.json();
       })
@@ -28,7 +27,7 @@ const Profile = () => {
         setCommunityPosts(filteredPosts);
       });
   }, [data]);
-
+  console.log(communityPosts);
   if (isLoading) {
     return <div>로딩중입니다...</div>;
   }
