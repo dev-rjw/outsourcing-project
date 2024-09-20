@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import PostInput from "./postInput";
-import PostCard from "./postCard";
 import { useQueryClient } from "@tanstack/react-query";
 import { deletePost, fetchPosts } from "../../api/communityCardApi";
 import FilterBar from "./FilterBar";
 import { getUserProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
 import { getAllLike } from "../../api/communityLikesApi";
+import PostCard from "./PostCard";
 
 const PostList = () => {
   const queryClient = useQueryClient();
