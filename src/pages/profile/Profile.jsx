@@ -1,57 +1,55 @@
-import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { getUserProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
-import { API_URL, updateProfile } from "../../api/auth";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import PostCard from "../community/PostCard";
 
 const Profile = () => {
-  const { user, setUser } = useUserStore();
-  const [nickname, setNickname] = useState();
-
-  const getUserProfile = async () => {
-    const { data } = await axios.get(`${API_URL}/user`);
-    return data;
-  };
+  const queryClient = useQueryClient();
+  const { accessToken, user } = useUserStore();
+  const [communityPosts, setCommunityPosts] = useState([]);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["profiles"],
-    queryFn: getUserProfile,
+    queryFn: () => getUserProfile(accessToken),
   });
+
+  useEffect(() => {
+    // if (data) {
+    //   setNickname(data.nickname);
+    // }
+    fetch(import.meta.env.VITE_DB_URL + "/communityPosts")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const filteredPosts = data.filter((post) => post.userId === user.id);
+        setCommunityPosts(filteredPosts);
+      });
+  }, [data]);
 
   if (isLoading) {
     return <div>로딩중입니다...</div>;
   }
 
   if (isError) {
-    return <div>오류가 발생했습니다...</div>;
+    return <div>오류가 발생했습니다...다시 로그인 해주세요</div>;
   }
 
-  const handleNicknameChange = async (e) => {
-    setNickname(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = { nickname };
-      const updataUser = await updateProfile(formData, user.accessToken);
-      setUser(updataUser);
-      alert("프로필이 성공적으로 업데이트 되었습니다.");
-    } catch (error) {
-      alert("프로필 업데이트에 실패했습니다. 다시 시도해주세요.");
-    }
-  };
   return (
-    <div>
-      <div>
-        <h1>My Page</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>닉네임</label>
-            <input onChange={handleNicknameChange} />
-          </div>
-          <button type="submit">프로필 업데이트</button>
-        </form>
+    <div className="max-w-screen-lg mx-auto">
+      <h1 className="flex justify-center font-bold text-xl">
+        {user.nickname}'s page
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {communityPosts.map((post) => (
+          <PostCard
+            key={post.id}
+            post={post}
+            currentUserId={post.userId}
+            onUpdate={() => queryClient.invalidateQueries(["posts"])}
+          />
+        ))}
       </div>
     </div>
   );
