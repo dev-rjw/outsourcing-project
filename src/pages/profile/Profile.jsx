@@ -38,7 +38,9 @@ const Profile = () => {
 
   return (
     <div>
-      <h2 className="flex justify-center">{user.nickname}'s page</h2>
+      <h1 className="flex justify-center font-bold text-xl">
+        {user.nickname}'s page
+      </h1>
       {communityPosts.map((post) => (
         <PostCard
           key={post.id}
