@@ -33,11 +33,11 @@ const Profile = () => {
   }
 
   if (isError) {
-    return <div>오류가 발생했습니다...</div>;
+    return <div>오류가 발생했습니다...다시 로그인 해주세요</div>;
   }
 
   return (
-    <div>
+    <div className="max-w-screen-lg mx-auto">
       <h1 className="flex justify-center font-bold text-xl">
         {user.nickname}'s page
       </h1>
