@@ -109,8 +109,6 @@
   box-sizing: border-box;
 }
 
-<<<<<<< HEAD
-=======
 @font-face {
   font-family: "logo";
   src: url("./assets/fonts/VIOLA.ttf");
@@ -121,7 +119,6 @@
   height: 500px;
 }
 
->>>>>>> 338993399cfad312cf8cdecd5e6a38c62cf8907d
 html,
 body,
 #root {
