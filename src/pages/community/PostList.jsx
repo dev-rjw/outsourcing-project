@@ -1,24 +1,54 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostInput from "./postInput";
 import PostCard from "./postCard";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { fetchPosts } from "../../api/communityCardApi";
 import FilterBar from "./FilterBar";
+import { getUserProfile } from "../../api/auth";
+import useUserStore from "../../zustand/useUserStore";
+import { getAllLike } from "../../api/communityLikesApi";
 
 const PostList = () => {
   const queryClient = useQueryClient();
-  const {
-    data: posts = [],
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["posts"],
-    queryFn: fetchPosts,
-  });
+  const { user } = useUserStore();
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
+  const token = localStorage.getItem("token");
+  const [list, setList] = useState([]);
 
-  // 게시물 추가 처리
-  const handlePostAdded = (newPost) => {
-    queryClient.invalidateQueries(["posts"]);
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (token) {
+        try {
+          const userProfile = await getUserProfile(token);
+          setLoggedInUserId(userProfile.id);
+        } catch (error) {
+          console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+        }
+      }
+    };
+    fetchUserProfile();
+  }, [token]);
+
+  useEffect(() => {
+    initList();
+  }, []);
+
+  const initList = async () => {
+    const data = await fetchPosts();
+    const list = await getAllLike();
+    let newData = [];
+
+    for (let i = 0; i < data.length; i++) {
+      newData.push(data[i]);
+      for (let j = 0; j < list.length; j++) {
+        if (newData[i].id == list[j].postId) {
+          console.log(list[j].postId);
+          newData[i].likes++;
+        }
+      }
+    }
+
+    setList(newData);
   };
 
   // 게시물 삭제 처리
@@ -28,46 +58,23 @@ const PostList = () => {
     alert("삭제 되었습니다.");
   };
 
-  // 게시물 수정
-  const handleUpdate = (updatedPost) => {
-    const updatedPosts = posts.map((post) =>
-      post.id === updatedPost.id ? updatedPost : post
-    );
-    queryClient.setQueryData(["posts"], updatedPosts);
-  };
-
-  // 좋아요 업데이트
-  const handleLikesUpdated = (postId, newLikes) => {
-    const updatedPosts = posts.map((post) =>
-      post.id === postId ? { ...post, likes: newLikes } : post
-    );
-    queryClient.setQueryData(["posts"], updatedPosts);
-  };
-
   // 좋아요 소팅
   const [sortOrder, setSortOrder] = useState("latest");
-  const sortedPosts = [...posts].sort((a, b) => {
+  const sortedPosts = [...list].sort((a, b) => {
     if (sortOrder === "latest") {
+      //  최신순
       return new Date(b.date) - new Date(a.date);
+      // 인기순
     } else if (sortOrder === "popular") {
       return b.likes - a.likes;
-    } else {
-      return 0;
     }
+    return 0;
   });
 
   // 소팅 방식 변경
   const handleSortChange = (order) => {
     setSortOrder(order);
   };
-
-  if (isLoading) {
-    return <h4>로딩 중입니다...</h4>;
-  }
-
-  if (isError) {
-    return <h4>게시글을 불러오는 중 오류가 발생했습니다.</h4>;
-  }
 
   return (
     <div>
@@ -77,14 +84,16 @@ const PostList = () => {
       <FilterBar onSortChange={handleSortChange} currentSortOrder={sortOrder} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <PostInput onPostAdded={handlePostAdded} />
+        <PostInput
+          onPostAdded={() => queryClient.invalidateQueries(["posts"])}
+        />
         {sortedPosts.map((post) => (
           <PostCard
             key={post.id}
             post={post}
             onDelete={handleDelete}
-            onUpdate={handleUpdate}
-            onLikesUpdated={handleLikesUpdated}
+            currentUserId={user?.id}
+            onUpdate={() => queryClient.invalidateQueries(["posts"])}
           />
         ))}
       </div>
