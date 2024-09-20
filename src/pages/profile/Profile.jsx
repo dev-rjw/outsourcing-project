@@ -41,14 +41,16 @@ const Profile = () => {
       <h1 className="flex justify-center font-bold text-xl">
         {user.nickname}'s page
       </h1>
-      {communityPosts.map((post) => (
-        <PostCard
-          key={post.id}
-          post={post}
-          currentUserId={post.userId}
-          onUpdate={() => queryClient.invalidateQueries(["posts"])}
-        />
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {communityPosts.map((post) => (
+          <PostCard
+            key={post.id}
+            post={post}
+            currentUserId={post.userId}
+            onUpdate={() => queryClient.invalidateQueries(["posts"])}
+          />
+        ))}
+      </div>
     </div>
   );
 };
