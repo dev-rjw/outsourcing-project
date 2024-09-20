@@ -54,7 +54,7 @@ const LinkTo = ({ to, children, currentLocation }) => {
     // 현위치에 밑줄 표시
     if (to === '/') {
       return (
-        <div className="p-1 border-b-[3px] border-solid border-primary border-0 font-['SF\_HambakSnow']">
+        <div className="p-1 pt-0.5 pb-0.5 border-b-[3px] border-solid border-primary border-0 font-home text-lg">
           <Link to={to} className="m-auto">
             {children}
           </Link>
@@ -71,7 +71,7 @@ const LinkTo = ({ to, children, currentLocation }) => {
   } else {
     if (to === '/') {
       return (
-        <div className="p-1 font-['SF\_HambakSnow']">
+        <div className="p-1 pt-0.5 font-home text-lg">
           <Link to={to} className="m-auto">
             {children}
           </Link>
