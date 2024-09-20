@@ -1,17 +1,7 @@
 import axios from "axios";
-import { XMLParser } from "fast-xml-parser";
-import { getData } from "./playApi";
+import { parseXMLToJSON } from "../utils/utils";
 
 const apiKey = import.meta.env.VITE_KOPIS_KEY;
-
-// XML 데이터를 JSON으로 변환하는 함수
-const parseXMLToJSON = (xmlData) => {
-  const parser = new XMLParser({
-    ignoreAttributes: false, // 속성 유지
-    attributeNamePrefix: "", // 속성명 앞에 접두어 없이 처리
-  });
-  return parser.parse(xmlData);
-};
 
 // 공연 상세 데이터를 가져오는 함수
 export const fetchDetailData = async (id) => {

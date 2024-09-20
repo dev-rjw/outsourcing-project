@@ -1,33 +1,12 @@
 import React, { useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
-import { getClassifiedData } from '../../api/playApi';
+import { getClassifiedData, getData } from '../../api/playApi';
 import { genreCodes } from '../../utils/Kopis-api-common';
 import { useNavigate } from 'react-router-dom';
 
-const Genre = () => {
+const Genre = ({data}) => {
   const [clicked, setClicked] = useState(0);
   const genreArray = Object.values(genreCodes);
-  // console.log(genreArray);
-
-  const { data: genre, isPending, isError } = useQuery({
-    queryKey: ['main-genre'],
-    queryFn: getClassifiedData,
-  })
-
-  if (isPending) {
-    return (
-      <div className='w-full h-[400px] flex items-center'>
-        <p className='m-auto'>로딩중입니다.</p>
-      </div>
-    )
-  }
-  if (isError) {
-    return (
-      <div className='w-full h-[400px] flex items-center'>
-        <p className='m-auto'>데이터 조회 중 오류가 발생했습니다.</p>
-      </div>
-    )
-  }
 
 
   return (
@@ -52,7 +31,7 @@ const Genre = () => {
           }
         </div>
         <div>
-          <GenreDiv plays={genre[clicked]} idx={clicked}/>
+          <GenreDiv plays={data.filter(play => play.genrenm === genreArray[clicked]).slice(0,10)} idx={clicked}/>
         </div>
       </div>
 
@@ -107,7 +86,7 @@ const GenreDiv = ({ plays, idx }) => {
     return (
       <div className='w-full mb-10' key={genreArray[idx]}>
         
-        <div className='w-full grid grid-cols-[repeat(5,1fr)] gap-x-10 mt-5'>
+        <div className='w-full grid grid-cols-[repeat(5,1fr)] gap-10 mt-5'>
           {tmp.map((play, i) => {
             if (play) {
               return <Card play={play} key={i}/>
