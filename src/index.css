@@ -96,3 +96,8 @@
   width: 100%;
   height: 500px;
 }
+
+/* styles.css */
+.text-indent {
+  text-indent: 1rem; /* 원하는 크기로 조정 */
+}

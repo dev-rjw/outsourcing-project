@@ -1,45 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import DetailContent from "./DetailContent";
-import { useState } from "react";
 import DetailMap from "./DetailMap";
 import DetailComments from "./DetailComments";
+
+// 각 버튼에 대응하는 고유한 키 설정
+const Buttons = [
+  { key: "detailContent", label: "공연정보" },
+  { key: "map", label: "위치정보" },
+  { key: "comments", label: "후기" },
+];
 
 const Tabs = ({ id, detailData }) => {
   const [active, setActive] = useState("detailContent");
 
-  const handleTabChange = (e) => {
-    setActive(e);
+  const handleTabChange = (key) => {
+    setActive(key); // 클릭된 버튼의 key로 상태 변경
   };
 
   return (
     <div className="flex-col text-center">
       <div className="flex space-x-3 mb-8">
-        <button
-          className={`flex-1 font-bold pt-4 pb-4 border-2 border-gray-300 cursor-pointer rounded ${
-            active === "detailContent"
-              ? "bg-primary text-white"
-              : "bg-slate-200"
-          }`}
-          onClick={() => handleTabChange("detailContent")}
-        >
-          공연정보
-        </button>
-        <button
-          className={`flex-1 font-bold border-2 pt-4 pb-4 border-gray-300 cursor-pointer rounded ${
-            active === "map" ? "bg-primary text-white" : "bg-slate-200"
-          }`}
-          onClick={() => handleTabChange("map")}
-        >
-          위치정보
-        </button>
-        <button
-          className={`flex-1 font-bold border-2 pt-4 pb-4 rounded border-gray-300 cursor-pointer ${
-            active === "comments" ? "bg-primary text-white" : "bg-slate-200"
-          }`}
-          onClick={() => handleTabChange("comments")}
-        >
-          후기
-        </button>
+        {Buttons.map((button) => (
+          <button
+            key={button.key} // 고유 key 설정
+            className={`flex-1 font-bold pt-4 pb-4 cursor-pointer  rounded ${
+              active === button.key
+                ? "bg-primary text-white"
+                : "border-solid border-2 border-primary "
+            }`}
+            onClick={() => handleTabChange(button.key)}
+          >
+            {button.label}
+          </button>
+        ))}
       </div>
       <div>
         {active === "detailContent" && (

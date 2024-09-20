@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
-import useKopisStore from "../../zustand/useKopisStore";
-import { useParams } from "react-router-dom";
+import React from "react";
 
 const DetailContent = ({ detailData }) => {
   const styurlsArray = Array.isArray(detailData.styurls)
     ? detailData.styurls
     : [detailData.styurls.styurl];
   return (
-    <div className="">
-      <div className="mb-8">
-        <h4 className="font-extrabold text-3xl mb-8">유의사항</h4>
+    <>
+      <div className="mb-8 ">
+        <h4 className="font-extrabold text-3xl mb-8 ">유의사항</h4>
         <p>관람연령 : {detailData.prfage}</p>
       </div>
       <div>
@@ -20,7 +18,7 @@ const DetailContent = ({ detailData }) => {
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 
