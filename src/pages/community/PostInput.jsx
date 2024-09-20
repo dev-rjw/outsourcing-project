@@ -23,11 +23,8 @@ const PostInput = ({ onPostAdded, initList }) => {
             글을 작성할 수 있습니다.
           </p>
         </div>
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={() => navigate("/login")}
-            className="btn w-full my-20"
-          >
+        <div className="flex flex-col justify-end h-[125px]">
+          <button onClick={() => navigate("/login")} className="btn w-full">
             로그인하러가기
           </button>
         </div>

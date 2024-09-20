@@ -13003,31 +13003,6 @@
   ],
   "communityPosts": [
     {
-      "id": "8719",
-      "content": "신나는 음악 두둠칫 노래",
-      "youtubeLink": "https://www.youtube.com/watch?v=aHTpHcokyX8&t=4644s",
-      "thumbnailUrl": "https://img.youtube.com/vi/aHTpHcokyX8/maxresdefault.jpg",
-      "tag": "#음악",
-      "date": "2024-09-20T10:38:17.353Z",
-      "likes": 1,
-      "comments": [
-        {
-          "id": 1726827427756,
-          "text": "444",
-          "userId": "ppp@ppp.com",
-          "nickname": "ppp"
-        },
-        {
-          "id": 1726827472153,
-          "text": "3333",
-          "userId": "lll@lll.com",
-          "nickname": "LLLL"
-        }
-      ],
-      "author": "ppp",
-      "userId": "ppp@ppp.com"
-    },
-    {
       "id": "50b4",
       "content": "드디어 기능 완!",
       "youtubeLink": "https://www.youtube.com/watch?v=MPuI8UVr4yc",
@@ -13051,62 +13026,6 @@
       ],
       "author": "kkk",
       "userId": "kkk@kkk.com"
-    },
-    {
-      "id": "ce4a",
-      "content": "바로 반영이 되나22",
-      "youtubeLink": "https://www.youtube.com/watch?v=mL6ejRs2Dgo",
-      "thumbnailUrl": "https://img.youtube.com/vi/mL6ejRs2Dgo/maxresdefault.jpg",
-      "tag": "#꿀팁",
-      "date": "2024-09-20T10:15:43.111Z",
-      "likes": 0,
-      "comments": [
-        {
-          "id": 1726827354819,
-          "text": "댓글",
-          "userId": "ppp@ppp.com",
-          "nickname": "ppp"
-        },
-        {
-          "id": 1726827467283,
-          "text": "3333",
-          "userId": "lll@lll.com",
-          "nickname": "LLLL"
-        }
-      ],
-      "author": "ppp",
-      "userId": "ppp@ppp.com"
-    },
-    {
-      "id": "ebd8",
-      "content": "기본 이미지 지금 괜찮은가요?",
-      "youtubeLink": "",
-      "thumbnailUrl": null,
-      "tag": "#후기",
-      "date": "2024-09-20T10:18:21.624Z",
-      "likes": 0,
-      "comments": [
-        {
-          "id": 1726827506862,
-          "text": "ㄱㄱㄱ",
-          "userId": "lll@lll.com",
-          "nickname": "LLLL"
-        }
-      ],
-      "author": "LLLL",
-      "userId": "lll@lll.com"
-    },
-    {
-      "id": "fd7d",
-      "content": "노랠",
-      "youtubeLink": "https://www.youtube.com/watch?v=TLPnEZFN3Z8",
-      "thumbnailUrl": "https://img.youtube.com/vi/TLPnEZFN3Z8/maxresdefault.jpg",
-      "tag": "#추천",
-      "date": "2024-09-20T10:38:54.411Z",
-      "likes": 0,
-      "comments": [],
-      "author": "ppp",
-      "userId": "ppp@ppp.com"
     }
   ],
   "likes": [
@@ -13114,46 +13033,6 @@
       "id": "1532",
       "postId": "7340",
       "userId": "lll@lll.com"
-    },
-    {
-      "id": "3c13",
-      "postId": "7340",
-      "userId": "kkk@kkk.com"
-    },
-    {
-      "id": "0e8a",
-      "postId": "29a2",
-      "userId": "ppp@ppp.com"
-    },
-    {
-      "id": "e786",
-      "postId": "ce4a",
-      "userId": "lll@lll.com"
-    },
-    {
-      "id": "4a2e",
-      "postId": "8719",
-      "userId": "lll@lll.com"
-    },
-    {
-      "id": "3f69",
-      "postId": "ce4a",
-      "userId": "ppp@ppp.com"
-    },
-    {
-      "id": "c26e",
-      "postId": "fd7d",
-      "userId": "ppp@ppp.com"
-    },
-    {
-      "id": "86c2",
-      "postId": "8719",
-      "userId": "ppp@ppp.com"
-    },
-    {
-      "id": "2b23",
-      "postId": "ebd8",
-      "userId": "ppp@ppp.com"
     }
   ],
   "comments": [

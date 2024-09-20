@@ -24,7 +24,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
       setIsPopupOpen(true);
     }
   };
-
   const closePopup = (e) => {
     e.stopPropagation();
     setIsPopupOpen(false);
@@ -156,7 +155,11 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
                 />
               ) : (
                 <div className="bg-soft h-full w-full rounded flex justify-center items-center">
-                  <p className="text-gray-300">*^^*</p>
+                  <img
+                    src="/images/curtain_img.png"
+                    alt="default"
+                    className="h-full w-full object-cover rounded opacity-25"
+                  />
                 </div>
               )}
             </div>
