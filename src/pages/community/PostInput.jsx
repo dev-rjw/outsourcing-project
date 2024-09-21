@@ -4,7 +4,7 @@ import { createPost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 import { useNavigate } from "react-router-dom";
 
-const PostInput = ({ onPostAdded, initList }) => {
+const PostInput = ({ initList }) => { // onPostAdded
   const navigate = useNavigate();
   const { user } = useUserStore();
   const [content, setContent] = useState("");
@@ -34,9 +34,9 @@ const PostInput = ({ onPostAdded, initList }) => {
 
   const mutation = useMutation({
     mutationFn: createPost,
-    onSuccess: (createdPost) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
-      onPostAdded(createdPost);
+      // onPostAdded(createdPost);
       setContent("");
       setYoutubeLink("");
       setThumbnailUrl(null);

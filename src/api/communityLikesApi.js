@@ -10,6 +10,7 @@ export const addLike = async (likeData) => {
       count: likeList.data.length,
     };
   } catch (error) {
+    console.error(error);
     throw new Error("error: add like");
   }
 };
@@ -23,6 +24,7 @@ export const removeLike = async (likeId, postId) => {
       count: likeList.data.length,
     };
   } catch (error) {
+    console.error(error);
     throw new Error("error: remove like");
   }
 };
@@ -32,6 +34,7 @@ export const getLikesByPostId = async (postId) => {
     const response = await axios.get(`${API_URL}?postId=${postId}`);
     return response.data;
   } catch (error) {
+    console.error(error);
     throw new Error("error: fetch getLikesByPostId");
   }
 };
@@ -43,6 +46,7 @@ export const getUserLikeStatus = async (postId, userId) => {
     );
     return response.data;
   } catch (error) {
+    console.error(error);
     throw new Error("error: getUserLikeStatus");
   }
 };
@@ -52,6 +56,7 @@ export const getLikesCount = async (postId) => {
     const response = await axios.get(`${API_URL}?postId=${postId}`);
     return response.data.length;
   } catch (error) {
+    console.error(error);
     throw new Error("error: getLikesCount");
   }
 };
@@ -61,6 +66,7 @@ export const getAllLike = async () => {
     const response = await axios.get(`${API_URL}`);
     return response.data;
   } catch (error) {
+    console.error(error);
     throw new Error("error: getAllLike");
   }
 };

@@ -3,11 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 
-const PostCardPopup = ({ post, onClose, onUpdate }) => {
-  console.log("PostCardPopup - post:", post);
-  const postId = post.id;
-  console.log("PostCardPopup - postId:", postId);
-
+const PostCardPopup = ({ post, onClose }) => {
   const { user } = useUserStore();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -24,10 +20,10 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
       setComments(data.comments);
-      if (onUpdate) {
-        onUpdate(data);
-      }
-      queryClient.invalidateQueries(["post"]);
+      // if (onUpdate) {
+      //   onUpdate(data);
+      // }
+      queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
       console.error("댓글 추가 error:", error);
@@ -39,10 +35,10 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
     onSuccess: (data) => {
       setComments(data.comments);
       alert("댓글이 삭제되었습니다.");
-      if (onUpdate) {
-        onUpdate(data);
-      }
-      queryClient.invalidateQueries(["post"]);
+      // if (onUpdate) {
+      //   onUpdate(data);
+      // }
+      queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
       console.error("댓글 삭제 error:", error);
@@ -55,10 +51,10 @@ const PostCardPopup = ({ post, onClose, onUpdate }) => {
       setComments(data.comments);
       setIsEditing(null);
       setUpdatedComment("");
-      if (onUpdate) {
-        onUpdate(data);
-      }
-      queryClient.invalidateQueries(["post"]);
+      // if (onUpdate) {
+      //   onUpdate(data);
+      // }
+      queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
       console.error("댓글 수정 error:", error);
