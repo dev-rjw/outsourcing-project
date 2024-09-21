@@ -50,7 +50,7 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["posts"]);
       setIsEditing(false);
-      onUpdate(data);
+      // onUpdate(data);
     },
     onError: (error) => {
       console.error("게시글 수정 error:", error);
@@ -134,7 +134,7 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
               <PostCardPopup
                 post={post}
                 onClose={closePopup}
-                onUpdate={onUpdate}
+                // onUpdate={onUpdate}
               />
             )}
             <div

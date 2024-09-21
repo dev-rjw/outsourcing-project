@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PostInput from "./postInput";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { deletePost, fetchPosts } from "../../api/communityCardApi";
 import FilterBar from "./FilterBar";
 import { getUserProfile } from "../../api/auth";
@@ -13,7 +13,8 @@ const PostList = () => {
   const { user } = useUserStore();
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const token = localStorage.getItem("token");
-  const [list, setList] = useState([]);
+  // const [list, setList] = useState([]);
+  const [sortOrder, setSortOrder] = useState("latest");
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -29,9 +30,9 @@ const PostList = () => {
     fetchUserProfile();
   }, [token]);
 
-  useEffect(() => {
-    initList();
-  }, []);
+  // useEffect(() => {
+  //   initList();
+  // }, []);
 
   const initList = async () => {
     const data = await fetchPosts();
@@ -39,17 +40,33 @@ const PostList = () => {
     let newData = [];
 
     for (let i = 0; i < data.length; i++) {
-      data[i].likes = 0;
+      data[i].likes = list.filter(ele => ele.postId === data[i].id).length;
       newData.push(data[i]);
-      for (let j = 0; j < list.length; j++) {
-        if (newData[i].id == list[j].postId) {
-          console.log(list[j].postId);
-          newData[i].likes++;
-        }
-      }
     }
-    setList(newData);
+    return newData;
   };
+
+  const {data: allPosts, isPending, isError} = useQuery({
+    queryKey: ['posts'],
+    queryFn: initList,
+  })
+  
+
+  if (isPending) {
+    return (
+      <div className="w-full h-[calc(100%-67px-128px)] flex items-center">
+        <p className="m-auto">로딩중입니다.</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="w-full h-[calc(100%-67px-128px)] flex items-center">
+        <p className="m-auto">데이터 조회 중 오류가 발생했습니다.</p>
+      </div>
+    );
+  }
 
   const handleDelete = async (id) => {
     await deletePost(id);
@@ -57,8 +74,7 @@ const PostList = () => {
     alert("삭제 되었습니다.");
   };
 
-  const [sortOrder, setSortOrder] = useState("latest");
-  const sortedPosts = [...list].sort((a, b) => {
+  const sortedPosts = [...allPosts].sort((a, b) => {
     if (sortOrder === "latest") {
       return new Date(b.date) - new Date(a.date);
     } else if (sortOrder === "popular") {
@@ -86,7 +102,7 @@ const PostList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <PostInput
           initList={initList}
-          onPostAdded={() => queryClient.invalidateQueries(["posts"])}
+          // onPostAdded={() => queryClient.invalidateQueries(["posts"])}
         />
         {sortedPosts.map((post) => (
           <PostCard
