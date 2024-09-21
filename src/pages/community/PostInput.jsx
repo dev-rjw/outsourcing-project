@@ -4,7 +4,8 @@ import { createPost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 import { useNavigate } from "react-router-dom";
 
-const PostInput = ({ initList }) => { // onPostAdded
+const PostInput = ({ initList }) => {
+  // onPostAdded
   const navigate = useNavigate();
   const { user } = useUserStore();
   const [content, setContent] = useState("");
@@ -72,8 +73,10 @@ const PostInput = ({ initList }) => { // onPostAdded
       author: user.nickname,
       userId: user.id,
     };
-    await createPost(newPost);
-    await initList();
+    // await createPost(newPost);
+    // await initList();
+
+    mutation.mutate(newPost);
 
     setContent("");
     setYoutubeLink("");

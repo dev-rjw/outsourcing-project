@@ -53,7 +53,7 @@ const PostList = () => {
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", sortOrder],
     queryFn: initList,
   });
 
@@ -75,7 +75,8 @@ const PostList = () => {
 
   const handleDelete = async (id) => {
     await deletePost(id);
-    await initList();
+    queryClient.invalidateQueries(["posts"]);
+    // await initList();
     alert("삭제 되었습니다.");
   };
 
@@ -90,6 +91,7 @@ const PostList = () => {
 
   const handleSortChange = (order) => {
     setSortOrder(order);
+    queryClient.invalidateQueries(["posts"]);
   };
 
   return (
