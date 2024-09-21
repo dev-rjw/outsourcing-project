@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { deletePost, fetchPosts } from "../../api/communityCardApi";
 import FilterBar from "./FilterBar";
@@ -15,7 +14,6 @@ const PostList = () => {
   const { user } = useUserStore();
   const [loggedInUserId, setLoggedInUserId] = useState(null);
   const token = localStorage.getItem("token");
-  // const [list, setList] = useState([]);
   const [sortOrder, setSortOrder] = useState("latest");
 
   useEffect(() => {
@@ -31,10 +29,6 @@ const PostList = () => {
     };
     fetchUserProfile();
   }, [token]);
-
-  // useEffect(() => {
-  //   initList();
-  // }, []);
 
   const initList = async () => {
     const data = await fetchPosts();
@@ -76,7 +70,6 @@ const PostList = () => {
   const handleDelete = async (id) => {
     await deletePost(id);
     queryClient.invalidateQueries(["posts"]);
-    // await initList();
     alert("삭제 되었습니다.");
   };
 
@@ -107,10 +100,7 @@ const PostList = () => {
       <FilterBar onSortChange={handleSortChange} currentSortOrder={sortOrder} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <PostInput
-          initList={initList}
-          // onPostAdded={() => queryClient.invalidateQueries(["posts"])}
-        />
+        <PostInput initList={initList} />
         {sortedPosts.map((post) => (
           <PostCard
             key={post.id}

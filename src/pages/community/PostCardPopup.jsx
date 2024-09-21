@@ -20,9 +20,7 @@ const PostCardPopup = ({ post, onClose }) => {
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
       setComments(data.comments);
-      // if (onUpdate) {
-      //   onUpdate(data);
-      // }
+
       queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
@@ -35,9 +33,7 @@ const PostCardPopup = ({ post, onClose }) => {
     onSuccess: (data) => {
       setComments(data.comments);
       alert("댓글이 삭제되었습니다.");
-      // if (onUpdate) {
-      //   onUpdate(data);
-      // }
+
       queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
@@ -51,9 +47,7 @@ const PostCardPopup = ({ post, onClose }) => {
       setComments(data.comments);
       setIsEditing(null);
       setUpdatedComment("");
-      // if (onUpdate) {
-      //   onUpdate(data);
-      // }
+
       queryClient.invalidateQueries(["posts"]);
     },
     onError: (error) => {
