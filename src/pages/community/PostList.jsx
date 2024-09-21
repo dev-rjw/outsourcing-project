@@ -7,6 +7,7 @@ import useUserStore from "../../zustand/useUserStore";
 import { getAllLike } from "../../api/communityLikesApi";
 import PostCard from "./PostCard";
 import PostInput from "./PostInput";
+import Swal from "sweetalert2";
 
 const PostList = () => {
   const queryClient = useQueryClient();
@@ -70,7 +71,11 @@ const PostList = () => {
   const handleDelete = async (id) => {
     await deletePost(id);
     queryClient.invalidateQueries(["posts"]);
-    alert("삭제 되었습니다.");
+    Swal.fire({
+      text: "삭제되었습니다.",
+      icon: "success",
+      confirmButtonText: "확인",
+    });
   };
 
   const sortedPosts = [...allPosts].sort((a, b) => {

@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PostInput = () => {
   const navigate = useNavigate();
@@ -43,7 +44,12 @@ const PostInput = () => {
     },
     onError: (error) => {
       console.error("게시글 저장 중 오류 발생:", error);
-      alert("게시글 저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+      Swal.fire({
+        title: "저장 오류",
+        text: "게시글 저장 중 오류가 발생했습니다. 다시 시도해주세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     },
   });
 
@@ -51,12 +57,20 @@ const PostInput = () => {
     e.preventDefault();
 
     if (!content.trim()) {
-      alert("내용을 입력해주세요.");
+      Swal.fire({
+        text: "내용을 입력해주세요.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
 
     if (!tag) {
-      alert("태그를 선택해주세요!");
+      Swal.fire({
+        text: "태그를 선택해주세요.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
 

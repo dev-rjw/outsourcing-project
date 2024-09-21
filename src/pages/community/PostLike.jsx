@@ -6,6 +6,7 @@ import {
   removeLike,
 } from "../../api/communityLikesApi";
 import useUserStore from "../../zustand/useUserStore";
+import Swal from "sweetalert2";
 
 const PostLike = ({ postId, initialLikes }) => {
   const { user } = useUserStore();
@@ -55,7 +56,11 @@ const PostLike = ({ postId, initialLikes }) => {
 
   const toggleLike = () => {
     if (!user) {
-      alert("로그인이 필요합니다.");
+      Swal.fire({
+        text: "로그인이 필요합니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
     mutation.mutate();

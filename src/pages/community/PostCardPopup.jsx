@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
+import Swal from "sweetalert2";
 
 const PostCardPopup = ({ post, onClose }) => {
   const { user } = useUserStore();
@@ -32,7 +33,11 @@ const PostCardPopup = ({ post, onClose }) => {
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
       setComments(data.comments);
-      alert("댓글이 삭제되었습니다.");
+      Swal.fire({
+        text: "댓글이 삭제되었습니다.",
+        icon: "success",
+        confirmButtonText: "확인",
+      });
 
       queryClient.invalidateQueries(["posts"]);
     },
@@ -57,7 +62,11 @@ const PostCardPopup = ({ post, onClose }) => {
 
   const handleAddComment = () => {
     if (!user) {
-      alert("로그인이 필요합니다.");
+      Swal.fire({
+        text: "로그인이 필요합니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
 
@@ -123,7 +132,7 @@ const PostCardPopup = ({ post, onClose }) => {
             <img
               src={thumbnailUrl}
               alt="YouTube Thumbnail"
-              className="h-full w-full object-cover rounded "
+              className="h-full w-full object-cover rounded"
             />
           </a>
         ) : (
@@ -149,6 +158,8 @@ const PostCardPopup = ({ post, onClose }) => {
         </div>
 
         <hr className="border-solid border-gray-100 mb-3 " />
+
+        {/* 댓글 입력창 */}
         <div className="flex justify-between ">
           <input
             type="text"
@@ -162,50 +173,55 @@ const PostCardPopup = ({ post, onClose }) => {
           </button>
         </div>
 
+        {/* 댓글 목록 */}
         <div className="mt-4">
-          {comments.map((comment) => (
-            <div key={comment.id} className="mt-2">
-              {isEditing === comment.id ? (
-                <div className="flex justify-between items-center">
-                  <input
-                    type="text"
-                    value={updatedComment}
-                    onChange={(e) => setUpdatedComment(e.target.value)}
-                    className="w-full bg-gray-100 rounded mr-2 pl-2"
-                  />
-                  <button
-                    onClick={handleUpdateComment}
-                    className="softBtn text-xs w-10"
-                  >
-                    저장
-                  </button>
-                </div>
-              ) : (
-                <div className="flex justify-between items-center">
-                  <p className="text-gray-600">{comment.text}</p>
+          {comments?.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment?.id} className="mt-2">
+                {isEditing === comment?.id ? (
+                  <div className="flex justify-between items-center">
+                    <input
+                      type="text"
+                      value={updatedComment}
+                      onChange={(e) => setUpdatedComment(e.target.value)}
+                      className="w-full bg-gray-100 rounded mr-2 pl-2"
+                    />
+                    <button
+                      onClick={handleUpdateComment}
+                      className="softBtn text-xs w-10"
+                    >
+                      저장
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-between items-center">
+                    <p className="text-gray-600">{comment?.text}</p>
 
-                  {comment.userId === user.id && (
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() =>
-                          handleEditComment(comment.id, comment.text)
-                        }
-                        className="softBtn text-xs"
-                      >
-                        수정
-                      </button>
-                      <button
-                        onClick={() => handleDeleteComment(comment.id)}
-                        className="softBtn text-xs"
-                      >
-                        삭제
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
+                    {comment?.userId === user?.id && (
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() =>
+                            handleEditComment(comment?.id, comment?.text)
+                          }
+                          className="softBtn text-xs"
+                        >
+                          수정
+                        </button>
+                        <button
+                          onClick={() => handleDeleteComment(comment?.id)}
+                          className="softBtn text-xs"
+                        >
+                          삭제
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="mt-4 text-gray-500">댓글이 없습니다.</p>
+          )}
         </div>
       </div>
     </div>
