@@ -4,7 +4,7 @@
 
 [상세페이지] <img width="1224" alt="스크린샷 2024-09-20 오후 4 13 01" src="https://github.com/user-attachments/assets/1d4c5324-ec12-4c0b-8e99-024fde72e82a">
 
-[커뮤니티 페이지]
+[커뮤니티 페이지] <img width="1105" alt="스크린샷 2024-09-22 오전 12 08 43" src="https://github.com/user-attachments/assets/a99ff3df-c371-4eb5-8d57-cff8567bd4d5">
 
 [카테고리 페이지] <img width="1224" alt="화면캡처_2024-09-20_192523" src="src/assets/화면캡처_2024-09-20_192523.png">
 
@@ -401,6 +401,65 @@ const {
 
 #### 커뮤니티
 
+- 로그인 시 닉네임 출력
+- 최신순/인기순 필터링
+- 게시물 작성 및 삭제, 수정
+- 좋아요 추가 및 삭제
+
+1. axios를 이용해 json-server 통신하여 CRUD 구현.
+
+```js
+
+const API_URL = import.meta.env.VITE_DB_URL + "/communityPosts";
+
+// 게시물 작성
+export const createPost = async (post) => {
+  const { data } = await axios.post(API_URL, post);
+  return data;
+};
+
+// 게시물 삭제
+export const deletePost = async (id) => {
+  const { data } = await axios.delete(`${API_URL}/${id}`);
+  return data;
+};
+
+// 게시물 수정
+export const updatePost = async (id, updatedPost) => {
+  const { data } = await axios.put(`${API_URL}/${id}`, updatedPost);
+  return data;
+};
+
+```
+
+2. json-server를 사용하여 좋아요 카운트 및 인기순 소팅 구현.
+```jsx
+
+const initList = async () => {
+  const data = await fetchPosts(); // 게시물 목록
+  const list = await getAllLike(); // 좋아요 목록
+  let newData = [];
+
+  // 각 게시물에 대해 좋아요 수 계산
+  for (let i = 0; i < data.length; i++) {
+    data[i].likes = list.filter((ele) => ele.postId === data[i].id).length;
+    newData.push(data[i]);
+  }
+  return newData;
+};
+
+const sortedPosts = [...allPosts].sort((a, b) => {
+  if (sortOrder === "latest") {
+    return new Date(b.date) - new Date(a.date); // 최신순
+  } else if (sortOrder === "popular") {
+    return b.likes - a.likes; // 인기순
+  }
+  return 0;
+});
+```
+
+
+
 ---
 
 #### 카테고리
@@ -589,6 +648,37 @@ if (detailError) {
 ---
 
 [커뮤니티]
+
+🔥 문제점
+
+1. 좋아요 카운트 이슈.
+
+- 인기순으로 정렬을 해야 하는데, 좋아요 카운트가 제대로 반영되지 않는 이슈가 발생.
+  
+- 해결방안(1):
+json-server/likes 필드를 추가하여 좋아요 데이터를 따로 관리하기로 결정.
+각 게시물에 대해 어떤 유저가 좋아요를 눌렀는지 확인한 후, 해당 게시글에 좋아요를 누른 유저의 ID 수를 카운트하여 게시물의 좋아요 수를 계산.
+하지만 이 방식을 적용한 후 게시물 수정, 삭제가 반영되지 않는 새로운 문제가 발생.
+
+- 해결방안(2):
+기존의 json-server/communityPosts에서 전체 게시글을 불러오고, 각 게시물에 대해 json-server/likes 데이터와 결합하여, 해당 게시물의 좋아요 수를 함께 계산.
+이를 통해 게시물의 좋아요 수를 제대로 반영하고, 좋아요 수에 따른 인기순 정렬이 가능해짐.
+서버의 데이터를 분리하여 처리하는 방법을 알게되었고, 두 데이터를 결합하여 화면에 정확한 좋아요 카운트 및 인기순 정렬을 구현할 수 있었습니다.
+
+```jsx
+const initList = async () => {
+  const data = await fetchPosts(); // 게시물 목록
+  const list = await getAllLike(); // 좋아요 목록
+  let newData = [];
+
+  // 각 게시물에 대해 좋아요 수 계산
+  for (let i = 0; i < data.length; i++) {
+    data[i].likes = list.filter((ele) => ele.postId === data[i].id).length;
+    newData.push(data[i]);
+  }
+  return newData;
+};
+```
 
 ---
 
