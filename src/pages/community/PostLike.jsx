@@ -69,7 +69,7 @@ const PostLike = ({ postId, initialLikes }) => {
   return (
     <h2
       onClick={toggleLike}
-      className="cursor-pointer text-primary  [text-shadow:0_0_6px_white]"
+      className="cursor-pointer bg-primary bg-opacity-70 text-white text-[0.8rem] px-1 rounded-full  "
     >
       {liked ? "♥" : "♡"} {likes}
     </h2>
