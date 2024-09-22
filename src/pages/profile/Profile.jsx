@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { getUserProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
 import PostCard from "../community/PostCard";
-import { fetchPosts } from "../../api/communityCardApi";
+import { fetchPosts, deletePost } from "../../api/communityCardApi";
+import Swal from "sweetalert2";
 
 const Profile = () => {
   const queryClient = useQueryClient();
@@ -14,6 +15,19 @@ const Profile = () => {
     queryKey: ["profiles"],
     queryFn: () => getUserProfile(accessToken),
   });
+
+  const handleDelete = async (id) => {
+    await deletePost(id);
+    setCommunityPosts((prevPosts) =>
+      prevPosts.filter((post) => post.id !== id)
+    );
+    queryClient.invalidateQueries(["posts"]);
+    Swal.fire({
+      text: "삭제되었습니다.",
+      icon: "success",
+      confirmButtonText: "확인",
+    });
+  };
 
   useEffect(() => {
     const fetchCommunityPosts = async () => {
@@ -54,6 +68,7 @@ const Profile = () => {
               post={post}
               currentUserId={post.userId}
               onUpdate={() => queryClient.invalidateQueries(["posts"])}
+              onDelete={() => handleDelete(post.id)}
             />
           ))}
         </div>

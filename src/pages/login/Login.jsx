@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserProfile, login } from "../../api/auth";
 import AuthForm from "./AuthForm";
 import useUserStore from "../../zustand/useUserStore";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { setUser, setToken } = useUserStore();
@@ -15,9 +16,18 @@ const Login = () => {
       setUser(userProfile);
       setToken(loginData.accessToken);
       navigate("/");
-      alert("로그인에 성공했습니다.");
+      Swal.fire({
+        text: "로그인에 성공했습니다.",
+        icon: "success",
+        confirmButtonText: "확인",
+      });
     } catch (error) {
-      alert("로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요.");
+      Swal.fire({
+        title: "로그인에 실패하였습니다.",
+        text: "아이디와 비밀번호를 확인해주세요.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
     }
   };
 
