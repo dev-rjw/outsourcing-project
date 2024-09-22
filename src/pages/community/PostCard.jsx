@@ -4,7 +4,7 @@ import PostCardPopup from "./PostCardPopup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePost } from "../../api/communityCardApi";
 
-const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
+const PostCard = ({ post, onDelete, currentUserId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedContent, setUpdatedContent] = useState(post.content);
   const [updatedYoutubeLink, setUpdatedYoutubeLink] = useState(
@@ -24,7 +24,6 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
       setIsPopupOpen(true);
     }
   };
-
   const closePopup = (e) => {
     e.stopPropagation();
     setIsPopupOpen(false);
@@ -48,9 +47,8 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
   const updatePostMutation = useMutation({
     mutationFn: (updatedPost) => updatePost(post.id, updatedPost),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post", post.id]);
       setIsEditing(false);
-      onUpdate(data);
     },
     onError: (error) => {
       console.error("게시글 수정 error:", error);
@@ -130,15 +128,9 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
       ) : (
         <div className="relative w-full h-full rounded">
           <div className="cursor-pointer" onClick={openPopup}>
-            {isPopupOpen && (
-              <PostCardPopup
-                post={post}
-                onClose={closePopup}
-                onUpdate={onUpdate}
-              />
-            )}
+            {isPopupOpen && <PostCardPopup post={post} onClose={closePopup} />}
             <div
-              className="absolute w-full flex justify-end p-2"
+              className="absolute w-full flex justify-end p-2 z-10"
               onClick={(e) => e.stopPropagation()}
             >
               <PostLike
@@ -156,7 +148,11 @@ const PostCard = ({ post, onUpdate, onDelete, currentUserId }) => {
                 />
               ) : (
                 <div className="bg-soft h-full w-full rounded flex justify-center items-center">
-                  <p className="text-gray-300">*^^*</p>
+                  <img
+                    src="/images/curtain_img.png"
+                    alt="default"
+                    className="h-full w-full object-cover rounded opacity-25"
+                  />
                 </div>
               )}
             </div>
