@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CategorySelect from "./CategorySelect";
 import QUERY_KEY from "../../constants/queryKey";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Category = () => {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const Category = () => {
   const [genre, setGenre] = useState(GENRE);
   const [area, setArea] = useState(AREA);
   const [row, setRow] = useState(50);
-  const [startDate, setStartDate] = useState("2024-09-23");
-  const [endDate, setEndDate] = useState("2024-09-23");
+  const [startDate, setStartDate] = useState(dateFormat(new Date()));
+  const [endDate, setEndDate] = useState(dateFormat(new Date()));
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: [QUERY_KEY.category],
@@ -26,13 +27,22 @@ const Category = () => {
     keepPreviousData: true,
   });
 
+  function dateFormat(date) {
+    return date.getFullYear() + "-" + (date.getMonth() + 1 <= 9 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1) + "-" + (date.getDate() <= 9 ? "0" + date.getDate() : date.getDate());
+  }
+
   const handleSearch = () => {
     setSearchTerm(searchValue);
   };
 
   const handleStartDateChange = (e) => {
     if (e.target.value > endDate) {
-      alert("기간은 시작일자가 종료일자보다 클 수 없습니다.");
+      Swal.fire({
+        title: "시작일자 확인 필요",
+        text: "기간은 시작일자가 종료일자보다 클 수 없습니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
     setStartDate(e.target.value);
@@ -40,7 +50,12 @@ const Category = () => {
 
   const handleEndDateChange = (e) => {
     if (e.target.value < startDate) {
-      alert("기간은 종료일자가 시작일자보다 작을 수 없습니다.");
+      Swal.fire({
+        title: "종료일자 확인 필요",
+        text: "기간은 종료일자가 시작일자보다 작을 수 없습니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
     setEndDate(e.target.value);
