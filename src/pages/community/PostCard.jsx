@@ -78,7 +78,7 @@ const PostCard = ({ post, onDelete, currentUserId }) => {
   };
 
   return (
-    <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10">
+    <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10 hover:scale-105">
       {isEditing ? (
         <div>
           <div className="bg-gray-300 h-40 w-full object-cover rounded">

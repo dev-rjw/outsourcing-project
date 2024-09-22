@@ -3,30 +3,31 @@ import { useEffect, useState } from "react";
 import { getUserProfile } from "../../api/auth";
 import useUserStore from "../../zustand/useUserStore";
 import PostCard from "../community/PostCard";
+import { fetchPosts } from "../../api/communityCardApi";
 
 const Profile = () => {
   const queryClient = useQueryClient();
   const { accessToken, user } = useUserStore();
   const [communityPosts, setCommunityPosts] = useState([]);
 
-  const { data, isLoading, isError } = useQuery({
+  const { isLoading, isError } = useQuery({
     queryKey: ["profiles"],
     queryFn: () => getUserProfile(accessToken),
   });
 
   useEffect(() => {
-    // if (data) {
-    //   setNickname(data.nickname);
-    // }
-    fetch(import.meta.env.VITE_DB_URL + "/communityPosts")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
+    const fetchCommunityPosts = async () => {
+      try {
+        const data = await fetchPosts();
         const filteredPosts = data.filter((post) => post.userId === user.id);
         setCommunityPosts(filteredPosts);
-      });
-  }, [data]);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchCommunityPosts();
+  }, [user.id]);
 
   if (isLoading) {
     return <div>로딩중입니다...</div>;
