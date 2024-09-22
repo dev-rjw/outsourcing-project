@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const PostCardPopup = ({ post, onClose }) => {
   const { user } = useUserStore();
@@ -10,6 +11,7 @@ const PostCardPopup = ({ post, onClose }) => {
   const [comments, setComments] = useState([]);
   const [isEditing, setIsEditing] = useState(null);
   const [updatedComment, setUpdatedComment] = useState("");
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
@@ -66,7 +68,7 @@ const PostCardPopup = ({ post, onClose }) => {
         text: "로그인이 필요합니다.",
         icon: "warning",
         confirmButtonText: "확인",
-      });
+      }).then(() => navigate("/login"));
       return;
     }
 
