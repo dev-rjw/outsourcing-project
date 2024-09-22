@@ -3,8 +3,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../api/communityCardApi";
 import useUserStore from "../../zustand/useUserStore";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const PostInput = ({ onPostAdded, initList }) => {
+const PostInput = () => {
   const navigate = useNavigate();
   const { user } = useUserStore();
   const [content, setContent] = useState("");
@@ -23,11 +24,8 @@ const PostInput = ({ onPostAdded, initList }) => {
             글을 작성할 수 있습니다.
           </p>
         </div>
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={() => navigate("/login")}
-            className="btn w-full my-20"
-          >
+        <div className="flex flex-col justify-end h-[125px]">
+          <button onClick={() => navigate("/login")} className="btn w-full">
             로그인하러가기
           </button>
         </div>
@@ -37,9 +35,8 @@ const PostInput = ({ onPostAdded, initList }) => {
 
   const mutation = useMutation({
     mutationFn: createPost,
-    onSuccess: (createdPost) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
-      onPostAdded(createdPost);
       setContent("");
       setYoutubeLink("");
       setThumbnailUrl(null);
@@ -47,7 +44,12 @@ const PostInput = ({ onPostAdded, initList }) => {
     },
     onError: (error) => {
       console.error("게시글 저장 중 오류 발생:", error);
-      alert("게시글 저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+      Swal.fire({
+        title: "저장 오류",
+        text: "게시글 저장 중 오류가 발생했습니다. 다시 시도해주세요.",
+        icon: "error",
+        confirmButtonText: "확인",
+      });
     },
   });
 
@@ -55,12 +57,20 @@ const PostInput = ({ onPostAdded, initList }) => {
     e.preventDefault();
 
     if (!content.trim()) {
-      alert("내용을 입력해주세요.");
+      Swal.fire({
+        text: "내용을 입력해주세요.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
 
     if (!tag) {
-      alert("태그를 선택해주세요!");
+      Swal.fire({
+        text: "태그를 선택해주세요.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
       return;
     }
 
@@ -75,8 +85,8 @@ const PostInput = ({ onPostAdded, initList }) => {
       author: user.nickname,
       userId: user.id,
     };
-    await createPost(newPost);
-    await initList();
+
+    mutation.mutate(newPost);
 
     setContent("");
     setYoutubeLink("");

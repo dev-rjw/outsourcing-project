@@ -153,37 +153,45 @@ const {
 ```
 
 2. 랜덤으로 8개 선택해 캐러셀로 보여주기
+
 ```jsx
 // Embla.jsx
 // MainPage.jsx에서 prop으로 데이터 전달 받음
 const Embla = ({ data }) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ stopOnMouseEnter: true, stopOnInteraction: false })]);
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ stopOnMouseEnter: true, stopOnInteraction: false }),
+  ]);
 
   const indices = []; // 랜덤 인덱스 저장
   while (indices.length < 8) {
-    let tmp = Math.floor(data.length * Math.random())
+    let tmp = Math.floor(data.length * Math.random());
     if (indices.includes(tmp)) {
       continue;
     } else {
       indices.push(tmp);
     }
   }
-  const carousel = indices.map(idx => data[idx]);
+  const carousel = indices.map((idx) => data[idx]);
 
   return (
-      <div className='embla' ref={emblaRef}>
-        <div className='embla__container'>
-          {carousel && [0, 2, 4, 6].map((i) => ( // 각 슬라이드에 두개씩 보여줌
-            <Slide play={[carousel[i], carousel[i + 1]]} key={`slide-${i}`} />
-          )
+    <div className="embla" ref={emblaRef}>
+      <div className="embla__container">
+        {carousel &&
+          [0, 2, 4, 6].map(
+            (
+              i // 각 슬라이드에 두개씩 보여줌
+            ) => (
+              <Slide play={[carousel[i], carousel[i + 1]]} key={`slide-${i}`} />
+            )
           )}
-        </div>
       </div>
-  )
-}
+    </div>
+  );
+};
 ```
 
 3. 장르별로 분류된 공연 보여주기
+
 ```jsx
 // Genre.jsx
 // MainPage.jsx에서 prop으로 받은 데이터를 장르에 따라 filter해 GenreDiv에 보여줌
@@ -210,7 +218,6 @@ const Genre = ({data}) => {
   )
 }
 ```
-
 
 ---
 
@@ -363,7 +370,8 @@ export const detailDeleteComment = async (id) => {
 ```js
 // DetailComment.jsx
 const addMutation = useMutation({
-  mutationFn: (newComment) => detailAddComment({ ...newComment, performanceId: id }),
+  mutationFn: (newComment) =>
+    detailAddComment({ ...newComment, performanceId: id }),
   onSuccess: () => {
     queryClient.invalidateQueries(["comments", id]);
     setComment("");
@@ -476,7 +484,13 @@ const BASE_URL = "http://kopis.or.kr/openApi/restful/pblprfr";
 
 const playApi = axios.create({ baseURL: BASE_URL });
 
-export const getGenreAreaData = async (genre, area, row, startDate, endDate) => {
+export const getGenreAreaData = async (
+  genre,
+  area,
+  row,
+  startDate,
+  endDate
+) => {
   try {
     const { data } = await playApi.get("/", {
       params: {
@@ -502,7 +516,14 @@ export const getGenreAreaData = async (genre, area, row, startDate, endDate) => 
   }
 };
 
-export const searchGenreAreaData = async (searchValue, genre, area, row, startDate, endDate) => {
+export const searchGenreAreaData = async (
+  searchValue,
+  genre,
+  area,
+  row,
+  startDate,
+  endDate
+) => {
   const allData = await getGenreAreaData(genre, area, row, startDate, endDate);
 
   const data = allData.filter((data) => {
@@ -521,7 +542,8 @@ export const searchGenreAreaData = async (searchValue, genre, area, row, startDa
 🔥 문제점
 
 1. 기존에는 장르별 데이터를 불러올 때 api에서 각각 불러왔으나, 데이터를 불러오는 과정이 불필요하게 많아지는 문제점이 있었음. 전체 데이터를 한 번에 많이 불러온 후 prop으로 전달해 사용함.
-  - 아래는 장르별 데이터를 각각 불러올 때 사용한 코드 (현재는 사용하지 않음)
+
+- 아래는 장르별 데이터를 각각 불러올 때 사용한 코드 (현재는 사용하지 않음)
 
 ```jsx
 // playApi.jsx
@@ -538,7 +560,6 @@ export const getClassifiedData = async () => {
   return responses;
 };
 ```
-
 
 ---
 
@@ -677,7 +698,8 @@ const initList = async () => {
 ```js
 const { data, isLoading, isError, refetch } = useQuery({
   queryKey: [QUERY_KEY.category],
-  queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate, endDate),
+  queryFn: () =>
+    searchGenreAreaData(searchTerm, genre, area, row, startDate, endDate),
   keepPreviousData: true,
 });
 ```
@@ -687,7 +709,15 @@ const { data, isLoading, isError, refetch } = useQuery({
 ```js
 const { data, isLoading, isError, refetch } = useQuery({
   queryKey: [QUERY_KEY.category],
-  queryFn: () => searchGenreAreaData(searchTerm, genre, area, row, startDate.replaceAll("-", ""), endDate.replaceAll("-", "")),
+  queryFn: () =>
+    searchGenreAreaData(
+      searchTerm,
+      genre,
+      area,
+      row,
+      startDate.replaceAll("-", ""),
+      endDate.replaceAll("-", "")
+    ),
   keepPreviousData: true,
 });
 ```
