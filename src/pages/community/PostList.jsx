@@ -93,7 +93,7 @@ const PostList = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-screen-lg mx-auto">
       {user?.nickname && (
         <h2 className="m-10 font-bold text-3xl">
           <span className="text-3xl">{user?.nickname}님, </span>
