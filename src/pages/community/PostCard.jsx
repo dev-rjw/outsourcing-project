@@ -18,8 +18,6 @@ const PostCard = ({ post, onDelete, currentUserId }) => {
 
   const queryClient = useQueryClient();
   const predefinedTags = ["꿀팁", "후기", "기대", "음악", "추천", "기타"];
-
-  console.log(isPopupOpen);
   const openPopup = () => {
     if (!isEditing) {
       setIsPopupOpen(true);
@@ -79,7 +77,7 @@ const PostCard = ({ post, onDelete, currentUserId }) => {
   };
 
   return (
-    <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10 hover:scale-105">
+    <div className="max-w-100 max-h-100 bg-gray-100 border-2 rounded border-primary m-10">
       {isEditing ? (
         <div>
           <div className="bg-gray-300 h-40 w-full object-cover rounded">
