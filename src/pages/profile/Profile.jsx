@@ -42,16 +42,22 @@ const Profile = () => {
       <h1 className="flex justify-center font-bold text-xl">
         {user.nickname}'s page
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {communityPosts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            currentUserId={post.userId}
-            onUpdate={() => queryClient.invalidateQueries(["posts"])}
-          />
-        ))}
-      </div>
+      {communityPosts.length === 0 ? (
+        <div className="flex justify-center mt-4 mb-4 text-xl">
+          작성한 게시글이 없습니다.
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {communityPosts.map((post) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              currentUserId={post.userId}
+              onUpdate={() => queryClient.invalidateQueries(["posts"])}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
