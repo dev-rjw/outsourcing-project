@@ -29,7 +29,7 @@ const Header = () => {
         {user ? (
           <>
             <LinkTo to="/profile" currentLocation={currentLocation}>
-              프로필
+              마이페이지
             </LinkTo>
             <div className="p-1">
               <button className="m-auto cursor-pointer" onClick={handleLogout}>
