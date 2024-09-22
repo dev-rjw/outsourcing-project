@@ -6,8 +6,9 @@ import {
   removeLike,
 } from "../../api/communityLikesApi";
 import useUserStore from "../../zustand/useUserStore";
+import Swal from "sweetalert2";
 
-const PostLike = ({ postId, initialLikes, post }) => {
+const PostLike = ({ postId, initialLikes }) => {
   const { user } = useUserStore();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(initialLikes);
@@ -46,7 +47,7 @@ const PostLike = ({ postId, initialLikes, post }) => {
         setLiked(true);
         setLikeId(data.likeData.id);
       }
-      queryClient.invalidateQueries(["posts"]);
+      queryClient.invalidateQueries(["post"]);
     },
     onError: (error) => {
       console.error("좋아요 업데이트 오류:", error);
@@ -54,6 +55,14 @@ const PostLike = ({ postId, initialLikes, post }) => {
   });
 
   const toggleLike = () => {
+    if (!user) {
+      Swal.fire({
+        text: "로그인이 필요합니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
+      return;
+    }
     mutation.mutate();
   };
 
