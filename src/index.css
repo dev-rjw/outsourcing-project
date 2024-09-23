@@ -1,68 +1,146 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face { /*2*/
+  font-family: '국립박물관문화재단클래식B';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/국립박물관문화재단클래식B.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+@font-face { /*1*/
+  font-family: 'SDKukdetopokki-Lt';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/SDKukdetopokki-aLt00.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
-a:hover {
-  color: #535bf2;
+@font-face { /*4*/
+  font-family: 'HSSanTokki20-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@font-face { /*5*/
+  font-family: 'TTHakgyoansimMulgyeolB';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimMulgyeolB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+@font-face {
+  font-family: "RIDIBatang";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  html {
+    font-family: "RIDIBatang", "sans-serif";
   }
-  a:hover {
-    color: #747bff;
+}
+
+@layer components {
+  .softBtn {
+    @apply text-gray-300 hover:text-primary transition duration-300 cursor-pointer;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .btn {
+    @apply text-black border-solid rounded border-primary hover:bg-primary hover:text-white  transition duration-300 cursor-pointer w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex justify-center items-center;
   }
+
+  .genre_title {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .genre_place {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* 메인 페이지 캐러셀 */
+  .main-embla .embla__container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%; /* Each slide covers x % of the viewport */
+    grid-gap: 0 40px;
+  }
+  .main-embla .embla__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+  }
+  .main-embla .embla__slide:last-child {
+    margin-right: 40px;
+  }
+  .main-embla .card {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    background-color: #f8f4ff;
+  }
+  .main-embla .card img {
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .main-embla .card .card-content {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 20px;
+
+    /* overflow-wrap: break-word; */
+
+    padding: 10px;
+  }
+  .main-embla h3,
+  p {
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "logo";
+  src: url("./assets/fonts/VIOLA.ttf");
+}
+
+#map {
+  width: 100%;
+  height: 500px;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
 }

@@ -1,7 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  server: {
+    proxy: {
+      "/openApi": {
+        target: "http://www.kopis.or.kr",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/openApi/, ""),
+      },
+    },
+  },
+});

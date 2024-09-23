@@ -1,13 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>커튼콜</title>
+
+  <meta property="og:title" content="커튼콜" />
+  <meta property="og:description" content="공연을 공유하고 검색할 수 있는 페이지" />
+  <meta property="og:image" content="/images/og-image.png" />
+  <meta property="og:url" content="http://localhost:5173" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=%VITE_KAKAOMAP_KEY%&libraries=services,clusterer"></script>
+</body>
+
 </html>
