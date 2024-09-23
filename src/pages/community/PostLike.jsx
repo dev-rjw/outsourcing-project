@@ -7,12 +7,14 @@ import {
 } from "../../api/communityLikesApi";
 import useUserStore from "../../zustand/useUserStore";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const PostLike = ({ postId, initialLikes }) => {
   const { user } = useUserStore();
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(initialLikes);
   const [likeId, setLikeId] = useState(null);
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
 
@@ -60,7 +62,7 @@ const PostLike = ({ postId, initialLikes }) => {
         text: "로그인이 필요합니다.",
         icon: "warning",
         confirmButtonText: "확인",
-      });
+      }).then(() => navigate("/login"));
       return;
     }
     mutation.mutate();
@@ -69,7 +71,7 @@ const PostLike = ({ postId, initialLikes }) => {
   return (
     <h2
       onClick={toggleLike}
-      className="cursor-pointer text-primary  [text-shadow:0_0_6px_white]"
+      className="cursor-pointer bg-primary bg-opacity-70 text-white text-[0.8rem] px-1 rounded-full  "
     >
       {liked ? "♥" : "♡"} {likes}
     </h2>

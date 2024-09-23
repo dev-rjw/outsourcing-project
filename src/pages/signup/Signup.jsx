@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../api/auth";
 import AuthForm from "../login/AuthForm";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -8,10 +9,20 @@ const SignUp = () => {
   const handleSignup = async (FormData) => {
     try {
       await register(FormData);
-      alert("회원가입에 성공하였습니다. 로그인페이지로 이동합니다.");
+      Swal.fire({
+        title: "회원가입에 성공하였습니다.",
+        text: "로그인페이지로 이동합니다.",
+        icon: "success",
+        confirmButtonText: "확인",
+      });
       navigate("/login");
     } catch (error) {
-      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      Swal.fire({
+        title: "회원가입에 실패했습니다.",
+        text: "다시 시도해주세요.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      });
     }
   };
   return (
