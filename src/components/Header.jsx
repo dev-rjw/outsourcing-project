@@ -13,7 +13,7 @@ const Header = () => {
     navigate("/");
   };
   return (
-    <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white z-[1]">
+    <header className="max-w-screen-lg w-full flex justify-between mx-auto p-4 sticky top-0 bg-white z-[11]">
       <div>
         <LinkTo to="/" currentLocation={currentLocation} className="">
           커튼콜
