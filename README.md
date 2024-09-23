@@ -10,6 +10,10 @@
 
 ---
 
+## 구동 시
+확장 프로그램 설치를 해주세요!
+https://chromewebstore.google.com/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf
+
 ## 팀 소개
 
 [내일배움캠프] 5진스
