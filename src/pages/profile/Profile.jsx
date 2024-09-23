@@ -52,12 +52,12 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-screen-lg mx-auto">
-      <h1 className="flex justify-center font-bold text-xl">
+    <div className="max-w-screen-lg mx-auto h-[calc(100%-75px-128px)]">
+      <h1 className="flex justify-center font-bold text-xl ">
         {user.nickname}'s page
       </h1>
       {communityPosts.length === 0 ? (
-        <div className="flex justify-center mt-4 mb-4 text-xl">
+        <div className="flex justify-center mt-4 mb-4 text-xl ">
           작성한 게시글이 없습니다.
         </div>
       ) : (
